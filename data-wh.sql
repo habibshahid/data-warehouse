@@ -1,25 +1,5 @@
-/*
-SQLyog Ultimate v13.1.1 (64 bit)
-MySQL - 8.0.34 : Database - warehouse
-*********************************************************************
-*/
-
-/*!40101 SET NAMES utf8 */;
-
-/*!40101 SET SQL_MODE=''*/;
-
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`warehouse` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-
 USE `warehouse`;
-
 /*Table structure for table `yovo_tbl_agent_summary_stats_15_min` */
-
-DROP TABLE IF EXISTS `yovo_tbl_agent_summary_stats_15_min`;
-
 CREATE TABLE `yovo_tbl_agent_summary_stats_15_min` (
   `id` int NOT NULL AUTO_INCREMENT,
   `pKey` varchar(255) NOT NULL,
@@ -79,30 +59,9 @@ CREATE TABLE `yovo_tbl_agent_summary_stats_15_min` (
 (PARTITION p_2025_01 VALUES LESS THAN ('2025-02') ENGINE = InnoDB,
  PARTITION p_2025_02 VALUES LESS THAN ('2025-03') ENGINE = InnoDB,
  PARTITION p_2025_03 VALUES LESS THAN ('2025-04') ENGINE = InnoDB,
- PARTITION p_2025_04 VALUES LESS THAN ('2025-05') ENGINE = InnoDB,
- PARTITION p_2025_05 VALUES LESS THAN ('2025-06') ENGINE = InnoDB,
- PARTITION p_2025_06 VALUES LESS THAN ('2025-07') ENGINE = InnoDB,
- PARTITION p_2025_07 VALUES LESS THAN ('2025-08') ENGINE = InnoDB,
- PARTITION p_2025_08 VALUES LESS THAN ('2025-09') ENGINE = InnoDB,
- PARTITION p_2025_09 VALUES LESS THAN ('2025-10') ENGINE = InnoDB,
- PARTITION p_2025_10 VALUES LESS THAN ('2025-11') ENGINE = InnoDB,
- PARTITION p_2025_11 VALUES LESS THAN ('2025-12') ENGINE = InnoDB,
- PARTITION p_2025_12 VALUES LESS THAN ('2026-01') ENGINE = InnoDB,
- PARTITION p_2026_01 VALUES LESS THAN ('2026-02') ENGINE = InnoDB,
- PARTITION p_2026_02 VALUES LESS THAN ('2026-03') ENGINE = InnoDB,
- PARTITION p_2026_03 VALUES LESS THAN ('2026-04') ENGINE = InnoDB,
- PARTITION p_2026_04 VALUES LESS THAN ('2026-05') ENGINE = InnoDB,
- PARTITION p_2026_05 VALUES LESS THAN ('2026-06') ENGINE = InnoDB,
- PARTITION p_2026_06 VALUES LESS THAN ('2026-07') ENGINE = InnoDB,
- PARTITION p_2026_07 VALUES LESS THAN ('2026-08') ENGINE = InnoDB,
- PARTITION p_2026_08 VALUES LESS THAN ('2026-09') ENGINE = InnoDB,
- PARTITION p_2026_09 VALUES LESS THAN ('2026-10') ENGINE = InnoDB,
- PARTITION p_2026_10 VALUES LESS THAN ('2026-11') ENGINE = InnoDB,
- PARTITION p_2026_11 VALUES LESS THAN ('2026-12') ENGINE = InnoDB,
- PARTITION p_2026_12 VALUES LESS THAN ('2027-01') ENGINE = InnoDB) */;
-
+ PARTITION p_2025_04 VALUES LESS THAN ('2025-05') ENGINE = InnoDB
+ */;
 /*Data for the table `yovo_tbl_agent_summary_stats_15_min` */
-
 insert  into `yovo_tbl_agent_summary_stats_15_min`(`id`,`pKey`,`channel`,`queue`,`agent`,`interval`,`loginTime`,`loginCounts`,`breakTime`,`breakCounts`,`notAvailableTime`,`notAvailableCounts`,`idleTime`,`idleCounts`,`manualOutboundTime`,`manualOutboundCounts`,`acwTime`,`acwCounts`,`holdTime`,`holdCounts`,`totalInboundInteractions`,`totalInboundInteractionsOccupancy`,`talkTimeInbound`,`totalInboundInteractionsCountAssignAcceptJoin`,`totalInboundInteractionsCountSharedTransfer`,`totalInboundInteractionTimeAssignAcceptJoin`,`totalInboundInteractionsTimeSharedTransfer`,`outboundInteractions`,`outboundInteractionsOccupancy`,`totalOutboundInteractionsCountJoin`,`totalOutboundInteractionsCountSharedTransfer`,`talkTimeOutbound`,`totalOutboundInteractionsTimeJoin`,`totalOutboundInteractionsTimeSharedTransfer`,`totalRingNoAnswers`,`ringNoAnswerRejected`,`ringNoAnswerTimeout`,`ringNoAnswerSIPError`,`ringNoAnswerSIPUnavailable`,`ringNoAnswerInboxDisabled`,`ringNoAnswerAlreadyOnCall`,`timestamp`,`timeInterval`,`intervalType`,`year`,`week`,`weekOfYear`,`month`,`day`,`hour`,`createdAt`,`updatedAt`) values 
 (1,'2025-02','email','CSD',NULL,'2025-02-27 04:15:00_2025-02-27 04:29:59',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,24,0,0,21600,0,0,0,0,0,0,0,0,0,1740611700,'2025-02-27 04:00:00','00:29',2025,4,9,2,27,4,'2025-02-27 04:30:04','2025-02-27 04:30:04'),
 (2,'2025-02','fb_messenger','CSD','intellicon','2025-02-27 04:15:00_2025-02-27 04:29:59',40,1,0,0,0,0,40,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1740611700,'2025-02-27 04:00:00','00:29',2025,4,9,2,27,4,'2025-02-27 04:30:04','2025-02-27 04:30:04'),
@@ -163,9 +122,6 @@ insert  into `yovo_tbl_agent_summary_stats_15_min`(`id`,`pKey`,`channel`,`queue`
 (57,'2025-02','call','CXR','anwar.shazal','2025-02-27 04:45:00_2025-02-27 04:59:59',464,1,64,3,0,1,4,1,396,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,17,0,0,0,0,0,0,0,0,0,1740613500,'2025-02-27 04:00:00','00:59',2025,4,9,2,27,4,'2025-02-27 05:00:06','2025-02-27 05:00:06'),
 (58,'2025-02','email','CSD',NULL,'2025-02-27 05:00:00_2025-02-27 05:14:59',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,24,0,0,21600,0,0,0,0,0,0,0,0,0,1740614400,'2025-02-27 05:00:00','00:14',2025,4,9,2,27,5,'2025-02-27 05:15:16','2025-02-27 05:15:16');
 /*Table structure for table `yovo_tbl_agent_summary_stats_daily` */
-
-DROP TABLE IF EXISTS `yovo_tbl_agent_summary_stats_daily`;
-
 CREATE TABLE `yovo_tbl_agent_summary_stats_daily` (
   `id` int NOT NULL AUTO_INCREMENT,
   `pKey` varchar(255) NOT NULL,
@@ -221,30 +177,9 @@ CREATE TABLE `yovo_tbl_agent_summary_stats_daily` (
 (PARTITION p_2025_01 VALUES LESS THAN ('2025-02') ENGINE = InnoDB,
  PARTITION p_2025_02 VALUES LESS THAN ('2025-03') ENGINE = InnoDB,
  PARTITION p_2025_03 VALUES LESS THAN ('2025-04') ENGINE = InnoDB,
- PARTITION p_2025_04 VALUES LESS THAN ('2025-05') ENGINE = InnoDB,
- PARTITION p_2025_05 VALUES LESS THAN ('2025-06') ENGINE = InnoDB,
- PARTITION p_2025_06 VALUES LESS THAN ('2025-07') ENGINE = InnoDB,
- PARTITION p_2025_07 VALUES LESS THAN ('2025-08') ENGINE = InnoDB,
- PARTITION p_2025_08 VALUES LESS THAN ('2025-09') ENGINE = InnoDB,
- PARTITION p_2025_09 VALUES LESS THAN ('2025-10') ENGINE = InnoDB,
- PARTITION p_2025_10 VALUES LESS THAN ('2025-11') ENGINE = InnoDB,
- PARTITION p_2025_11 VALUES LESS THAN ('2025-12') ENGINE = InnoDB,
- PARTITION p_2025_12 VALUES LESS THAN ('2026-01') ENGINE = InnoDB,
- PARTITION p_2026_01 VALUES LESS THAN ('2026-02') ENGINE = InnoDB,
- PARTITION p_2026_02 VALUES LESS THAN ('2026-03') ENGINE = InnoDB,
- PARTITION p_2026_03 VALUES LESS THAN ('2026-04') ENGINE = InnoDB,
- PARTITION p_2026_04 VALUES LESS THAN ('2026-05') ENGINE = InnoDB,
- PARTITION p_2026_05 VALUES LESS THAN ('2026-06') ENGINE = InnoDB,
- PARTITION p_2026_06 VALUES LESS THAN ('2026-07') ENGINE = InnoDB,
- PARTITION p_2026_07 VALUES LESS THAN ('2026-08') ENGINE = InnoDB,
- PARTITION p_2026_08 VALUES LESS THAN ('2026-09') ENGINE = InnoDB,
- PARTITION p_2026_09 VALUES LESS THAN ('2026-10') ENGINE = InnoDB,
- PARTITION p_2026_10 VALUES LESS THAN ('2026-11') ENGINE = InnoDB,
- PARTITION p_2026_11 VALUES LESS THAN ('2026-12') ENGINE = InnoDB,
- PARTITION p_2026_12 VALUES LESS THAN ('2027-01') ENGINE = InnoDB) */;
-
+ PARTITION p_2025_04 VALUES LESS THAN ('2025-05') ENGINE = InnoDB
+*/;
 /*Data for the table `yovo_tbl_agent_summary_stats_daily` */
-
 insert  into `yovo_tbl_agent_summary_stats_daily`(`id`,`pKey`,`channel`,`queue`,`agent`,`timeInterval`,`loginTime`,`loginCounts`,`breakTime`,`breakCounts`,`notAvailableTime`,`notAvailableCounts`,`idleTime`,`idleCounts`,`manualOutboundTime`,`manualOutboundCounts`,`acwTime`,`acwCounts`,`holdTime`,`holdCounts`,`totalInboundInteractions`,`totalInboundInteractionsOccupancy`,`talkTimeInbound`,`totalInboundInteractionsCountAssignAcceptJoin`,`totalInboundInteractionsCountSharedTransfer`,`totalInboundInteractionTimeAssignAcceptJoin`,`totalInboundInteractionsTimeSharedTransfer`,`outboundInteractions`,`outboundInteractionsOccupancy`,`totalOutboundInteractionsCountJoin`,`totalOutboundInteractionsCountSharedTransfer`,`talkTimeOutbound`,`totalOutboundInteractionsTimeJoin`,`totalOutboundInteractionsTimeSharedTransfer`,`totalRingNoAnswers`,`ringNoAnswerRejected`,`ringNoAnswerTimeout`,`ringNoAnswerSIPError`,`ringNoAnswerSIPUnavailable`,`ringNoAnswerInboxDisabled`,`ringNoAnswerAlreadyOnCall`,`year`,`week`,`weekOfYear`,`month`,`day`,`createdAt`,`updatedAt`) values 
 (1,'2025-02','email','CSD',NULL,'2025-02-27',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1896,0,0,1706400,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,'2025-02-27 04:30:02','2025-02-28 00:00:37'),
 (2,'2025-02','fb_messenger','CSD','intellicon','2025-02-27',1987,2,576,4,103,4,46,2,1262,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,2,0,0,0,0,0,2025,4,9,2,27,'2025-02-27 04:30:02','2025-02-28 00:00:34'),
@@ -347,9 +282,6 @@ insert  into `yovo_tbl_agent_summary_stats_daily`(`id`,`pKey`,`channel`,`queue`,
 (99,'2025-02','call','CHURN','saad.zubair','2025-02-27',28193,2,0,0,1201,2,10,2,26982,2,0,0,0,0,0,0,0,0,0,0,0,37,41,0,0,4020,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,'2025-02-27 12:00:04','2025-02-28 00:00:30'),
 (100,'2025-02','call','CXR','zohaib.naseem','2025-02-27',28778,3,3597,4,7,1,14337,66,33,1,134,59,93,1,59,70,10056,59,0,10056,0,1,1,0,0,17,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,'2025-02-27 12:00:05','2025-02-28 00:00:33');
 /*Table structure for table `yovo_tbl_agent_summary_stats_hourly` */
-
-DROP TABLE IF EXISTS `yovo_tbl_agent_summary_stats_hourly`;
-
 CREATE TABLE `yovo_tbl_agent_summary_stats_hourly` (
   `id` int NOT NULL AUTO_INCREMENT,
   `pKey` varchar(255) NOT NULL,
@@ -407,29 +339,9 @@ CREATE TABLE `yovo_tbl_agent_summary_stats_hourly` (
  PARTITION p_2025_02 VALUES LESS THAN ('2025-03') ENGINE = InnoDB,
  PARTITION p_2025_03 VALUES LESS THAN ('2025-04') ENGINE = InnoDB,
  PARTITION p_2025_04 VALUES LESS THAN ('2025-05') ENGINE = InnoDB,
- PARTITION p_2025_05 VALUES LESS THAN ('2025-06') ENGINE = InnoDB,
- PARTITION p_2025_06 VALUES LESS THAN ('2025-07') ENGINE = InnoDB,
- PARTITION p_2025_07 VALUES LESS THAN ('2025-08') ENGINE = InnoDB,
- PARTITION p_2025_08 VALUES LESS THAN ('2025-09') ENGINE = InnoDB,
- PARTITION p_2025_09 VALUES LESS THAN ('2025-10') ENGINE = InnoDB,
- PARTITION p_2025_10 VALUES LESS THAN ('2025-11') ENGINE = InnoDB,
- PARTITION p_2025_11 VALUES LESS THAN ('2025-12') ENGINE = InnoDB,
- PARTITION p_2025_12 VALUES LESS THAN ('2026-01') ENGINE = InnoDB,
- PARTITION p_2026_01 VALUES LESS THAN ('2026-02') ENGINE = InnoDB,
- PARTITION p_2026_02 VALUES LESS THAN ('2026-03') ENGINE = InnoDB,
- PARTITION p_2026_03 VALUES LESS THAN ('2026-04') ENGINE = InnoDB,
- PARTITION p_2026_04 VALUES LESS THAN ('2026-05') ENGINE = InnoDB,
- PARTITION p_2026_05 VALUES LESS THAN ('2026-06') ENGINE = InnoDB,
- PARTITION p_2026_06 VALUES LESS THAN ('2026-07') ENGINE = InnoDB,
- PARTITION p_2026_07 VALUES LESS THAN ('2026-08') ENGINE = InnoDB,
- PARTITION p_2026_08 VALUES LESS THAN ('2026-09') ENGINE = InnoDB,
- PARTITION p_2026_09 VALUES LESS THAN ('2026-10') ENGINE = InnoDB,
- PARTITION p_2026_10 VALUES LESS THAN ('2026-11') ENGINE = InnoDB,
- PARTITION p_2026_11 VALUES LESS THAN ('2026-12') ENGINE = InnoDB,
- PARTITION p_2026_12 VALUES LESS THAN ('2027-01') ENGINE = InnoDB) */;
-
+ PARTITION p_2025_05 VALUES LESS THAN ('2025-06') ENGINE = InnoDB
+*/;
 /*Data for the table `yovo_tbl_agent_summary_stats_hourly` */
-
 insert  into `yovo_tbl_agent_summary_stats_hourly`(`id`,`pKey`,`channel`,`queue`,`agent`,`timeInterval`,`loginTime`,`loginCounts`,`breakTime`,`breakCounts`,`notAvailableTime`,`notAvailableCounts`,`idleTime`,`idleCounts`,`manualOutboundTime`,`manualOutboundCounts`,`acwTime`,`acwCounts`,`holdTime`,`holdCounts`,`totalInboundInteractions`,`totalInboundInteractionsOccupancy`,`talkTimeInbound`,`totalInboundInteractionsCountAssignAcceptJoin`,`totalInboundInteractionsCountSharedTransfer`,`totalInboundInteractionTimeAssignAcceptJoin`,`totalInboundInteractionsTimeSharedTransfer`,`outboundInteractions`,`outboundInteractionsOccupancy`,`totalOutboundInteractionsCountJoin`,`totalOutboundInteractionsCountSharedTransfer`,`talkTimeOutbound`,`totalOutboundInteractionsTimeJoin`,`totalOutboundInteractionsTimeSharedTransfer`,`totalRingNoAnswers`,`ringNoAnswerRejected`,`ringNoAnswerTimeout`,`ringNoAnswerSIPError`,`ringNoAnswerSIPUnavailable`,`ringNoAnswerInboxDisabled`,`ringNoAnswerAlreadyOnCall`,`year`,`week`,`weekOfYear`,`month`,`day`,`hour`,`createdAt`,`updatedAt`) values 
 (1,'2025-02','email','CSD',NULL,'2025-02-27 04:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,72,0,0,64800,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,4,'2025-02-27 04:30:02','2025-02-27 05:00:06'),
 (2,'2025-02','fb_messenger','CSD','intellicon','2025-02-27 04:00:00',1397,2,46,1,43,2,46,2,1262,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,2,0,0,0,0,0,2025,4,9,2,27,4,'2025-02-27 04:30:02','2025-02-27 05:00:04'),
@@ -480,25 +392,8 @@ insert  into `yovo_tbl_agent_summary_stats_hourly`(`id`,`pKey`,`channel`,`queue`
 (47,'2025-02','call','defaultQueue','intellicon','2025-02-27 05:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,5,'2025-02-27 05:15:16','2025-02-27 06:06:59'),
 (48,'2025-02','call','testQueue','intellicon','2025-02-27 05:00:00',590,0,530,3,60,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,5,'2025-02-27 05:15:16','2025-02-27 06:06:58'),
 (49,'2025-02','call','TST','zergham.abdullah','2025-02-27 06:00:00',3600,0,0,0,0,0,3549,1,51,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:16:03','2025-02-27 07:00:37'),
-(50,'2025-02','call','Telesales_LHR','zergham.abdullah','2025-02-27 06:00:00',3600,0,0,0,0,0,3549,1,51,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:16:03','2025-02-27 07:00:35'),
-(51,'2025-02','call','testQueue','intellicon','2025-02-27 06:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:16:03','2025-02-27 07:00:37'),
-(52,'2025-02','instagram_dm','CSD','intellicon','2025-02-27 06:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:16:03','2025-02-27 07:00:36'),
-(53,'2025-02','email','CSD','arish.augustine','2025-02-27 06:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,3600,0,0,3600,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:16:03','2025-02-27 07:00:36'),
-(54,'2025-02','instagram','CSD','intellicon','2025-02-27 06:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:16:03','2025-02-27 07:00:37'),
-(55,'2025-02','call','CXR','zergham.abdullah','2025-02-27 06:00:00',3600,0,0,0,0,0,3349,1,51,1,0,0,0,0,1,1,200,1,0,200,0,1,1,0,0,22,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:16:03','2025-02-27 07:00:37'),
-(56,'2025-02','call','CXR','wilson.masih','2025-02-27 06:00:00',3600,0,0,0,0,0,3600,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:16:03','2025-02-27 07:00:35'),
-(57,'2025-02','call','Telesales_LHR','wilson.masih','2025-02-27 06:00:00',3600,0,0,0,0,0,3600,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:16:03','2025-02-27 07:00:35'),
-(58,'2025-02','linkedin_feed','CSD','intellicon','2025-02-27 06:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:16:03','2025-02-27 07:00:35'),
-(59,'2025-02','sms','CXR','sheeza.tayyab','2025-02-27 06:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,3600,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:16:03','2025-02-27 07:00:37'),
-(60,'2025-02','call','defaultQueue','intellicon','2025-02-27 06:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:16:03','2025-02-27 07:00:36'),
-(61,'2025-02','call','TST_TS','wilson.masih','2025-02-27 06:00:00',3600,0,0,0,0,0,3600,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:16:03','2025-02-27 07:00:37'),
-(62,'2025-02','call','Telesales_LHR','anwar.shazal','2025-02-27 06:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:16:03','2025-02-27 07:00:36'),
-(63,'2025-02','fb_pages','CSD','intellicon','2025-02-27 06:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:16:03','2025-02-27 07:00:36'),
-(64,'2025-02','call','CXR','anwar.shazal','2025-02-27 06:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:16:03','2025-02-27 07:00:35');
+(50,'2025-02','call','Telesales_LHR','zergham.abdullah','2025-02-27 06:00:00',3600,0,0,0,0,0,3549,1,51,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:16:03','2025-02-27 07:00:35');
 /*Table structure for table `yovo_tbl_agent_summary_stats_monthly` */
-
-DROP TABLE IF EXISTS `yovo_tbl_agent_summary_stats_monthly`;
-
 CREATE TABLE `yovo_tbl_agent_summary_stats_monthly` (
   `id` int NOT NULL AUTO_INCREMENT,
   `pKey` varchar(255) NOT NULL,
@@ -552,28 +447,9 @@ CREATE TABLE `yovo_tbl_agent_summary_stats_monthly` (
  PARTITION p_2025_03 VALUES LESS THAN ('2025-04') ENGINE = InnoDB,
  PARTITION p_2025_04 VALUES LESS THAN ('2025-05') ENGINE = InnoDB,
  PARTITION p_2025_05 VALUES LESS THAN ('2025-06') ENGINE = InnoDB,
- PARTITION p_2025_06 VALUES LESS THAN ('2025-07') ENGINE = InnoDB,
- PARTITION p_2025_07 VALUES LESS THAN ('2025-08') ENGINE = InnoDB,
- PARTITION p_2025_08 VALUES LESS THAN ('2025-09') ENGINE = InnoDB,
- PARTITION p_2025_09 VALUES LESS THAN ('2025-10') ENGINE = InnoDB,
- PARTITION p_2025_10 VALUES LESS THAN ('2025-11') ENGINE = InnoDB,
- PARTITION p_2025_11 VALUES LESS THAN ('2025-12') ENGINE = InnoDB,
- PARTITION p_2025_12 VALUES LESS THAN ('2026-01') ENGINE = InnoDB,
- PARTITION p_2026_01 VALUES LESS THAN ('2026-02') ENGINE = InnoDB,
- PARTITION p_2026_02 VALUES LESS THAN ('2026-03') ENGINE = InnoDB,
- PARTITION p_2026_03 VALUES LESS THAN ('2026-04') ENGINE = InnoDB,
- PARTITION p_2026_04 VALUES LESS THAN ('2026-05') ENGINE = InnoDB,
- PARTITION p_2026_05 VALUES LESS THAN ('2026-06') ENGINE = InnoDB,
- PARTITION p_2026_06 VALUES LESS THAN ('2026-07') ENGINE = InnoDB,
- PARTITION p_2026_07 VALUES LESS THAN ('2026-08') ENGINE = InnoDB,
- PARTITION p_2026_08 VALUES LESS THAN ('2026-09') ENGINE = InnoDB,
- PARTITION p_2026_09 VALUES LESS THAN ('2026-10') ENGINE = InnoDB,
- PARTITION p_2026_10 VALUES LESS THAN ('2026-11') ENGINE = InnoDB,
- PARTITION p_2026_11 VALUES LESS THAN ('2026-12') ENGINE = InnoDB,
- PARTITION p_2026_12 VALUES LESS THAN ('2027-01') ENGINE = InnoDB) */;
-
+ PARTITION p_2025_06 VALUES LESS THAN ('2025-07') ENGINE = InnoDB
+*/;
 /*Data for the table `yovo_tbl_agent_summary_stats_monthly` */
-
 insert  into `yovo_tbl_agent_summary_stats_monthly`(`id`,`pKey`,`channel`,`queue`,`agent`,`loginTime`,`loginCounts`,`breakTime`,`breakCounts`,`notAvailableTime`,`notAvailableCounts`,`idleTime`,`idleCounts`,`manualOutboundTime`,`manualOutboundCounts`,`acwTime`,`acwCounts`,`holdTime`,`holdCounts`,`totalInboundInteractions`,`totalInboundInteractionsOccupancy`,`talkTimeInbound`,`totalInboundInteractionsCountAssignAcceptJoin`,`totalInboundInteractionsCountSharedTransfer`,`totalInboundInteractionTimeAssignAcceptJoin`,`totalInboundInteractionsTimeSharedTransfer`,`outboundInteractions`,`outboundInteractionsOccupancy`,`totalOutboundInteractionsCountJoin`,`totalOutboundInteractionsCountSharedTransfer`,`talkTimeOutbound`,`totalOutboundInteractionsTimeJoin`,`totalOutboundInteractionsTimeSharedTransfer`,`totalRingNoAnswers`,`ringNoAnswerRejected`,`ringNoAnswerTimeout`,`ringNoAnswerSIPError`,`ringNoAnswerSIPUnavailable`,`ringNoAnswerInboxDisabled`,`ringNoAnswerAlreadyOnCall`,`year`,`month`,`createdAt`,`updatedAt`) values 
 (1,'2025-02','email','CSD',NULL,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4200,0,0,3780000,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 04:30:02','2025-03-01 00:00:47'),
 (2,'2025-02','fb_messenger','CSD','intellicon',11931,6,8816,12,1336,11,51,3,1716,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,6,0,0,0,0,0,2025,2,'2025-02-27 04:30:02','2025-03-01 00:00:34'),
@@ -624,62 +500,8 @@ insert  into `yovo_tbl_agent_summary_stats_monthly`(`id`,`pKey`,`channel`,`queue
 (47,'2025-02','call','CXR','muhammad.zeeshan',71625,2,0,0,601,1,7,2,71017,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 09:15:11','2025-03-01 00:00:43'),
 (48,'2025-02','instagram_dm','CSD','bilal.khan',29334,3,0,0,15,3,81,7,29131,2,0,0,0,0,6,6,125,6,0,125,0,0,0,0,0,0,0,0,4,4,0,0,0,0,0,2025,2,'2025-02-27 09:15:11','2025-03-01 00:00:41'),
 (49,'2025-02','email','CSD','namra.riaz',58944,2,40403,3,1229,6,70,3,17242,2,0,0,0,0,0,0,0,0,0,0,0,41,56,0,0,12863,0,0,4,3,0,0,0,0,0,2025,2,'2025-02-27 09:15:11','2025-03-01 00:00:29'),
-(50,'2025-02','call','CHURN','namra.riaz',58944,2,40403,3,1229,6,70,3,17242,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 09:15:12','2025-03-01 00:00:37'),
-(51,'2025-02','fb_messenger','CSD','bilal.khan',29335,3,0,0,15,3,88,6,29131,2,0,0,0,0,5,5,89,5,0,89,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,2025,2,'2025-02-27 09:15:12','2025-03-01 00:00:24'),
-(52,'2025-02','call','CSD','bilal.khan',29335,3,0,0,15,3,88,6,29131,2,0,0,0,0,0,0,0,0,0,0,0,53,59,0,0,4759,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 09:15:12','2025-03-01 00:00:45'),
-(53,'2025-02','linkedin_feed','CSD','bilal.khan',29334,3,0,0,15,3,82,7,29131,2,0,0,0,0,9,9,37,9,0,37,0,0,0,0,0,0,0,0,5,5,0,0,0,0,0,2025,2,'2025-02-27 09:15:12','2025-03-01 00:00:41'),
-(54,'2025-02','call','Telesales_LHR','sheeza.tayyab',13308,3,3182,6,474,28,9443,41,154,5,10,2,0,0,2,2,3,2,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 09:15:12','2025-03-01 00:00:24'),
-(55,'2025-02','call','CXR','sheeza.tayyab',57363,6,7527,24,1034,98,40059,197,615,15,247,64,0,0,64,68,7753,64,0,7753,0,3,3,0,0,200,0,0,82,73,0,0,0,0,0,2025,2,'2025-02-27 09:15:12','2025-03-01 00:00:33'),
-(56,'2025-02','call','CHURN','muhammad.zeeshan',71625,2,0,0,601,1,7,2,71017,2,0,0,0,0,0,0,0,0,0,0,0,132,141,0,0,8274,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 09:15:12','2025-03-01 00:00:29'),
-(57,'2025-02','instagram','CSD','bilal.khan',29334,3,0,0,15,3,87,6,29131,2,0,0,0,0,3,3,75,3,0,75,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,2025,2,'2025-02-27 09:15:12','2025-03-01 00:00:25'),
-(58,'2025-02','call','Telesales_LHR','aasia.pervaiz',57600,3,4971,2,612,3,23766,70,24080,20,223,46,0,0,46,55,6997,46,0,6997,0,39,45,0,0,3792,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 09:30:03','2025-03-01 00:00:22'),
-(59,'2025-02','call','CHURN','irfan.haider',59681,8,17315,7,2341,9,182,8,39843,8,0,0,30463,1,0,0,0,0,0,0,0,159,167,0,0,10785,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 09:30:04','2025-03-01 00:00:41'),
-(60,'2025-02','call','CSD','namra.riaz',0,0,0,0,0,0,29634,50,0,0,0,0,0,0,0,0,0,0,0,0,0,75,79,0,0,6275,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 09:30:05','2025-03-01 00:00:32'),
-(61,'2025-02','call','TST','aqsa.haq',2261,1,0,0,0,0,110364,43,322,3,22,6,0,0,6,7,949,6,0,949,0,53,57,0,0,6575,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 09:45:18','2025-03-01 00:00:42'),
-(62,'2025-02','call','CHURN','yahya.amin',63928,6,17,3,1733,4,16,6,62162,6,0,0,0,0,0,0,0,0,0,0,0,198,214,0,0,13270,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 09:45:18','2025-03-01 00:00:21'),
-(63,'2025-02','email','CSD','khan.sumaira',35051,7,25205,12,3850,10,0,0,5995,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,0,0,0,0,0,2025,2,'2025-02-27 10:00:03','2025-03-01 00:00:45'),
-(64,'2025-02','call','TST_TS','mubashir.hussain',135,1,0,0,7,1,128,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 10:00:03','2025-03-01 00:00:37'),
-(65,'2025-02','call','CXR','rehan.tahir',57052,5,7589,15,0,0,28542,151,572,4,346,129,42533,2,124,143,20006,124,0,20006,0,1,1,0,0,296,0,0,1,1,0,0,0,0,0,2025,2,'2025-02-27 10:00:04','2025-03-01 00:00:22'),
-(66,'2025-02','call','Telesales_LHR','khan.sumaira',35051,7,25205,12,3850,10,0,0,5995,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 10:00:05','2025-03-01 00:00:27'),
-(67,'2025-02','sms','CXR','neera.mukhzan',0,0,0,0,0,0,69412,1,0,0,0,0,0,0,0,0,0,0,0,0,0,12,12,0,0,212,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 10:00:05','2025-03-01 00:00:25'),
-(68,'2025-02','call','TST','mubashir.hussain',57838,3,7843,6,7,1,32074,55,103,2,2510,45,0,0,44,56,15146,44,0,15146,0,2,2,0,0,72,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 10:00:06','2025-03-01 00:00:22'),
-(69,'2025-02','call','CXR','khan.sumaira',35656,8,25205,13,4455,11,0,0,5995,3,0,0,0,0,0,0,0,0,0,0,0,14,15,0,0,2021,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 10:00:06','2025-03-01 00:00:20'),
-(70,'2025-02','call','CSD','abdullah.faiz',58226,2,21204,5,1720,7,1799,2,33499,2,0,0,0,0,0,0,0,0,0,0,0,122,142,0,0,9003,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 10:15:01','2025-03-01 00:00:35'),
-(71,'2025-02','call','Alignment','ibtisam.ali',26340,9,3459,4,3703,8,65,9,19109,7,0,0,0,0,0,0,0,0,0,0,0,40,45,0,0,2036,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 10:15:02','2025-03-01 00:00:38'),
-(72,'2025-02','call','TST_TS','naeem.sarwar',21313,11,1217,6,2316,11,6559,15,11220,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 10:15:03','2025-03-01 00:00:21'),
-(73,'2025-02','call','CHURN','shahid.saleem',71174,8,40870,7,4636,13,25,8,25643,8,0,0,0,0,0,0,0,0,0,0,0,128,139,0,0,11517,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 10:30:04','2025-03-01 00:00:24'),
-(74,'2025-02','call','TST_TS','mehreen.ashraf',26033,2,2834,7,5,1,18655,13,31,3,10,3,0,0,3,3,476,3,0,476,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 10:30:05','2025-03-01 00:00:31'),
-(75,'2025-02','email','CSD','abdullah.faiz',0,0,0,0,0,0,132737,10,0,0,0,0,0,0,0,0,0,0,0,0,0,10,12,0,0,2274,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 10:30:05','2025-03-01 00:00:23'),
-(76,'2025-02','call','CHURN','asim.javaid',74548,2,0,0,0,0,3,2,74545,2,0,0,0,0,0,0,0,0,0,0,0,122,138,0,0,15628,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 10:30:09','2025-03-01 00:00:32'),
-(77,'2025-02','call','TST','mudassir.abbas',3911,1,2185,5,70,5,50843,30,1654,1,0,0,0,0,0,0,0,0,0,0,0,50,62,0,0,9774,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 10:45:07','2025-03-01 00:00:46'),
-(78,'2025-02','call','TST_TS','mudassir.abbas',58317,3,33419,9,300,6,12118,25,35509,19,32,7,0,0,7,9,1362,7,0,1362,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 10:45:09','2025-03-01 00:00:42'),
-(79,'2025-02','call','CSD','arslan.tariq',41502,2,28646,4,141,4,10,2,24299,3,0,0,129745,1,0,0,0,0,0,0,0,107,116,0,0,9542,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 10:45:11','2025-03-01 00:00:38'),
-(80,'2025-02','email','CSD','arslan.tariq',41502,2,28646,4,141,4,10,2,24299,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,2025,2,'2025-02-27 10:45:11','2025-03-01 00:00:34'),
-(81,'2025-02','call','TST_TS','umar.daraz',55848,3,4200,5,12,2,21906,42,28004,28,34,9,0,0,9,12,1692,9,0,1692,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 11:00:05','2025-03-01 00:00:31'),
-(82,'2025-02','call','CSD','amir.zafar',133315,2,44089,2,15,3,37,4,89174,2,0,0,41,2,0,0,0,0,0,0,0,90,95,0,0,7715,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 11:00:05','2025-03-01 00:00:44'),
-(83,'2025-02','email','CSD','amir.zafar',133315,2,44089,2,15,3,37,4,89174,2,0,0,0,0,0,0,0,0,0,0,0,20,32,0,0,10799,0,0,5,4,0,0,0,0,0,2025,2,'2025-02-27 11:00:06','2025-03-01 00:00:42'),
-(84,'2025-02','call','TST','subhan.hassan',57059,4,6632,7,6,1,32194,70,446,4,1714,56,0,0,56,69,16067,56,0,16067,0,1,1,0,0,422,0,0,1,1,0,0,0,0,0,2025,2,'2025-02-27 11:15:16','2025-03-01 00:00:23'),
-(85,'2025-02','sms','CXR','rashida.arshad',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,8,0,0,88,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 11:15:16','2025-03-01 00:00:46'),
-(86,'2025-02','call','CXR','hussain.ali',57490,2,7518,12,13,3,26336,120,3487,15,336,94,25416,10,94,118,19810,94,0,19810,0,6,7,0,0,847,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 11:15:16','2025-03-01 00:00:38'),
-(87,'2025-02','sms','CXR','hussain.ali',0,0,0,0,0,0,132497,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,3,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 11:15:18','2025-03-01 00:00:27'),
-(88,'2025-02','call','Alignment','arslan.amin1',9708,2,0,0,0,0,54,2,9653,2,0,0,0,0,0,0,0,0,0,0,0,22,22,0,0,575,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 11:15:18','2025-03-01 00:00:26'),
-(89,'2025-02','call','TST','umar.daraz',11408,1,1038,1,0,0,13447,31,8149,5,19,4,0,0,4,6,2188,4,0,2188,0,52,60,0,0,7441,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 11:30:05','2025-03-01 00:00:24'),
-(90,'2025-02','call','Alignment','terrence.joseph',44577,29,73,10,4612,16,1239,29,36459,25,0,0,0,0,0,0,0,0,0,0,0,74,83,0,0,5371,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 11:45:02','2025-03-01 00:00:20'),
-(91,'2025-02','call','TES_ISB','sharoon.durrani',62785,3,24708,9,662,13,2939,3,34216,11,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 11:45:04','2025-03-01 00:00:39'),
-(92,'2025-02','call','CSD','sharoon.durrani',62785,3,24708,9,662,13,2939,3,34216,11,0,0,0,0,0,0,0,0,0,0,0,29,33,0,0,1908,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 11:45:05','2025-03-01 00:00:46'),
-(93,'2025-02','call','Engineering_Ops','naveed.irshad',39748,6,9,3,2373,6,28,6,37335,6,0,0,0,0,0,0,0,0,0,0,0,43,46,0,0,2557,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 11:45:05','2025-03-01 00:00:33'),
-(94,'2025-02','call','TST','naeem.sarwar',0,0,0,0,0,0,118921,8,0,0,0,0,0,0,0,0,0,0,0,0,0,13,15,0,0,3035,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 11:45:05','2025-03-01 00:00:37'),
-(95,'2025-02','email','CSD','sharoon.durrani',62785,3,24708,9,662,13,1645,3,34216,11,0,0,0,0,270,545,266932,270,0,266932,0,18,21,0,0,2930,0,0,111,12,0,0,0,0,0,2025,2,'2025-02-27 11:45:06','2025-03-01 00:00:42'),
-(96,'2025-02','call','CSD','zohaib.naseem',28778,3,3597,4,7,1,15126,7,33,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 12:00:01','2025-03-01 00:00:34'),
-(97,'2025-02','call','CXR','bilal.ghaffar',57785,2,6160,15,0,0,29982,159,408,7,564,140,1107,15,138,157,20267,138,0,20267,0,5,5,0,0,365,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 12:00:03','2025-03-01 00:00:34'),
-(98,'2025-02','call','CXR','saad.zubair',63169,3,22545,1,1814,4,11,3,61343,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,2025,2,'2025-02-27 12:00:03','2025-03-01 00:00:45'),
-(99,'2025-02','call','CHURN','saad.zubair',63169,3,22545,1,1814,4,11,3,61343,4,0,0,0,0,0,0,0,0,0,0,0,118,133,0,0,11750,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 12:00:04','2025-03-01 00:00:35'),
-(100,'2025-02','call','CXR','zohaib.naseem',28778,3,3597,4,7,1,14337,66,33,1,134,59,93,1,59,70,10056,59,0,10056,0,1,1,0,0,17,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 12:00:05','2025-03-01 00:00:22');
-
+(50,'2025-02','call','CHURN','namra.riaz',58944,2,40403,3,1229,6,70,3,17242,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 09:15:12','2025-03-01 00:00:37');
 /*Table structure for table `yovo_tbl_agent_summary_stats_yearly` */
-
-DROP TABLE IF EXISTS `yovo_tbl_agent_summary_stats_yearly`;
-
 CREATE TABLE `yovo_tbl_agent_summary_stats_yearly` (
   `id` int NOT NULL AUTO_INCREMENT,
   `timeInterval` int NOT NULL,
@@ -725,9 +547,7 @@ CREATE TABLE `yovo_tbl_agent_summary_stats_yearly` (
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
 /*Data for the table `yovo_tbl_agent_summary_stats_yearly` */
-
 insert  into `yovo_tbl_agent_summary_stats_yearly`(`id`,`timeInterval`,`channel`,`queue`,`agent`,`loginTime`,`loginCounts`,`breakTime`,`breakCounts`,`notAvailableTime`,`notAvailableCounts`,`idleTime`,`idleCounts`,`manualOutboundTime`,`manualOutboundCounts`,`acwTime`,`acwCounts`,`holdTime`,`holdCounts`,`totalInboundInteractions`,`totalInboundInteractionsOccupancy`,`talkTimeInbound`,`totalInboundInteractionsCountAssignAcceptJoin`,`totalInboundInteractionsCountSharedTransfer`,`totalInboundInteractionTimeAssignAcceptJoin`,`totalInboundInteractionsTimeSharedTransfer`,`outboundInteractions`,`outboundInteractionsOccupancy`,`totalOutboundInteractionsCountJoin`,`totalOutboundInteractionsCountSharedTransfer`,`talkTimeOutbound`,`totalOutboundInteractionsTimeJoin`,`totalOutboundInteractionsTimeSharedTransfer`,`totalRingNoAnswers`,`ringNoAnswerRejected`,`ringNoAnswerTimeout`,`ringNoAnswerSIPError`,`ringNoAnswerSIPUnavailable`,`ringNoAnswerInboxDisabled`,`ringNoAnswerAlreadyOnCall`,`createdAt`,`updatedAt`) values 
 (1,2025,'email','CSD',NULL,12240273,922,7301930,1672,143725,1333,3436932,1298,5904930,1036,0,0,0,0,6347,60567,48699523,6347,0,48699523,0,3008,113424,106,0,99384415,783,0,7294,858,0,0,0,0,0,'2025-02-27 04:30:02','2025-03-28 01:48:43'),
 (2,2025,'fb_messenger','CSD','intellicon',1626560,113,1151059,253,14651,220,70851,78,918473,97,0,0,0,0,143,160,15633,143,0,15633,0,8,8,0,0,86,0,0,145,39,0,0,0,0,0,'2025-02-27 04:30:02','2025-03-28 01:48:45'),
@@ -760,11 +580,8 @@ insert  into `yovo_tbl_agent_summary_stats_yearly`(`id`,`timeInterval`,`channel`
 (29,2025,'twitter','CSD','namra.riaz',181469,18,176280,37,5179,26,1,1,134383,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'2025-03-20 09:15:49','2025-03-28 01:46:56'),
 (30,2025,'g_messenger','CSD','namra.riaz',181469,18,176280,37,5179,26,1,1,134383,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'2025-03-20 09:15:54','2025-03-28 01:48:19'),
 (31,2025,'call','TL_TST','iftikhar.afzal',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,6,0,0,0,0,0,0,0,0,0,'2025-03-26 19:47:30','2025-03-28 01:47:09');
-
 /*Table structure for table `yovo_tbl_call_center_stats_15_min` */
-
 DROP TABLE IF EXISTS `yovo_tbl_call_center_stats_15_min`;
-
 CREATE TABLE `yovo_tbl_call_center_stats_15_min` (
   `id` int NOT NULL AUTO_INCREMENT,
   `pKey` varchar(255) NOT NULL,
@@ -888,27 +705,8 @@ CREATE TABLE `yovo_tbl_call_center_stats_15_min` (
  PARTITION p_2025_04 VALUES LESS THAN ('2025-05') ENGINE = InnoDB,
  PARTITION p_2025_05 VALUES LESS THAN ('2025-06') ENGINE = InnoDB,
  PARTITION p_2025_06 VALUES LESS THAN ('2025-07') ENGINE = InnoDB,
- PARTITION p_2025_07 VALUES LESS THAN ('2025-08') ENGINE = InnoDB,
- PARTITION p_2025_08 VALUES LESS THAN ('2025-09') ENGINE = InnoDB,
- PARTITION p_2025_09 VALUES LESS THAN ('2025-10') ENGINE = InnoDB,
- PARTITION p_2025_10 VALUES LESS THAN ('2025-11') ENGINE = InnoDB,
- PARTITION p_2025_11 VALUES LESS THAN ('2025-12') ENGINE = InnoDB,
- PARTITION p_2025_12 VALUES LESS THAN ('2026-01') ENGINE = InnoDB,
- PARTITION p_2026_01 VALUES LESS THAN ('2026-02') ENGINE = InnoDB,
- PARTITION p_2026_02 VALUES LESS THAN ('2026-03') ENGINE = InnoDB,
- PARTITION p_2026_03 VALUES LESS THAN ('2026-04') ENGINE = InnoDB,
- PARTITION p_2026_04 VALUES LESS THAN ('2026-05') ENGINE = InnoDB,
- PARTITION p_2026_05 VALUES LESS THAN ('2026-06') ENGINE = InnoDB,
- PARTITION p_2026_06 VALUES LESS THAN ('2026-07') ENGINE = InnoDB,
- PARTITION p_2026_07 VALUES LESS THAN ('2026-08') ENGINE = InnoDB,
- PARTITION p_2026_08 VALUES LESS THAN ('2026-09') ENGINE = InnoDB,
- PARTITION p_2026_09 VALUES LESS THAN ('2026-10') ENGINE = InnoDB,
- PARTITION p_2026_10 VALUES LESS THAN ('2026-11') ENGINE = InnoDB,
- PARTITION p_2026_11 VALUES LESS THAN ('2026-12') ENGINE = InnoDB,
- PARTITION p_2026_12 VALUES LESS THAN ('2027-01') ENGINE = InnoDB) */;
-
+ PARTITION p_2025_07 VALUES LESS THAN ('2025-08') ENGINE = InnoDB */;
 /*Data for the table `yovo_tbl_call_center_stats_15_min` */
-
 insert  into `yovo_tbl_call_center_stats_15_min`(`id`,`pKey`,`channel`,`queue`,`interval`,`inbound`,`queueWaitTimeMin`,`queueWaitTimeMax`,`queueWaitTimeAvg`,`queueWaitTimeTotal`,`waitingOccupancyCount`,`waitingOccupancyTime`,`waitingCarryForward`,`ivrHangupInbound`,`ivrHangupOutbound`,`answeredInbound`,`answeredInTen`,`answeredMoreTenInTwenty`,`answeredMoreTwentyInThirty`,`answeredAfterThirty`,`answeredWithinSetValue`,`connectedOccupancyInTen`,`connectedOccupancyMoreTenInTwenty`,`connectedOccupancyMoreTwentyInThirty`,`connectedOccupancyAfterThirty`,`connectedOccupancyWithinSetValue`,`connectedOccupancyCountInbound`,`connectedOccupancyTimeInbound`,`holdTimeOccupancy`,`holdInbound`,`holdCountOccupancy`,`abandonedInbound`,`abandonedInTen`,`abandonedMoreTenInTwenty`,`abandonedMoreTwentyInThirty`,`abandonedAfterThirty`,`abandonedWithinSetValue`,`abandonedOccupancyInTen`,`abandonedOccupancyMoreTenInTwenty`,`abandonedOccupancyMoreTwentyInThirty`,`abandonedOccupancyAfterThirty`,`abandonedOccupancyWithinSetValue`,`wrapUpTimeAgentAvg`,`maxACW`,`minACW`,`acwTime`,`wrapUpInbound`,`acwCounts`,`acwOccupancyCount`,`acwOccupancyTime`,`wrapUpOutbound`,`closedOutbound`,`closedInbound`,`wrapUpTimeInteractionAvg`,`wrapUpTimeInteractionMax`,`wrapUpTimeInteractionMin`,`wrapUpTimeInteractionTotal`,`inboundInteractionTimeAvg`,`inboundInteractionTimeMax`,`inboundInteractionTimeMin`,`inboundInteractionTimeTotal`,`answeredAfterAbandoned`,`outbound`,`answeredOutbound`,`connectedOccupancyTimeOutbound`,`connectedOccupancyCountOutbound`,`holdCountOccupancyOutbound`,`holdTimeOccupancyOutbound`,`holdOutbound`,`abandonedOutbound`,`outboundBusy`,`outboundFailed`,`outboundNotAnswer`,`outboundCancel`,`outboundInteractionTimeAvg`,`outboundInteractionTimeMax`,`outboundInteractionTimeMin`,`outboundInteractionTimeTotal`,`completeByAgent`,`completeByCaller`,`holdTimeMin`,`holdTimeMax`,`holdTimeTotal`,`holdTimeAvg`,`agentTransfers`,`applicationTransfers`,`externalTransfers`,`sharedCount`,`firstResponseTimeAvg`,`firstResponseTimeTotal`,`firstResponseTimeMin`,`firstResponseTimeMax`,`averageResponseTimeAvg`,`averageResponseTimeTotal`,`averageResponseTimeMax`,`averageResponseTimeMin`,`dialerCalls`,`handledByBot`,`handleTimeMin`,`handleTimeMax`,`handleTimeTotal`,`handleTimeAvg`,`timestamp`,`timeInterval`,`intervalType`,`year`,`week`,`weekOfYear`,`month`,`day`,`hour`,`createdAt`,`updatedAt`) values 
 (1,'2025-02','email','CSD','2025-02-27 04:15:00_2025-02-27 04:29:59',0,0,0,0,0,137,123300,137,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1800,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740611700,'2025-02-27 04:00:00','00:29',2025,4,9,2,27,4,'2025-02-27 04:36:01','2025-02-27 04:36:01'),
 (2,'2025-02','fb_messenger','CSD','2025-02-27 04:15:00_2025-02-27 04:29:59',0,0,0,0,0,2,1800,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740611700,'2025-02-27 04:00:00','00:29',2025,4,9,2,27,4,'2025-02-27 04:36:01','2025-02-27 04:36:01'),
@@ -959,62 +757,9 @@ insert  into `yovo_tbl_call_center_stats_15_min`(`id`,`pKey`,`channel`,`queue`,`
 (47,'2025-02','call','CXR','2025-02-27 05:15:00_2025-02-27 05:29:59',1,3,3,3,3,1,3,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,212,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740615300,'2025-02-27 05:00:00','00:29',2025,4,9,2,27,5,'2025-02-27 05:30:08','2025-02-27 05:30:08'),
 (48,'2025-02','email','no_queue_found','2025-02-27 05:15:00_2025-02-27 05:29:59',0,0,0,0,0,3,2700,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740615300,'2025-02-27 05:00:00','00:29',2025,4,9,2,27,5,'2025-02-27 05:30:08','2025-02-27 05:30:08'),
 (49,'2025-02','instagram_dm','CSD','2025-02-27 05:15:00_2025-02-27 05:29:59',0,0,0,0,0,3,2700,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740615300,'2025-02-27 05:00:00','00:29',2025,4,9,2,27,5,'2025-02-27 05:30:08','2025-02-27 05:30:08'),
-(50,'2025-02','instagram','CSD','2025-02-27 05:15:00_2025-02-27 05:29:59',0,0,0,0,0,1,900,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740615300,'2025-02-27 05:00:00','00:29',2025,4,9,2,27,5,'2025-02-27 05:30:08','2025-02-27 05:30:08'),
-(51,'2025-02','email','TAC','2025-02-27 05:15:00_2025-02-27 05:29:59',0,0,0,0,0,2,1800,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740615300,'2025-02-27 05:00:00','00:29',2025,4,9,2,27,5,'2025-02-27 05:30:08','2025-02-27 05:30:08'),
-(52,'2025-02','fb_messenger','CSD','2025-02-27 05:15:00_2025-02-27 05:29:59',0,0,0,0,0,2,1800,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740615300,'2025-02-27 05:00:00','00:29',2025,4,9,2,27,5,'2025-02-27 05:30:08','2025-02-27 05:30:08'),
-(53,'2025-02','call','Telesales_LHR','2025-02-27 05:15:00_2025-02-27 05:29:59',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,250,255,505,505,1740615300,'2025-02-27 05:00:00','00:29',2025,4,9,2,27,5,'2025-02-27 05:30:08','2025-02-27 05:30:08'),
-(54,'2025-02','linkedin_feed','CSD','2025-02-27 05:15:00_2025-02-27 05:29:59',0,0,0,0,0,3,2700,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740615300,'2025-02-27 05:00:00','00:29',2025,4,9,2,27,5,'2025-02-27 05:30:08','2025-02-27 05:30:08'),
-(55,'2025-02','email','CSD','2025-02-27 05:15:00_2025-02-27 05:29:59',1,0,0,0,0,139,125087,138,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1800,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740615300,'2025-02-27 05:00:00','00:29',2025,4,9,2,27,5,'2025-02-27 05:30:08','2025-02-27 05:30:08'),
-(56,'2025-02','sms','CXR','2025-02-27 05:15:00_2025-02-27 05:29:59',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,900,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740615300,'2025-02-27 05:00:00','00:29',2025,4,9,2,27,5,'2025-02-27 05:30:08','2025-02-27 05:30:08'),
-(57,'2025-02','call','defaultQueue','2025-02-27 05:15:00_2025-02-27 05:29:59',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740615300,'2025-02-27 05:00:00','00:29',2025,4,9,2,27,5,'2025-02-27 05:30:08','2025-02-27 05:30:08'),
-(58,'2025-02','email','no_queue_found','2025-02-27 05:30:00_2025-02-27 05:44:59',0,0,0,0,0,3,2700,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740616200,'2025-02-27 05:00:00','00:44',2025,4,9,2,27,5,'2025-02-27 06:06:58','2025-02-27 06:06:58'),
-(59,'2025-02','fb_messenger','CSD','2025-02-27 05:30:00_2025-02-27 05:44:59',0,0,0,0,0,2,1800,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740616200,'2025-02-27 05:00:00','00:44',2025,4,9,2,27,5,'2025-02-27 06:06:58','2025-02-27 06:06:58'),
-(60,'2025-02','linkedin_feed','CSD','2025-02-27 05:30:00_2025-02-27 05:44:59',0,0,0,0,0,3,2700,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740616200,'2025-02-27 05:00:00','00:44',2025,4,9,2,27,5,'2025-02-27 06:06:58','2025-02-27 06:06:58'),
-(61,'2025-02','call','Telesales_LHR','2025-02-27 05:30:00_2025-02-27 05:44:59',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1021,1021,1021,1021,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740616200,'2025-02-27 05:00:00','00:44',2025,4,9,2,27,5,'2025-02-27 06:06:58','2025-02-27 06:06:58'),
-(62,'2025-02','fb_pages','CSD','2025-02-27 05:30:00_2025-02-27 05:44:59',0,0,0,0,0,7,6300,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740616200,'2025-02-27 05:00:00','00:44',2025,4,9,2,27,5,'2025-02-27 06:06:58','2025-02-27 06:06:58'),
-(63,'2025-02','instagram_dm','CSD','2025-02-27 05:30:00_2025-02-27 05:44:59',0,0,0,0,0,3,2700,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740616200,'2025-02-27 05:00:00','00:44',2025,4,9,2,27,5,'2025-02-27 06:06:58','2025-02-27 06:06:58'),
-(64,'2025-02','call','CXR','2025-02-27 05:30:00_2025-02-27 05:44:59',1,3,3,3,3,1,3,0,0,0,1,1,0,0,0,1,1,0,0,0,1,2,284,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,1,6,2,2,2,1,0,0,2,6,11,1,12,248,418,78,496,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,78,419,580,290,1740616200,'2025-02-27 05:00:00','00:44',2025,4,9,2,27,5,'2025-02-27 06:06:58','2025-02-27 06:06:58'),
-(65,'2025-02','sms','CXR','2025-02-27 05:30:00_2025-02-27 05:44:59',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,900,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740616200,'2025-02-27 05:00:00','00:44',2025,4,9,2,27,5,'2025-02-27 06:06:58','2025-02-27 06:06:58'),
-(66,'2025-02','call','defaultQueue','2025-02-27 05:30:00_2025-02-27 05:44:59',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740616200,'2025-02-27 05:00:00','00:44',2025,4,9,2,27,5,'2025-02-27 06:06:58','2025-02-27 06:06:58'),
-(67,'2025-02','call','TST','2025-02-27 05:30:00_2025-02-27 05:44:59',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740616200,'2025-02-27 05:00:00','00:44',2025,4,9,2,27,5,'2025-02-27 06:06:58','2025-02-27 06:06:58'),
-(68,'2025-02','email','CSD','2025-02-27 05:30:00_2025-02-27 05:44:59',0,0,0,0,0,139,125100,139,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1800,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740616200,'2025-02-27 05:00:00','00:44',2025,4,9,2,27,5,'2025-02-27 06:06:58','2025-02-27 06:06:58'),
-(69,'2025-02','instagram','CSD','2025-02-27 05:30:00_2025-02-27 05:44:59',0,0,0,0,0,1,900,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740616200,'2025-02-27 05:00:00','00:44',2025,4,9,2,27,5,'2025-02-27 06:06:58','2025-02-27 06:06:58'),
-(70,'2025-02','email','TAC','2025-02-27 05:30:00_2025-02-27 05:44:59',0,0,0,0,0,2,1800,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740616200,'2025-02-27 05:00:00','00:44',2025,4,9,2,27,5,'2025-02-27 06:06:58','2025-02-27 06:06:58'),
-(71,'2025-02','instagram_dm','CSD','2025-02-27 05:45:00_2025-02-27 05:59:59',0,0,0,0,0,3,2700,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740617100,'2025-02-27 05:00:00','00:59',2025,4,9,2,27,5,'2025-02-27 06:07:00','2025-02-27 06:07:00'),
-(72,'2025-02','instagram','CSD','2025-02-27 05:45:00_2025-02-27 05:59:59',0,0,0,0,0,1,900,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740617100,'2025-02-27 05:00:00','00:59',2025,4,9,2,27,5,'2025-02-27 06:07:00','2025-02-27 06:07:00'),
-(73,'2025-02','fb_pages','CSD','2025-02-27 05:45:00_2025-02-27 05:59:59',0,0,0,0,0,7,6300,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740617100,'2025-02-27 05:00:00','00:59',2025,4,9,2,27,5,'2025-02-27 06:07:00','2025-02-27 06:07:00'),
-(74,'2025-02','fb_messenger','CSD','2025-02-27 05:45:00_2025-02-27 05:59:59',0,0,0,0,0,2,1800,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740617100,'2025-02-27 05:00:00','00:59',2025,4,9,2,27,5,'2025-02-27 06:07:00','2025-02-27 06:07:00'),
-(75,'2025-02','call','defaultQueue','2025-02-27 05:45:00_2025-02-27 05:59:59',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740617100,'2025-02-27 05:00:00','00:59',2025,4,9,2,27,5,'2025-02-27 06:07:00','2025-02-27 06:07:00'),
-(76,'2025-02','call','CXR','2025-02-27 05:45:00_2025-02-27 05:59:59',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740617100,'2025-02-27 05:00:00','00:59',2025,4,9,2,27,5,'2025-02-27 06:07:00','2025-02-27 06:07:00'),
-(77,'2025-02','sms','CXR','2025-02-27 05:45:00_2025-02-27 05:59:59',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,900,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740617100,'2025-02-27 05:00:00','00:59',2025,4,9,2,27,5,'2025-02-27 06:07:00','2025-02-27 06:07:00'),
-(78,'2025-02','email','CSD','2025-02-27 05:45:00_2025-02-27 05:59:59',0,0,0,0,0,139,125100,139,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1800,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740617100,'2025-02-27 05:00:00','00:59',2025,4,9,2,27,5,'2025-02-27 06:07:00','2025-02-27 06:07:00'),
-(79,'2025-02','call','Telesales_LHR','2025-02-27 05:45:00_2025-02-27 05:59:59',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740617100,'2025-02-27 05:00:00','00:59',2025,4,9,2,27,5,'2025-02-27 06:07:00','2025-02-27 06:07:00'),
-(80,'2025-02','linkedin_feed','CSD','2025-02-27 05:45:00_2025-02-27 05:59:59',0,0,0,0,0,3,2700,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740617100,'2025-02-27 05:00:00','00:59',2025,4,9,2,27,5,'2025-02-27 06:07:00','2025-02-27 06:07:00'),
-(81,'2025-02','email','no_queue_found','2025-02-27 05:45:00_2025-02-27 05:59:59',0,0,0,0,0,3,2700,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740617100,'2025-02-27 05:00:00','00:59',2025,4,9,2,27,5,'2025-02-27 06:07:00','2025-02-27 06:07:00'),
-(82,'2025-02','email','TAC','2025-02-27 05:45:00_2025-02-27 05:59:59',0,0,0,0,0,2,1800,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740617100,'2025-02-27 05:00:00','00:59',2025,4,9,2,27,5,'2025-02-27 06:07:00','2025-02-27 06:07:00'),
-(83,'2025-02','call','TST','2025-02-27 05:45:00_2025-02-27 05:59:59',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740617100,'2025-02-27 05:00:00','00:59',2025,4,9,2,27,5,'2025-02-27 06:07:00','2025-02-27 06:07:00'),
-(84,'2025-02','instagram_dm','CSD','2025-02-27 06:00:00_2025-02-27 06:14:59',0,0,0,0,0,3,2700,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740618000,'2025-02-27 06:00:00','00:14',2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:25:58'),
-(85,'2025-02','email','TAC','2025-02-27 06:00:00_2025-02-27 06:14:59',0,0,0,0,0,2,1800,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740618000,'2025-02-27 06:00:00','00:14',2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:25:58'),
-(86,'2025-02','instagram','CSD','2025-02-27 06:00:00_2025-02-27 06:14:59',0,0,0,0,0,1,900,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740618000,'2025-02-27 06:00:00','00:14',2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:25:58'),
-(87,'2025-02','email','no_queue_found','2025-02-27 06:00:00_2025-02-27 06:14:59',0,0,0,0,0,3,2700,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740618000,'2025-02-27 06:00:00','00:14',2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:25:58'),
-(88,'2025-02','fb_messenger','CSD','2025-02-27 06:00:00_2025-02-27 06:14:59',0,0,0,0,0,2,1800,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740618000,'2025-02-27 06:00:00','00:14',2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:25:58'),
-(89,'2025-02','call','defaultQueue','2025-02-27 06:00:00_2025-02-27 06:14:59',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740618000,'2025-02-27 06:00:00','00:14',2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:25:58'),
-(90,'2025-02','call','TST','2025-02-27 06:00:00_2025-02-27 06:14:59',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740618000,'2025-02-27 06:00:00','00:14',2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:25:58'),
-(91,'2025-02','call','CXR','2025-02-27 06:00:00_2025-02-27 06:14:59',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740618000,'2025-02-27 06:00:00','00:14',2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:25:58'),
-(92,'2025-02','linkedin_feed','CSD','2025-02-27 06:00:00_2025-02-27 06:14:59',0,0,0,0,0,3,2700,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740618000,'2025-02-27 06:00:00','00:14',2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:25:58'),
-(93,'2025-02','call','Telesales_LHR','2025-02-27 06:00:00_2025-02-27 06:14:59',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740618000,'2025-02-27 06:00:00','00:14',2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:25:58'),
-(94,'2025-02','sms','CXR','2025-02-27 06:00:00_2025-02-27 06:14:59',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,900,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740618000,'2025-02-27 06:00:00','00:14',2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:25:58'),
-(95,'2025-02','fb_pages','CSD','2025-02-27 06:00:00_2025-02-27 06:14:59',0,0,0,0,0,7,6300,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740618000,'2025-02-27 06:00:00','00:14',2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:25:58'),
-(96,'2025-02','email','CSD','2025-02-27 06:00:00_2025-02-27 06:14:59',3,0,0,0,0,142,126370,139,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1800,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740618000,'2025-02-27 06:00:00','00:14',2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:25:58'),
-(97,'2025-02','fb_messenger','CSD','2025-02-27 06:15:00_2025-02-27 06:29:59',0,0,0,0,0,2,1800,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740618900,'2025-02-27 06:00:00','00:29',2025,4,9,2,27,6,'2025-02-27 06:51:53','2025-02-27 06:51:53'),
-(98,'2025-02','email','TAC','2025-02-27 06:15:00_2025-02-27 06:29:59',0,0,0,0,0,2,1800,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740618900,'2025-02-27 06:00:00','00:29',2025,4,9,2,27,6,'2025-02-27 06:51:53','2025-02-27 06:51:53'),
-(99,'2025-02','sms','CXR','2025-02-27 06:15:00_2025-02-27 06:29:59',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,900,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740618900,'2025-02-27 06:00:00','00:29',2025,4,9,2,27,6,'2025-02-27 06:51:53','2025-02-27 06:51:53'),
-(100,'2025-02','instagram','CSD','2025-02-27 06:15:00_2025-02-27 06:29:59',0,0,0,0,0,1,900,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740618900,'2025-02-27 06:00:00','00:29',2025,4,9,2,27,6,'2025-02-27 06:51:53','2025-02-27 06:51:53');
-
+(50,'2025-02','instagram','CSD','2025-02-27 05:15:00_2025-02-27 05:29:59',0,0,0,0,0,1,900,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1740615300,'2025-02-27 05:00:00','00:29',2025,4,9,2,27,5,'2025-02-27 05:30:08','2025-02-27 05:30:08');
 /*Table structure for table `yovo_tbl_contact_center_stats_daily` */
-
 DROP TABLE IF EXISTS `yovo_tbl_contact_center_stats_daily`;
-
 CREATE TABLE `yovo_tbl_contact_center_stats_daily` (
   `id` int NOT NULL AUTO_INCREMENT,
   `pKey` varchar(255) NOT NULL,
@@ -1133,28 +878,8 @@ CREATE TABLE `yovo_tbl_contact_center_stats_daily` (
  PARTITION p_2025_03 VALUES LESS THAN ('2025-04') ENGINE = InnoDB,
  PARTITION p_2025_04 VALUES LESS THAN ('2025-05') ENGINE = InnoDB,
  PARTITION p_2025_05 VALUES LESS THAN ('2025-06') ENGINE = InnoDB,
- PARTITION p_2025_06 VALUES LESS THAN ('2025-07') ENGINE = InnoDB,
- PARTITION p_2025_07 VALUES LESS THAN ('2025-08') ENGINE = InnoDB,
- PARTITION p_2025_08 VALUES LESS THAN ('2025-09') ENGINE = InnoDB,
- PARTITION p_2025_09 VALUES LESS THAN ('2025-10') ENGINE = InnoDB,
- PARTITION p_2025_10 VALUES LESS THAN ('2025-11') ENGINE = InnoDB,
- PARTITION p_2025_11 VALUES LESS THAN ('2025-12') ENGINE = InnoDB,
- PARTITION p_2025_12 VALUES LESS THAN ('2026-01') ENGINE = InnoDB,
- PARTITION p_2026_01 VALUES LESS THAN ('2026-02') ENGINE = InnoDB,
- PARTITION p_2026_02 VALUES LESS THAN ('2026-03') ENGINE = InnoDB,
- PARTITION p_2026_03 VALUES LESS THAN ('2026-04') ENGINE = InnoDB,
- PARTITION p_2026_04 VALUES LESS THAN ('2026-05') ENGINE = InnoDB,
- PARTITION p_2026_05 VALUES LESS THAN ('2026-06') ENGINE = InnoDB,
- PARTITION p_2026_06 VALUES LESS THAN ('2026-07') ENGINE = InnoDB,
- PARTITION p_2026_07 VALUES LESS THAN ('2026-08') ENGINE = InnoDB,
- PARTITION p_2026_08 VALUES LESS THAN ('2026-09') ENGINE = InnoDB,
- PARTITION p_2026_09 VALUES LESS THAN ('2026-10') ENGINE = InnoDB,
- PARTITION p_2026_10 VALUES LESS THAN ('2026-11') ENGINE = InnoDB,
- PARTITION p_2026_11 VALUES LESS THAN ('2026-12') ENGINE = InnoDB,
- PARTITION p_2026_12 VALUES LESS THAN ('2027-01') ENGINE = InnoDB) */;
-
+ PARTITION p_2025_06 VALUES LESS THAN ('2025-07') ENGINE = InnoDB */;
 /*Data for the table `yovo_tbl_contact_center_stats_daily` */
-
 insert  into `yovo_tbl_contact_center_stats_daily`(`id`,`pKey`,`channel`,`queue`,`timeInterval`,`inbound`,`queueWaitTimeMin`,`queueWaitTimeMax`,`queueWaitTimeAvg`,`queueWaitTimeTotal`,`waitingOccupancyCount`,`waitingOccupancyTime`,`waitingCarryForward`,`ivrHangupInbound`,`ivrHangupOutbound`,`answeredInbound`,`answeredInTen`,`answeredMoreTenInTwenty`,`answeredMoreTwentyInThirty`,`answeredAfterThirty`,`answeredWithinSetValue`,`connectedOccupancyInTen`,`connectedOccupancyMoreTenInTwenty`,`connectedOccupancyMoreTwentyInThirty`,`connectedOccupancyAfterThirty`,`connectedOccupancyWithinSetValue`,`connectedOccupancyCountInbound`,`connectedOccupancyTimeInbound`,`holdTimeOccupancy`,`holdInbound`,`holdCountOccupancy`,`abandonedInbound`,`abandonedInTen`,`abandonedMoreTenInTwenty`,`abandonedMoreTwentyInThirty`,`abandonedAfterThirty`,`abandonedWithinSetValue`,`abandonedOccupancyInTen`,`abandonedOccupancyMoreTenInTwenty`,`abandonedOccupancyMoreTwentyInThirty`,`abandonedOccupancyAfterThirty`,`abandonedOccupancyWithinSetValue`,`wrapUpTimeAgentAvg`,`wrapUpInbound`,`acwCounts`,`acwOccupancyCount`,`acwOccupancyTime`,`wrapUpOutbound`,`closedOutbound`,`closedInbound`,`maxACW`,`minACW`,`acwTime`,`wrapUpTimeInteractionAvg`,`wrapUpTimeInteractionMax`,`wrapUpTimeInteractionMin`,`wrapUpTimeInteractionTotal`,`inboundInteractionTimeAvg`,`inboundInteractionTimeMax`,`inboundInteractionTimeMin`,`inboundInteractionTimeTotal`,`answeredAfterAbandoned`,`outbound`,`answeredOutbound`,`connectedOccupancyTimeOutbound`,`connectedOccupancyCountOutbound`,`holdCountOccupancyOutbound`,`holdTimeOccupancyOutbound`,`holdOutbound`,`abandonedOutbound`,`outboundBusy`,`outboundFailed`,`outboundNotAnswer`,`outboundCancel`,`outboundInteractionTimeAvg`,`outboundInteractionTimeMax`,`outboundInteractionTimeMin`,`outboundInteractionTimeTotal`,`completeByAgent`,`completeByCaller`,`holdTimeMin`,`holdTimeMax`,`holdTimeTotal`,`holdTimeAvg`,`agentTransfers`,`applicationTransfers`,`externalTransfers`,`sharedCount`,`firstResponseTimeAvg`,`firstResponseTimeTotal`,`firstResponseTimeMin`,`firstResponseTimeMax`,`averageResponseTimeAvg`,`averageResponseTimeTotal`,`averageResponseTimeMax`,`averageResponseTimeMin`,`dialerCalls`,`handledByBot`,`handleTimeMin`,`handleTimeMax`,`handleTimeTotal`,`handleTimeAvg`,`year`,`week`,`weekOfYear`,`month`,`day`,`createdAt`,`updatedAt`) values 
 (1,'2025-02','email','CSD','2025-02-27',212,0,99513,30578,7919635,9098,7961931,137,0,0,259,2,2,2,253,84,9,8,7,235,259,669,381251,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,259,0,0,0,108,108,259,0,0,0,164,8431,0,42522,1472,13444,0,381255,0,108,108,181960,306,0,0,0,0,0,0,0,0,368,2136,0,39761,367,0,0,0,0,0,0,0,0,0,447,115645,0,67782,315,115645,67782,0,0,0,0,2136,39761,108,2025,4,9,2,27,'2025-02-27 04:36:00','2025-02-28 00:00:25'),
 (2,'2025-02','fb_messenger','CSD','2025-02-27',4,0,58615,21905,109524,60,48519,2,0,0,5,1,0,0,4,0,1,0,1,3,0,5,88,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,5,0,0,0,0,1,0,1,18,35,0,88,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,'2025-02-27 04:36:00','2025-02-28 00:00:23'),
@@ -1205,61 +930,8 @@ insert  into `yovo_tbl_contact_center_stats_daily`(`id`,`pKey`,`channel`,`queue`
 (47,'2025-03','fb_pages','CSD','2025-03-01',1,0,4670,4670,4670,7,4671,0,0,0,1,0,0,0,1,0,0,0,0,1,0,1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,4,4,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,9,3,1,'2025-03-01 00:15:19','2025-03-02 00:00:11'),
 (48,'2025-03','email','TAC','2025-03-01',0,0,0,0,0,192,172800,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,9,3,1,'2025-03-01 00:15:19','2025-03-02 00:00:13'),
 (49,'2025-03','call','CXR','2025-03-01',1138,2,187,9,10531,1150,10532,0,0,0,1122,981,19,27,95,1027,981,20,27,94,1028,1317,151127,4446,46,50,16,6,0,1,9,7,6,0,1,9,7,0,1123,1128,1226,86854,27,42,1123,7,1,3398,109,79354,1,122830,129,1521,3,144395,0,42,27,4161,32,3,152,2,20,6,0,14,0,153,684,0,4142,266,614,0,329,4802,0,0,217,0,0,0,0,0,0,0,0,0,0,0,0,3,1526,344904,300,2025,1,9,3,1,'2025-03-01 00:15:19','2025-03-02 00:00:12'),
-(50,'2025-03','email','no_queue_found','2025-03-01',0,0,0,0,0,288,259200,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,9,3,1,'2025-03-01 00:15:19','2025-03-02 00:00:11'),
-(51,'2025-03','call','Alignment','2025-03-01',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,71,163,0,0,0,0,0,57370,0,78774,0,0,0,0,0,158,71,3916,80,0,0,0,75,6,0,58,0,54,262,0,3865,66,34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,262,7751,109,2025,1,9,3,1,'2025-03-01 00:15:19','2025-03-02 00:00:12'),
-(52,'2025-03','call','Engineering_Ops','2025-03-01',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,38,13,0,0,0,0,0,20906,0,48290,0,0,0,0,0,78,38,1883,38,0,0,0,47,4,0,39,0,50,206,0,1884,45,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,206,2936,77,2025,1,9,3,1,'2025-03-01 00:15:19','2025-03-02 00:00:13'),
-(53,'2025-03','sms','CXR','2025-03-01',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,21,0,0,0,0,0,1,1,13,0,0,0,0,0,21,21,503,21,0,0,0,0,0,0,0,0,24,97,6,503,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,97,503,24,2025,1,9,3,1,'2025-03-01 00:15:19','2025-03-02 00:00:13'),
-(54,'2025-03','call','TST_TS','2025-03-01',36,0,11,2,89,36,89,0,0,0,34,33,1,0,0,34,33,1,0,0,34,42,6035,0,0,0,2,2,0,0,0,2,2,0,0,0,2,0,34,34,34,15,0,0,34,5,0,160,347,3399,0,11810,166,630,0,5645,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,23,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,635,14491,426,2025,1,9,3,1,'2025-03-01 00:15:19','2025-03-02 00:00:13'),
-(55,'2025-03','sms','Telesales_LHR','2025-03-01',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,1,0,1,0,0,0,0,0,2,2,298,2,0,0,0,0,0,0,0,0,149,238,0,298,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,238,298,149,2025,1,9,3,1,'2025-03-01 00:15:19','2025-03-02 00:00:12'),
-(56,'2025-03','call','Telesales_LHR','2025-03-01',119,2,199,8,975,119,975,0,0,0,115,107,5,0,3,112,107,5,0,3,112,134,15506,0,0,0,4,0,0,0,4,0,0,0,0,4,0,0,115,115,115,54,11,29,115,6,1,412,38,679,1,4394,129,890,0,14826,0,29,11,1904,14,0,0,0,9,1,0,8,0,173,521,0,1904,31,70,0,0,0,0,0,29,0,0,0,0,0,0,0,0,0,0,0,0,7,891,40655,323,2025,1,9,3,1,'2025-03-01 00:15:19','2025-03-02 00:00:12'),
-(57,'2025-03','sms','TST','2025-03-01',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,392,0,392,0,0,0,0,0,1,1,2,1,0,0,0,0,0,0,0,0,2,2,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2025,1,9,3,1,'2025-03-01 00:15:19','2025-03-02 00:00:13'),
-(58,'2025-03','call','CSD','2025-03-01',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,204,409,0,0,0,0,0,58095,0,138839,0,0,0,0,0,409,204,16116,233,1,0,1,236,36,0,186,0,76,379,0,15404,175,112,0,0,0,0,0,12,0,0,0,0,0,0,0,0,0,0,0,0,0,588,29909,147,2025,1,9,3,1,'2025-03-01 00:15:19','2025-03-02 00:00:13'),
-(59,'2025-03','instagram','CSD','2025-03-01',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,9,3,1,'2025-03-01 00:15:19','2025-03-02 00:00:13'),
-(60,'2025-03','sms','Alignment','2025-03-01',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,1,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,2025,1,9,3,1,'2025-03-01 00:15:19','2025-03-02 00:00:12'),
-(61,'2025-03','sms','CSD','2025-03-01',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,1,0,1,0,0,0,0,0,2,2,307,2,0,0,0,0,0,0,0,0,154,296,0,307,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,296,307,154,2025,1,9,3,1,'2025-03-01 00:15:19','2025-03-02 00:00:11'),
-(62,'2025-03','call','ivrHangup','2025-03-01',0,0,0,0,0,0,0,0,323,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,9,3,1,'2025-03-01 00:15:19','2025-03-02 00:00:13'),
-(63,'2025-03','fb_messenger','CSD','2025-03-01',4,0,4315,2296,4591,36,28875,0,0,0,2,0,0,0,2,0,0,0,0,2,0,2,306,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,1,0,1,153,160,0,306,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,9,3,1,'2025-03-01 00:15:19','2025-03-02 00:00:12'),
-(64,'2025-03','call','CHURN','2025-03-01',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,144,264,0,0,0,0,0,8048,0,12667,0,0,0,0,0,259,144,16139,167,0,0,0,108,6,0,91,0,109,571,0,15654,163,45,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,571,24062,167,2025,1,9,3,1,'2025-03-01 00:15:19','2025-03-02 00:00:13'),
-(65,'2025-03','call','defaultQueue','2025-03-01',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,9,3,1,'2025-03-01 00:15:19','2025-03-02 00:00:14'),
-(66,'2025-03','instagram_dm','CSD','2025-03-01',2,0,53589,38742,77485,96,84267,1,0,0,2,0,0,0,2,0,0,0,0,2,0,2,388,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,1,0,1,194,384,0,388,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,9,3,1,'2025-03-01 00:15:19','2025-03-02 00:00:13'),
-(67,'2025-03','linkedin_feed','CSD','2025-03-01',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,9,3,1,'2025-03-01 00:15:19','2025-03-02 00:00:12'),
-(68,'2025-03','email','CSD','2025-03-01',193,0,83113,21057,3495426,8220,7247239,65,0,0,166,0,3,1,162,80,2,5,3,156,166,687,463193,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,161,0,0,0,49,49,161,0,0,0,15,1370,1,2471,2326,15121,0,374444,0,51,51,561475,673,0,0,0,0,0,0,0,0,349,1090,65,17093,210,0,0,0,0,0,0,0,0,0,333,53583,0,53583,255,53583,53583,0,0,0,65,1090,17093,81,2025,1,9,3,1,'2025-03-01 00:15:19','2025-03-02 00:00:12'),
-(69,'2025-03','call','TST','2025-03-01',301,2,171,8,2541,304,2541,0,0,0,297,264,4,10,19,278,264,4,10,19,278,389,72087,0,0,0,4,1,0,1,2,2,1,0,1,2,2,0,300,306,342,33270,52,80,299,61,1,10162,937,72885,1,280090,232,1738,37,69704,0,81,52,97600,161,0,0,0,33,3,0,28,0,215,1768,11,11201,84,183,0,0,0,0,0,24,0,0,0,0,0,0,0,0,0,0,0,0,11,1768,202980,577,2025,1,9,3,1,'2025-03-01 00:15:19','2025-03-02 00:00:12'),
-(70,'2025-03','call','Engineering_Ops','2025-03-02',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,2,0,0,0,0,0,3,0,6,0,0,0,0,0,23,12,652,13,0,0,0,12,1,0,11,0,54,180,0,652,14,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,180,1109,92,2025,1,10,3,2,'2025-03-02 00:16:33','2025-03-03 00:00:27'),
-(71,'2025-03','call','Alignment','2025-03-02',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,10,3,2,'2025-03-02 00:16:33','2025-03-03 00:00:26'),
-(72,'2025-03','call','CHURN','2025-03-02',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,10,3,2,'2025-03-02 00:16:33','2025-03-03 00:00:27'),
-(73,'2025-03','fb_pages','CSD','2025-03-02',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,10,3,2,'2025-03-02 00:16:33','2025-03-03 00:00:26'),
-(74,'2025-03','instagram','CSD','2025-03-02',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,10,3,2,'2025-03-02 00:16:33','2025-03-03 00:00:26'),
-(75,'2025-03','sms','Telesales_LHR','2025-03-02',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,10,3,2,'2025-03-02 00:16:33','2025-03-03 00:00:26'),
-(76,'2025-03','call','defaultQueue','2025-03-02',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,10,3,2,'2025-03-02 00:16:33','2025-03-03 00:00:26'),
-(77,'2025-03','linkedin_feed','CSD','2025-03-02',1,0,39336,39336,39336,45,39338,0,0,0,1,0,0,0,1,0,0,0,0,1,1,1,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,1,0,1,9,9,0,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,10,3,2,'2025-03-02 00:16:33','2025-03-03 00:00:24'),
-(78,'2025-03','call','CSD','2025-03-02',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,138,340,0,0,0,0,0,1227,1,19869,0,0,0,0,0,340,138,9001,153,0,0,0,214,22,0,178,0,64,492,0,8869,148,72,0,0,0,0,0,9,0,0,0,0,0,0,0,0,0,0,0,0,0,492,16850,122,2025,1,10,3,2,'2025-03-02 00:16:33','2025-03-03 00:00:27'),
-(79,'2025-03','email','TAC','2025-03-02',0,0,0,0,0,192,172800,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,10,3,2,'2025-03-02 00:16:33','2025-03-03 00:00:26'),
-(80,'2025-03','sms','Alignment','2025-03-02',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,10,3,2,'2025-03-02 00:16:33','2025-03-03 00:00:27'),
-(81,'2025-03','call','Telesales_LHR','2025-03-02',76,0,154,6,473,77,473,0,0,0,75,71,1,1,2,73,71,1,1,2,73,88,9902,0,1,1,1,0,0,0,1,0,0,0,0,1,0,0,74,75,75,28,8,17,74,6,0,276,325,19473,0,24050,126,732,0,9297,0,17,8,579,9,0,0,0,6,0,0,6,0,72,254,0,579,17,44,0,0,0,0,0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,733,27518,336,2025,1,10,3,2,'2025-03-02 00:16:33','2025-03-03 00:00:28'),
-(82,'2025-03','email','CSD','2025-03-02',145,0,127472,33627,4909602,9378,8312102,92,0,0,146,1,0,1,144,53,2,0,1,143,146,407,225887,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,151,0,0,0,33,33,151,0,0,0,121,2738,1,18324,939,8958,1,141837,0,34,34,628094,738,0,0,0,0,0,0,0,0,711,7397,52,23454,184,0,0,0,0,0,0,0,0,0,1924,290564,0,114625,1579,290564,114625,0,0,0,52,7397,23454,127,2025,1,10,3,2,'2025-03-02 00:16:33','2025-03-03 00:00:25'),
-(83,'2025-03','sms','CSD','2025-03-02',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,1,0,0,0,0,0,1,1,41,1,0,0,0,0,0,0,0,0,41,41,0,41,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,41,41,41,2025,1,10,3,2,'2025-03-02 00:16:33','2025-03-03 00:00:24'),
-(84,'2025-03','instagram_dm','CSD','2025-03-02',1,0,82055,42948,85897,70,62034,1,0,0,2,0,0,0,2,0,0,0,0,2,0,2,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0,1,0,1,50,57,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,10,3,2,'2025-03-02 00:16:33','2025-03-03 00:00:26'),
-(85,'2025-03','fb_messenger','CSD','2025-03-02',4,0,70945,29766,148830,151,131642,2,0,0,5,0,0,0,5,0,0,0,0,5,0,5,315,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,5,0,0,0,1,1,0,3,63,83,0,315,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,10,3,2,'2025-03-02 00:16:33','2025-03-03 00:00:25'),
-(86,'2025-03','call','TST','2025-03-02',205,0,206,11,2228,208,2228,0,0,0,203,184,2,0,17,186,184,2,1,16,187,273,49583,0,0,0,2,1,0,0,1,1,1,0,0,1,1,0,203,203,301,87423,28,48,203,61,0,8701,379,8855,1,76845,225,1322,0,45575,0,47,28,88801,127,0,0,0,21,0,0,20,0,86,936,0,2401,50,124,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,1327,125963,545,2025,1,10,3,2,'2025-03-02 00:16:33','2025-03-03 00:00:26'),
-(87,'2025-03','call','TST_TS','2025-03-02',14,0,118,16,224,15,225,0,0,0,12,11,0,0,1,11,11,0,0,1,11,14,1915,0,0,0,2,1,0,0,1,1,1,0,0,1,1,0,12,12,12,1,0,3,12,5,0,54,484,3669,0,5811,160,578,0,1915,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,7,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,583,4712,393,2025,1,10,3,2,'2025-03-02 00:16:33','2025-03-03 00:00:26'),
-(88,'2025-03','sms','CXR','2025-03-02',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,21,0,0,0,0,0,72,0,88,0,0,0,0,0,21,21,848,22,0,0,0,0,0,0,0,0,40,312,0,848,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,312,848,40,2025,1,10,3,2,'2025-03-02 00:16:33','2025-03-03 00:00:25'),
-(89,'2025-03','call','CXR','2025-03-02',696,1,145,7,5015,699,5016,0,0,0,690,631,11,8,40,650,632,11,8,39,651,821,96178,2382,25,27,6,3,0,0,3,3,3,0,0,3,3,0,690,698,794,86736,24,50,688,6,1,2255,62,4547,1,42875,133,2516,2,91872,0,49,24,4280,30,3,323,1,43,18,0,24,0,175,1120,70,4190,142,368,0,323,2682,0,0,152,0,0,0,0,0,0,0,0,0,0,0,0,2,2518,238506,334,2025,1,10,3,2,'2025-03-02 00:16:33','2025-03-03 00:00:27'),
-(90,'2025-03','sms','TST','2025-03-02',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,10,3,2,'2025-03-02 00:16:33','2025-03-03 00:00:24'),
-(91,'2025-03','email','no_queue_found','2025-03-02',0,0,0,0,0,288,259200,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,10,3,2,'2025-03-02 00:16:33','2025-03-03 00:00:25'),
-(92,'2025-03','call','ivrHangup','2025-03-02',0,0,0,0,0,0,0,0,191,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,10,3,2,'2025-03-02 00:16:33','2025-03-03 00:00:27'),
-(93,'2025-03','call','TST','2025-03-03',269,2,370,12,3098,275,3098,0,0,0,265,250,0,0,15,250,250,0,1,14,251,366,62275,0,0,0,4,2,0,0,2,2,2,0,0,2,2,0,265,265,363,87993,79,143,266,61,0,10390,477,8126,1,126831,216,1163,0,57174,0,143,79,99108,194,0,0,0,78,12,0,64,0,151,1618,0,11931,109,175,0,0,0,0,0,18,0,0,0,0,0,0,0,0,0,0,0,0,0,1618,172840,502,2025,1,10,3,3,'2025-03-03 00:15:24','2025-03-04 00:00:48'),
-(94,'2025-03','email','TAC','2025-03-03',0,0,0,0,0,192,172800,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,10,3,3,'2025-03-03 00:15:24','2025-03-04 00:00:46'),
-(95,'2025-03','call','Engineering_Ops','2025-03-03',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,23,9,0,0,0,0,0,1534,0,1557,0,0,0,0,0,48,23,1483,25,0,0,0,27,0,0,25,0,64,469,0,1483,35,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,469,2051,89,2025,1,10,3,3,'2025-03-03 00:15:24','2025-03-04 00:00:47'),
-(96,'2025-03','call','CSD','2025-03-03',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,290,565,0,0,0,0,0,247130,0,603293,0,0,0,0,0,565,290,23508,326,1,20,1,328,39,0,263,0,80,1196,0,23226,257,122,0,20,20,0,0,20,0,0,0,0,0,0,0,0,0,0,0,0,0,1196,38916,134,2025,1,10,3,3,'2025-03-03 00:15:24','2025-03-04 00:00:48'),
-(97,'2025-03','email','no_queue_found','2025-03-03',0,0,0,0,0,288,259200,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,10,3,3,'2025-03-03 00:15:24','2025-03-04 00:00:48'),
-(98,'2025-03','call','Alignment','2025-03-03',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,92,183,0,0,0,0,0,2965,0,22409,0,0,0,0,0,183,92,4377,100,0,0,0,101,5,0,81,0,45,279,0,4173,85,39,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,279,8948,97,2025,1,10,3,3,'2025-03-03 00:15:24','2025-03-04 00:00:45'),
-(99,'2025-03','sms','CXR','2025-03-03',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,61,61,0,0,0,0,0,12,0,69,0,0,0,0,0,61,61,3519,62,0,0,0,0,0,0,0,0,58,619,0,3519,61,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,619,3519,58,2025,1,10,3,3,'2025-03-03 00:15:24','2025-03-04 00:00:47'),
-(100,'2025-03','call','defaultQueue','2025-03-03',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,10,3,3,'2025-03-03 00:15:24','2025-03-04 00:00:46');
+(50,'2025-03','email','no_queue_found','2025-03-01',0,0,0,0,0,288,259200,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,1,9,3,1,'2025-03-01 00:15:19','2025-03-02 00:00:11');
 /*Table structure for table `yovo_tbl_contact_center_stats_half_hourly` */
-
-DROP TABLE IF EXISTS `yovo_tbl_contact_center_stats_half_hourly`;
-
 CREATE TABLE `yovo_tbl_contact_center_stats_half_hourly` (
   `id` int NOT NULL AUTO_INCREMENT,
   `pKey` varchar(255) NOT NULL,
@@ -1379,29 +1051,8 @@ CREATE TABLE `yovo_tbl_contact_center_stats_half_hourly` (
  PARTITION p_2025_02 VALUES LESS THAN ('2025-03') ENGINE = InnoDB,
  PARTITION p_2025_03 VALUES LESS THAN ('2025-04') ENGINE = InnoDB,
  PARTITION p_2025_04 VALUES LESS THAN ('2025-05') ENGINE = InnoDB,
- PARTITION p_2025_05 VALUES LESS THAN ('2025-06') ENGINE = InnoDB,
- PARTITION p_2025_06 VALUES LESS THAN ('2025-07') ENGINE = InnoDB,
- PARTITION p_2025_07 VALUES LESS THAN ('2025-08') ENGINE = InnoDB,
- PARTITION p_2025_08 VALUES LESS THAN ('2025-09') ENGINE = InnoDB,
- PARTITION p_2025_09 VALUES LESS THAN ('2025-10') ENGINE = InnoDB,
- PARTITION p_2025_10 VALUES LESS THAN ('2025-11') ENGINE = InnoDB,
- PARTITION p_2025_11 VALUES LESS THAN ('2025-12') ENGINE = InnoDB,
- PARTITION p_2025_12 VALUES LESS THAN ('2026-01') ENGINE = InnoDB,
- PARTITION p_2026_01 VALUES LESS THAN ('2026-02') ENGINE = InnoDB,
- PARTITION p_2026_02 VALUES LESS THAN ('2026-03') ENGINE = InnoDB,
- PARTITION p_2026_03 VALUES LESS THAN ('2026-04') ENGINE = InnoDB,
- PARTITION p_2026_04 VALUES LESS THAN ('2026-05') ENGINE = InnoDB,
- PARTITION p_2026_05 VALUES LESS THAN ('2026-06') ENGINE = InnoDB,
- PARTITION p_2026_06 VALUES LESS THAN ('2026-07') ENGINE = InnoDB,
- PARTITION p_2026_07 VALUES LESS THAN ('2026-08') ENGINE = InnoDB,
- PARTITION p_2026_08 VALUES LESS THAN ('2026-09') ENGINE = InnoDB,
- PARTITION p_2026_09 VALUES LESS THAN ('2026-10') ENGINE = InnoDB,
- PARTITION p_2026_10 VALUES LESS THAN ('2026-11') ENGINE = InnoDB,
- PARTITION p_2026_11 VALUES LESS THAN ('2026-12') ENGINE = InnoDB,
- PARTITION p_2026_12 VALUES LESS THAN ('2027-01') ENGINE = InnoDB) */;
-
+ PARTITION p_2025_05 VALUES LESS THAN ('2025-06') ENGINE = InnoDB */;
 /*Data for the table `yovo_tbl_contact_center_stats_half_hourly` */
-
 insert  into `yovo_tbl_contact_center_stats_half_hourly`(`id`,`pKey`,`channel`,`queue`,`timeInterval`,`intervalType`,`inbound`,`queueWaitTimeMin`,`queueWaitTimeMax`,`queueWaitTimeAvg`,`queueWaitTimeTotal`,`waitingOccupancyCount`,`waitingOccupancyTime`,`waitingCarryForward`,`ivrHangupInbound`,`ivrHangupOutbound`,`answeredInbound`,`answeredInTen`,`answeredMoreTenInTwenty`,`answeredMoreTwentyInThirty`,`answeredAfterThirty`,`answeredWithinSetValue`,`connectedOccupancyInTen`,`connectedOccupancyMoreTenInTwenty`,`connectedOccupancyMoreTwentyInThirty`,`connectedOccupancyAfterThirty`,`connectedOccupancyWithinSetValue`,`connectedOccupancyCountInbound`,`connectedOccupancyTimeInbound`,`holdTimeOccupancy`,`holdInbound`,`holdCountOccupancy`,`abandonedInbound`,`abandonedInTen`,`abandonedMoreTenInTwenty`,`abandonedMoreTwentyInThirty`,`abandonedAfterThirty`,`abandonedWithinSetValue`,`abandonedOccupancyInTen`,`abandonedOccupancyMoreTenInTwenty`,`abandonedOccupancyMoreTwentyInThirty`,`abandonedOccupancyAfterThirty`,`abandonedOccupancyWithinSetValue`,`wrapUpTimeAgentAvg`,`wrapUpInbound`,`acwCounts`,`acwOccupancyCount`,`acwOccupancyTime`,`wrapUpOutbound`,`closedOutbound`,`closedInbound`,`maxACW`,`minACW`,`acwTime`,`wrapUpTimeInteractionAvg`,`wrapUpTimeInteractionMax`,`wrapUpTimeInteractionMin`,`wrapUpTimeInteractionTotal`,`inboundInteractionTimeAvg`,`inboundInteractionTimeMax`,`inboundInteractionTimeMin`,`inboundInteractionTimeTotal`,`answeredAfterAbandoned`,`outbound`,`answeredOutbound`,`connectedOccupancyTimeOutbound`,`connectedOccupancyCountOutbound`,`holdCountOccupancyOutbound`,`holdTimeOccupancyOutbound`,`holdOutbound`,`abandonedOutbound`,`outboundBusy`,`outboundFailed`,`outboundNotAnswer`,`outboundCancel`,`outboundInteractionTimeAvg`,`outboundInteractionTimeMax`,`outboundInteractionTimeMin`,`outboundInteractionTimeTotal`,`completeByAgent`,`completeByCaller`,`holdTimeMin`,`holdTimeMax`,`holdTimeTotal`,`holdTimeAvg`,`agentTransfers`,`applicationTransfers`,`externalTransfers`,`sharedCount`,`firstResponseTimeAvg`,`firstResponseTimeTotal`,`firstResponseTimeMin`,`firstResponseTimeMax`,`averageResponseTimeAvg`,`averageResponseTimeTotal`,`averageResponseTimeMax`,`averageResponseTimeMin`,`dialerCalls`,`handledByBot`,`handleTimeMin`,`handleTimeMax`,`handleTimeTotal`,`handleTimeAvg`,`year`,`week`,`weekOfYear`,`month`,`day`,`hour`,`createdAt`,`updatedAt`) values 
 (1,'2025-02','email','CSD','2025-02-27 04:00:00','00:30',0,0,0,0,0,137,123300,137,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1800,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,4,'2025-02-27 04:36:00','2025-02-27 04:36:00'),
 (2,'2025-02','fb_messenger','CSD','2025-02-27 04:00:00','00:30',0,0,0,0,0,2,1800,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,4,'2025-02-27 04:36:00','2025-02-27 04:36:00'),
@@ -1452,61 +1103,8 @@ insert  into `yovo_tbl_contact_center_stats_half_hourly`(`id`,`pKey`,`channel`,`
 (47,'2025-02','email','TAC','2025-02-27 05:00:00','31:00',0,0,0,0,0,4,3600,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,5,'2025-02-27 06:06:58','2025-02-27 06:07:00'),
 (48,'2025-02','instagram_dm','CSD','2025-02-27 06:00:00','00:30',0,0,0,0,0,6,5400,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:51:52'),
 (49,'2025-02','email','TAC','2025-02-27 06:00:00','00:30',0,0,0,0,0,4,3600,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:51:51'),
-(50,'2025-02','instagram','CSD','2025-02-27 06:00:00','00:30',0,0,0,0,0,2,1800,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:51:51'),
-(51,'2025-02','email','no_queue_found','2025-02-27 06:00:00','00:30',0,0,0,0,0,6,5400,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:51:52'),
-(52,'2025-02','fb_messenger','CSD','2025-02-27 06:00:00','00:30',0,0,0,0,0,4,3600,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:51:51'),
-(53,'2025-02','call','defaultQueue','2025-02-27 06:00:00','00:30',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:51:53'),
-(54,'2025-02','call','TST','2025-02-27 06:00:00','00:30',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:51:52'),
-(55,'2025-02','call','CXR','2025-02-27 06:00:00','00:30',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:51:52'),
-(56,'2025-02','linkedin_feed','CSD','2025-02-27 06:00:00','00:30',0,0,0,0,0,6,5400,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:51:52'),
-(57,'2025-02','call','Telesales_LHR','2025-02-27 06:00:00','00:30',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:51:52'),
-(58,'2025-02','sms','CXR','2025-02-27 06:00:00','00:30',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1800,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:51:51'),
-(59,'2025-02','fb_pages','CSD','2025-02-27 06:00:00','00:30',0,0,0,0,0,14,12600,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:51:53'),
-(60,'2025-02','email','CSD','2025-02-27 06:00:00','00:30',7,0,0,0,0,288,255135,139,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3600,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:51:52'),
-(61,'2025-02','email','no_queue_found','2025-02-27 06:00:00','31:00',0,0,0,0,0,6,5400,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:51:54','2025-02-27 07:00:36'),
-(62,'2025-02','sms','CXR','2025-02-27 06:00:00','31:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1800,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:51:54','2025-02-27 07:00:35'),
-(63,'2025-02','call','Telesales_LHR','2025-02-27 06:00:00','31:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:51:54','2025-02-27 07:00:36'),
-(64,'2025-02','call','defaultQueue','2025-02-27 06:00:00','31:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:51:54','2025-02-27 07:00:36'),
-(65,'2025-02','email','CSD','2025-02-27 06:00:00','31:00',0,0,0,0,0,292,262800,146,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3600,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:51:54','2025-02-27 07:00:36'),
-(66,'2025-02','call','TST','2025-02-27 06:00:00','31:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:51:54','2025-02-27 07:00:35'),
-(67,'2025-02','instagram','CSD','2025-02-27 06:00:00','31:00',0,0,0,0,0,2,1800,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:51:54','2025-02-27 07:00:37'),
-(68,'2025-02','email','TAC','2025-02-27 06:00:00','31:00',0,0,0,0,0,4,3600,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:51:54','2025-02-27 07:00:35'),
-(69,'2025-02','instagram_dm','CSD','2025-02-27 06:00:00','31:00',0,0,0,0,0,6,5400,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:51:54','2025-02-27 07:00:35'),
-(70,'2025-02','fb_pages','CSD','2025-02-27 06:00:00','31:00',0,0,0,0,0,14,12600,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:51:54','2025-02-27 07:00:35'),
-(71,'2025-02','linkedin_feed','CSD','2025-02-27 06:00:00','31:00',0,0,0,0,0,6,5400,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:51:54','2025-02-27 07:00:36'),
-(72,'2025-02','call','CXR','2025-02-27 06:00:00','31:00',1,0,2,2,2,1,2,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,200,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,2,0,2,0,0,0,0,0,1,1,11,1,0,0,0,0,0,0,0,0,11,11,0,11,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11,22,22,2025,4,9,2,27,6,'2025-02-27 06:51:54','2025-02-27 07:00:36'),
-(73,'2025-02','fb_messenger','CSD','2025-02-27 06:00:00','31:00',0,0,0,0,0,4,3600,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:51:54','2025-02-27 07:00:36'),
-(74,'2025-02','call','ivrHangup','2025-02-27 06:00:00','31:00',0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 07:00:35','2025-02-27 07:00:35'),
-(75,'2025-02','email','no_queue_found','2025-02-27 07:00:00','00:30',0,0,0,0,0,6,5400,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:29:36','2025-02-27 07:31:35'),
-(76,'2025-02','call','Telesales_LHR','2025-02-27 07:00:00','00:30',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:29:36','2025-02-27 07:31:34'),
-(77,'2025-02','instagram_dm','CSD','2025-02-27 07:00:00','00:30',0,0,0,0,0,6,5400,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:29:36','2025-02-27 07:31:35'),
-(78,'2025-02','fb_messenger','CSD','2025-02-27 07:00:00','00:30',0,0,0,0,0,4,3600,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:29:36','2025-02-27 07:31:34'),
-(79,'2025-02','fb_pages','CSD','2025-02-27 07:00:00','00:30',0,0,0,0,0,14,12600,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:29:36','2025-02-27 07:31:35'),
-(80,'2025-02','instagram','CSD','2025-02-27 07:00:00','00:30',0,0,0,0,0,2,1800,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:29:36','2025-02-27 07:31:35'),
-(81,'2025-02','call','defaultQueue','2025-02-27 07:00:00','00:30',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:29:36','2025-02-27 07:31:33'),
-(82,'2025-02','sms','CXR','2025-02-27 07:00:00','00:30',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1800,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:29:36','2025-02-27 07:31:33'),
-(83,'2025-02','email','TAC','2025-02-27 07:00:00','00:30',0,0,0,0,0,4,3600,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:29:36','2025-02-27 07:31:34'),
-(84,'2025-02','email','CSD','2025-02-27 07:00:00','00:30',2,0,0,0,0,296,265161,146,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3600,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:29:36','2025-02-27 07:31:34'),
-(85,'2025-02','linkedin_feed','CSD','2025-02-27 07:00:00','00:30',0,0,0,0,0,6,5400,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:29:36','2025-02-27 07:31:35'),
-(86,'2025-02','call','TST','2025-02-27 07:00:00','00:30',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:29:36','2025-02-27 07:31:35'),
-(87,'2025-02','call','ivrHangup','2025-02-27 07:00:00','00:30',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:29:36','2025-02-27 07:31:34'),
-(88,'2025-02','call','CXR','2025-02-27 07:00:00','00:30',1,0,2,2,2,1,2,0,0,0,1,1,0,0,0,1,1,0,0,0,1,2,58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,2,0,0,1,2,2,2,2,2,2,2,235,235,235,235,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,237,237,237,237,2025,4,9,2,27,7,'2025-02-27 07:29:36','2025-02-27 07:31:33'),
-(89,'2025-02','call','TST','2025-02-27 07:00:00','31:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:48:57','2025-02-27 08:00:40'),
-(90,'2025-02','email','TAC','2025-02-27 07:00:00','31:00',0,0,0,0,0,4,3600,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:48:57','2025-02-27 08:00:39'),
-(91,'2025-02','email','no_queue_found','2025-02-27 07:00:00','31:00',0,0,0,0,0,6,5400,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:48:57','2025-02-27 08:00:39'),
-(92,'2025-02','call','defaultQueue','2025-02-27 07:00:00','31:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:48:57','2025-02-27 08:00:39'),
-(93,'2025-02','fb_messenger','CSD','2025-02-27 07:00:00','31:00',0,0,0,0,0,4,3600,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:48:57','2025-02-27 08:00:39'),
-(94,'2025-02','call','Telesales_LHR','2025-02-27 07:00:00','31:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:48:57','2025-02-27 08:00:40'),
-(95,'2025-02','instagram_dm','CSD','2025-02-27 07:00:00','31:00',0,0,0,0,0,6,5400,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:48:57','2025-02-27 08:00:40'),
-(96,'2025-02','email','CSD','2025-02-27 07:00:00','31:00',3,0,0,0,0,299,267348,148,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3600,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:48:57','2025-02-27 08:00:40'),
-(97,'2025-02','call','ivrHangup','2025-02-27 07:00:00','31:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:48:57','2025-02-27 08:00:40'),
-(98,'2025-02','instagram','CSD','2025-02-27 07:00:00','31:00',0,0,0,0,0,2,1800,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:48:57','2025-02-27 08:00:40'),
-(99,'2025-02','fb_pages','CSD','2025-02-27 07:00:00','31:00',1,0,0,0,0,15,13137,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:48:57','2025-02-27 08:00:40'),
-(100,'2025-02','linkedin_feed','CSD','2025-02-27 07:00:00','31:00',1,0,0,0,0,7,5436,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:48:57','2025-02-27 08:00:39');
+(50,'2025-02','instagram','CSD','2025-02-27 06:00:00','00:30',0,0,0,0,0,2,1800,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,6,'2025-02-27 06:25:58','2025-02-27 06:51:51');
 /*Table structure for table `yovo_tbl_contact_center_stats_hourly` */
-
-DROP TABLE IF EXISTS `yovo_tbl_contact_center_stats_hourly`;
-
 CREATE TABLE `yovo_tbl_contact_center_stats_hourly` (
   `id` int NOT NULL AUTO_INCREMENT,
   `pKey` varchar(255) NOT NULL,
@@ -1626,28 +1224,8 @@ CREATE TABLE `yovo_tbl_contact_center_stats_hourly` (
  PARTITION p_2025_03 VALUES LESS THAN ('2025-04') ENGINE = InnoDB,
  PARTITION p_2025_04 VALUES LESS THAN ('2025-05') ENGINE = InnoDB,
  PARTITION p_2025_05 VALUES LESS THAN ('2025-06') ENGINE = InnoDB,
- PARTITION p_2025_06 VALUES LESS THAN ('2025-07') ENGINE = InnoDB,
- PARTITION p_2025_07 VALUES LESS THAN ('2025-08') ENGINE = InnoDB,
- PARTITION p_2025_08 VALUES LESS THAN ('2025-09') ENGINE = InnoDB,
- PARTITION p_2025_09 VALUES LESS THAN ('2025-10') ENGINE = InnoDB,
- PARTITION p_2025_10 VALUES LESS THAN ('2025-11') ENGINE = InnoDB,
- PARTITION p_2025_11 VALUES LESS THAN ('2025-12') ENGINE = InnoDB,
- PARTITION p_2025_12 VALUES LESS THAN ('2026-01') ENGINE = InnoDB,
- PARTITION p_2026_01 VALUES LESS THAN ('2026-02') ENGINE = InnoDB,
- PARTITION p_2026_02 VALUES LESS THAN ('2026-03') ENGINE = InnoDB,
- PARTITION p_2026_03 VALUES LESS THAN ('2026-04') ENGINE = InnoDB,
- PARTITION p_2026_04 VALUES LESS THAN ('2026-05') ENGINE = InnoDB,
- PARTITION p_2026_05 VALUES LESS THAN ('2026-06') ENGINE = InnoDB,
- PARTITION p_2026_06 VALUES LESS THAN ('2026-07') ENGINE = InnoDB,
- PARTITION p_2026_07 VALUES LESS THAN ('2026-08') ENGINE = InnoDB,
- PARTITION p_2026_08 VALUES LESS THAN ('2026-09') ENGINE = InnoDB,
- PARTITION p_2026_09 VALUES LESS THAN ('2026-10') ENGINE = InnoDB,
- PARTITION p_2026_10 VALUES LESS THAN ('2026-11') ENGINE = InnoDB,
- PARTITION p_2026_11 VALUES LESS THAN ('2026-12') ENGINE = InnoDB,
- PARTITION p_2026_12 VALUES LESS THAN ('2027-01') ENGINE = InnoDB) */;
-
+ PARTITION p_2025_06 VALUES LESS THAN ('2025-07') ENGINE = InnoDB */;
 /*Data for the table `yovo_tbl_contact_center_stats_hourly` */
-
 insert  into `yovo_tbl_contact_center_stats_hourly`(`id`,`pKey`,`channel`,`queue`,`timeInterval`,`inbound`,`queueWaitTimeMin`,`queueWaitTimeMax`,`queueWaitTimeAvg`,`queueWaitTimeTotal`,`waitingOccupancyCount`,`waitingOccupancyTime`,`waitingCarryForward`,`ivrHangupInbound`,`ivrHangupOutbound`,`answeredInbound`,`answeredInTen`,`answeredMoreTenInTwenty`,`answeredMoreTwentyInThirty`,`answeredAfterThirty`,`answeredWithinSetValue`,`connectedOccupancyInTen`,`connectedOccupancyMoreTenInTwenty`,`connectedOccupancyMoreTwentyInThirty`,`connectedOccupancyAfterThirty`,`connectedOccupancyWithinSetValue`,`connectedOccupancyCountInbound`,`connectedOccupancyTimeInbound`,`holdTimeOccupancy`,`holdInbound`,`holdCountOccupancy`,`abandonedInbound`,`abandonedInTen`,`abandonedMoreTenInTwenty`,`abandonedMoreTwentyInThirty`,`abandonedAfterThirty`,`abandonedWithinSetValue`,`abandonedOccupancyInTen`,`abandonedOccupancyMoreTenInTwenty`,`abandonedOccupancyMoreTwentyInThirty`,`abandonedOccupancyAfterThirty`,`abandonedOccupancyWithinSetValue`,`wrapUpTimeAgentAvg`,`wrapUpInbound`,`acwCounts`,`acwOccupancyCount`,`acwOccupancyTime`,`wrapUpOutbound`,`closedOutbound`,`closedInbound`,`maxACW`,`minACW`,`acwTime`,`wrapUpTimeInteractionAvg`,`wrapUpTimeInteractionMax`,`wrapUpTimeInteractionMin`,`wrapUpTimeInteractionTotal`,`inboundInteractionTimeAvg`,`inboundInteractionTimeMax`,`inboundInteractionTimeMin`,`inboundInteractionTimeTotal`,`answeredAfterAbandoned`,`outbound`,`answeredOutbound`,`connectedOccupancyTimeOutbound`,`connectedOccupancyCountOutbound`,`holdCountOccupancyOutbound`,`holdTimeOccupancyOutbound`,`holdOutbound`,`abandonedOutbound`,`outboundBusy`,`outboundFailed`,`outboundNotAnswer`,`outboundCancel`,`outboundInteractionTimeAvg`,`outboundInteractionTimeMax`,`outboundInteractionTimeMin`,`outboundInteractionTimeTotal`,`completeByAgent`,`completeByCaller`,`holdTimeMin`,`holdTimeMax`,`holdTimeTotal`,`holdTimeAvg`,`agentTransfers`,`applicationTransfers`,`externalTransfers`,`sharedCount`,`firstResponseTimeAvg`,`firstResponseTimeTotal`,`firstResponseTimeMin`,`firstResponseTimeMax`,`averageResponseTimeAvg`,`averageResponseTimeTotal`,`averageResponseTimeMax`,`averageResponseTimeMin`,`dialerCalls`,`handledByBot`,`handleTimeMin`,`handleTimeMax`,`handleTimeTotal`,`handleTimeAvg`,`year`,`week`,`weekOfYear`,`month`,`day`,`hour`,`createdAt`,`updatedAt`) values 
 (1,'2025-02','email','CSD','2025-02-27 04:00:00',3,0,14,10,20,414,370039,137,0,0,2,1,1,0,0,2,1,1,0,0,2,3,1651,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,6095,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,4,'2025-02-27 04:36:00','2025-02-27 05:06:40'),
 (2,'2025-02','fb_messenger','CSD','2025-02-27 04:00:00',0,0,0,0,0,6,5400,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,4,'2025-02-27 04:36:00','2025-02-27 05:06:39'),
@@ -1698,62 +1276,8 @@ insert  into `yovo_tbl_contact_center_stats_hourly`(`id`,`pKey`,`channel`,`queue
 (47,'2025-02','sms','CXR','2025-02-27 07:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3600,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:29:36','2025-02-27 08:00:39'),
 (48,'2025-02','email','TAC','2025-02-27 07:00:00',0,0,0,0,0,8,7200,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:29:36','2025-02-27 08:00:39'),
 (49,'2025-02','email','CSD','2025-02-27 07:00:00',5,0,0,0,0,595,532509,146,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7200,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:29:36','2025-02-27 08:00:40'),
-(50,'2025-02','linkedin_feed','CSD','2025-02-27 07:00:00',1,0,0,0,0,13,10836,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:29:36','2025-02-27 08:00:39'),
-(51,'2025-02','call','TST','2025-02-27 07:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:29:36','2025-02-27 08:00:40'),
-(52,'2025-02','call','ivrHangup','2025-02-27 07:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:29:36','2025-02-27 08:00:40'),
-(53,'2025-02','call','CXR','2025-02-27 07:00:00',6,0,3,2,13,6,13,0,0,0,6,6,0,0,0,6,6,0,0,0,6,8,418,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,6,2,0,0,6,5,2,25,7,15,2,43,100,235,68,601,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,68,237,1130,188,2025,4,9,2,27,7,'2025-02-27 07:29:36','2025-02-27 08:00:40'),
-(54,'2025-02','fb_pages','CSD','2025-02-27 08:00:00',0,0,0,0,0,32,28800,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,8,'2025-02-27 08:15:14','2025-02-27 09:00:11'),
-(55,'2025-02','call','Telesales_LHR','2025-02-27 08:00:00',1,0,2,2,2,1,2,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,1,2,0,2,5,5,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,38,74,74,2025,4,9,2,27,8,'2025-02-27 08:15:14','2025-02-27 09:00:12'),
-(56,'2025-02','instagram','CSD','2025-02-27 08:00:00',0,0,0,0,0,4,3600,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,8,'2025-02-27 08:15:14','2025-02-27 09:00:12'),
-(57,'2025-02','fb_messenger','CSD','2025-02-27 08:00:00',0,0,0,0,0,8,7200,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,8,'2025-02-27 08:15:14','2025-02-27 09:00:12'),
-(58,'2025-02','sms','CXR','2025-02-27 08:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3600,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,8,'2025-02-27 08:15:14','2025-02-27 09:00:11'),
-(59,'2025-02','call','CXR','2025-02-27 08:00:00',19,2,86,7,136,19,136,0,0,0,19,18,0,0,1,18,18,0,0,1,18,22,2814,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,18,18,18,0,1,1,18,5,3,46,28,161,1,506,146,553,45,2623,0,1,1,136,1,0,0,0,0,0,0,0,0,137,137,137,137,3,13,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,45,554,6072,320,2025,4,9,2,27,8,'2025-02-27 08:15:14','2025-02-27 09:00:11'),
-(60,'2025-02','email','TAC','2025-02-27 08:00:00',0,0,0,0,0,8,7200,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,8,'2025-02-27 08:15:14','2025-02-27 09:00:12'),
-(61,'2025-02','call','ivrHangup','2025-02-27 08:00:00',0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,8,'2025-02-27 08:15:14','2025-02-27 09:00:11'),
-(62,'2025-02','call','TST','2025-02-27 08:00:00',3,2,8,4,13,3,13,0,0,0,3,3,0,0,0,3,3,0,0,0,3,3,154,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,0,0,1,3,60,11,93,84,158,11,251,51,154,0,154,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,55,252,895,298,2025,4,9,2,27,8,'2025-02-27 08:15:14','2025-02-27 09:00:11'),
-(63,'2025-02','email','no_queue_found','2025-02-27 08:00:00',0,0,0,0,0,12,10800,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,8,'2025-02-27 08:15:14','2025-02-27 09:00:11'),
-(64,'2025-02','instagram_dm','CSD','2025-02-27 08:00:00',0,0,0,0,0,12,10800,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,8,'2025-02-27 08:15:14','2025-02-27 09:00:11'),
-(65,'2025-02','call','defaultQueue','2025-02-27 08:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,8,'2025-02-27 08:15:14','2025-02-27 09:00:12'),
-(66,'2025-02','linkedin_feed','CSD','2025-02-27 08:00:00',0,0,0,0,0,16,14400,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,8,'2025-02-27 08:15:14','2025-02-27 09:00:12'),
-(67,'2025-02','email','CSD','2025-02-27 08:00:00',10,0,67859,36909,1919279,581,498857,151,0,0,52,0,0,0,52,2,0,1,0,51,52,82,31982,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,0,0,0,0,0,35,0,0,0,90,1665,0,3147,107,1918,0,3733,0,0,0,7200,8,0,0,0,0,0,0,0,0,0,0,0,0,35,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,8,'2025-02-27 08:15:14','2025-02-27 09:00:12'),
-(68,'2025-02','linkedin_feed','CSD','2025-02-27 09:00:00',0,0,0,0,0,16,14400,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,9,'2025-02-27 09:15:10','2025-02-27 10:00:03'),
-(69,'2025-02','call','Telesales_LHR','2025-02-27 09:00:00',4,2,3,2,9,4,9,0,0,0,4,4,0,0,0,4,4,0,0,0,4,4,503,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,5,0,0,4,5,2,17,88,322,2,351,126,324,21,504,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,329,773,193,2025,4,9,2,27,9,'2025-02-27 09:15:10','2025-02-27 10:00:03'),
-(70,'2025-02','call','defaultQueue','2025-02-27 09:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,9,'2025-02-27 09:15:10','2025-02-27 10:00:03'),
-(71,'2025-02','sms','CXR','2025-02-27 09:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,1,0,1,0,0,0,0,0,1,1,190,2,0,0,0,0,0,0,0,0,28867,57723,11,57734,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11,57723,57734,28867,2025,4,9,2,27,9,'2025-02-27 09:15:10','2025-02-27 10:00:02'),
-(72,'2025-02','call','TST','2025-02-27 09:00:00',6,2,3,2,14,6,14,0,0,0,6,6,0,0,0,6,6,0,0,0,6,8,1311,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,6,84,2,1,5,61,0,184,166,464,14,828,135,331,62,808,0,2,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,525,2896,362,2025,4,9,2,27,9,'2025-02-27 09:15:10','2025-02-27 10:00:02'),
-(73,'2025-02','email','no_queue_found','2025-02-27 09:00:00',0,0,0,0,0,12,10800,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,9,'2025-02-27 09:15:10','2025-02-27 10:00:02'),
-(74,'2025-02','call','CXR','2025-02-27 09:00:00',27,2,5,3,74,27,74,0,0,0,27,27,0,0,0,27,27,0,0,0,27,32,3093,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,27,27,27,7,2,2,26,5,3,66,7,36,2,172,105,426,0,2826,0,2,2,313,2,0,0,0,0,0,0,0,0,156,313,0,313,8,12,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,4,426,7695,265,2025,4,9,2,27,9,'2025-02-27 09:15:10','2025-02-27 10:00:02'),
-(75,'2025-02','fb_pages','CSD','2025-02-27 09:00:00',0,0,0,0,0,32,28800,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,9,'2025-02-27 09:15:10','2025-02-27 10:00:02'),
-(76,'2025-02','instagram','CSD','2025-02-27 09:00:00',0,0,0,0,0,4,3600,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,9,'2025-02-27 09:15:10','2025-02-27 10:00:02'),
-(77,'2025-02','fb_messenger','CSD','2025-02-27 09:00:00',0,0,0,0,0,8,7200,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,9,'2025-02-27 09:15:10','2025-02-27 10:00:03'),
-(78,'2025-02','call','ivrHangup','2025-02-27 09:00:00',0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,9,'2025-02-27 09:15:10','2025-02-27 10:00:03'),
-(79,'2025-02','instagram_dm','CSD','2025-02-27 09:00:00',1,0,0,0,0,15,13290,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,9,'2025-02-27 09:15:10','2025-02-27 10:00:02'),
-(80,'2025-02','email','CSD','2025-02-27 09:00:00',8,582,41867,14499,43496,445,396309,109,0,0,3,0,0,0,3,2,0,0,0,3,3,57,45106,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0,0,0,8,8,12,0,0,0,145,346,1,1745,2464,4833,1,29569,0,9,9,8372,18,0,0,0,0,0,0,0,0,144,197,88,1149,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,88,197,1149,57,2025,4,9,2,27,9,'2025-02-27 09:15:10','2025-02-27 10:00:03'),
-(81,'2025-02','email','TAC','2025-02-27 09:00:00',0,0,0,0,0,8,7200,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,9,'2025-02-27 09:15:10','2025-02-27 10:00:02'),
-(82,'2025-02','call','CHURN','2025-02-27 09:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,1,1,2,0,0,0,0,0,2,2,57,2,0,0,0,0,0,0,0,0,28,57,0,57,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,247,304,152,2025,4,9,2,27,9,'2025-02-27 09:30:00','2025-02-27 10:00:01'),
-(83,'2025-02','call','CSD','2025-02-27 09:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,12,0,0,0,0,0,323,1,1174,0,0,0,0,0,13,10,515,10,0,0,0,3,0,0,3,0,52,144,0,470,7,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,227,913,101,2025,4,9,2,27,9,'2025-02-27 09:30:00','2025-02-27 10:00:02'),
-(84,'2025-02','call','Engineering_Ops','2025-02-27 09:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,2,58,2,0,0,0,1,0,0,1,0,29,58,58,58,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,58,58,150,75,2025,4,9,2,27,9,'2025-02-27 09:30:01','2025-02-27 10:00:03'),
-(85,'2025-02','email','no_queue_found','2025-02-27 10:00:00',0,0,0,0,0,12,10800,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,10,'2025-02-27 10:15:01','2025-02-27 11:00:02'),
-(86,'2025-02','call','Engineering_Ops','2025-02-27 10:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,6,0,0,0,0,0,101,0,112,0,0,0,0,0,8,3,58,3,0,0,0,5,0,0,5,0,19,35,0,58,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,63,121,40,2025,4,9,2,27,10,'2025-02-27 10:15:01','2025-02-27 11:00:01'),
-(87,'2025-02','call','ivrHangup','2025-02-27 10:00:00',0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,10,'2025-02-27 10:15:01','2025-02-27 11:00:01'),
-(88,'2025-02','instagram','CSD','2025-02-27 10:00:00',0,0,56002,56002,56002,2,900,1,0,0,1,0,0,0,1,0,1,0,0,0,1,1,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,19,19,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,10,'2025-02-27 10:15:01','2025-02-27 11:00:01'),
-(89,'2025-02','call','Alignment','2025-02-27 10:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,6,0,0,0,0,0,1,1,3,0,0,0,0,0,9,4,151,4,0,0,0,5,1,0,4,0,38,60,28,151,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28,60,151,38,2025,4,9,2,27,10,'2025-02-27 10:15:01','2025-02-27 11:00:01'),
-(90,'2025-02','call','CSD','2025-02-27 10:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,14,0,0,0,0,0,466,1,1739,0,0,0,0,0,26,12,721,13,0,0,0,15,1,0,13,0,36,164,0,427,11,5,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,238,1075,90,2025,4,9,2,27,10,'2025-02-27 10:15:01','2025-02-27 11:00:01'),
-(91,'2025-02','call','TST','2025-02-27 10:00:00',14,2,3,2,33,14,33,0,0,0,14,14,0,0,0,14,14,0,0,0,14,19,5329,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11,11,11,266,5,10,11,60,0,625,384,1876,3,4223,325,619,61,3579,0,10,5,196,5,0,0,0,4,0,0,4,0,39,135,0,196,8,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,679,6622,414,2025,4,9,2,27,10,'2025-02-27 10:15:01','2025-02-27 11:00:02'),
-(92,'2025-02','fb_messenger','CSD','2025-02-27 10:00:00',3,0,58615,21905,109524,8,2531,2,0,0,5,1,0,0,4,0,1,0,1,3,0,5,88,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,5,0,0,0,0,1,0,1,18,35,0,88,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,10,'2025-02-27 10:15:01','2025-02-27 11:00:00'),
-(93,'2025-02','call','defaultQueue','2025-02-27 10:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,10,'2025-02-27 10:15:01','2025-02-27 11:00:01'),
-(94,'2025-02','call','Telesales_LHR','2025-02-27 10:00:00',10,2,4,3,26,10,26,0,0,0,10,10,0,0,0,10,10,0,0,0,10,10,654,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,10,10,6,10,21,10,6,4,38,36,71,1,357,65,174,62,654,0,22,11,595,11,0,0,0,10,1,0,9,0,52,209,0,515,11,10,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,23,332,2706,135,2025,4,9,2,27,10,'2025-02-27 10:15:01','2025-02-27 11:00:01'),
-(95,'2025-02','email','TAC','2025-02-27 10:00:00',0,0,0,0,0,8,7200,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,10,'2025-02-27 10:15:01','2025-02-27 11:00:01'),
-(96,'2025-02','linkedin_feed','CSD','2025-02-27 10:00:00',0,7863,56950,35870,143478,4,2565,4,0,0,4,0,0,0,4,0,0,0,0,4,4,4,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,4,0,0,0,0,0,0,0,4,5,3,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,10,'2025-02-27 10:15:01','2025-02-27 11:00:02'),
-(97,'2025-02','email','CSD','2025-02-27 10:00:00',8,0,72473,30302,121208,477,423449,114,0,0,4,0,0,0,4,2,0,0,0,4,4,32,22502,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,0,0,0,11,9,8,0,0,0,130,285,0,1038,5760,8668,0,46080,0,11,11,11320,24,0,0,0,0,0,0,0,0,314,1572,63,3450,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,63,1572,3450,182,2025,4,9,2,27,10,'2025-02-27 10:15:01','2025-02-27 11:00:02'),
-(98,'2025-02','fb_pages','CSD','2025-02-27 10:00:00',1,0,54938,41636,291452,19,11292,8,0,0,7,0,0,0,7,0,0,0,0,7,0,7,89,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,7,0,0,0,1,3,0,4,13,57,0,89,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,10,'2025-02-27 10:15:01','2025-02-27 11:00:01'),
-(99,'2025-02','call','TST_TS','2025-02-27 10:00:00',1,47,47,47,47,1,47,0,0,0,1,0,0,0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,1,3,3,3,3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,116,119,235,235,2025,4,9,2,27,10,'2025-02-27 10:15:01','2025-02-27 11:00:02'),
-(100,'2025-02','call','CHURN','2025-02-27 10:00:00',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,37,0,0,0,0,0,190,0,664,0,0,0,0,0,38,12,1078,14,0,0,0,27,3,0,22,0,64,207,0,643,19,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,207,963,96,2025,4,9,2,27,10,'2025-02-27 10:15:01','2025-02-27 11:00:02');
-
+(50,'2025-02','linkedin_feed','CSD','2025-02-27 07:00:00',1,0,0,0,0,13,10836,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,4,9,2,27,7,'2025-02-27 07:29:36','2025-02-27 08:00:39');
 /*Table structure for table `yovo_tbl_contact_center_stats_monthly` */
-
-DROP TABLE IF EXISTS `yovo_tbl_contact_center_stats_monthly`;
-
 CREATE TABLE `yovo_tbl_contact_center_stats_monthly` (
   `id` int NOT NULL AUTO_INCREMENT,
   `pKey` varchar(255) NOT NULL,
@@ -1868,28 +1392,8 @@ CREATE TABLE `yovo_tbl_contact_center_stats_monthly` (
  PARTITION p_2025_03 VALUES LESS THAN ('2025-04') ENGINE = InnoDB,
  PARTITION p_2025_04 VALUES LESS THAN ('2025-05') ENGINE = InnoDB,
  PARTITION p_2025_05 VALUES LESS THAN ('2025-06') ENGINE = InnoDB,
- PARTITION p_2025_06 VALUES LESS THAN ('2025-07') ENGINE = InnoDB,
- PARTITION p_2025_07 VALUES LESS THAN ('2025-08') ENGINE = InnoDB,
- PARTITION p_2025_08 VALUES LESS THAN ('2025-09') ENGINE = InnoDB,
- PARTITION p_2025_09 VALUES LESS THAN ('2025-10') ENGINE = InnoDB,
- PARTITION p_2025_10 VALUES LESS THAN ('2025-11') ENGINE = InnoDB,
- PARTITION p_2025_11 VALUES LESS THAN ('2025-12') ENGINE = InnoDB,
- PARTITION p_2025_12 VALUES LESS THAN ('2026-01') ENGINE = InnoDB,
- PARTITION p_2026_01 VALUES LESS THAN ('2026-02') ENGINE = InnoDB,
- PARTITION p_2026_02 VALUES LESS THAN ('2026-03') ENGINE = InnoDB,
- PARTITION p_2026_03 VALUES LESS THAN ('2026-04') ENGINE = InnoDB,
- PARTITION p_2026_04 VALUES LESS THAN ('2026-05') ENGINE = InnoDB,
- PARTITION p_2026_05 VALUES LESS THAN ('2026-06') ENGINE = InnoDB,
- PARTITION p_2026_06 VALUES LESS THAN ('2026-07') ENGINE = InnoDB,
- PARTITION p_2026_07 VALUES LESS THAN ('2026-08') ENGINE = InnoDB,
- PARTITION p_2026_08 VALUES LESS THAN ('2026-09') ENGINE = InnoDB,
- PARTITION p_2026_09 VALUES LESS THAN ('2026-10') ENGINE = InnoDB,
- PARTITION p_2026_10 VALUES LESS THAN ('2026-11') ENGINE = InnoDB,
- PARTITION p_2026_11 VALUES LESS THAN ('2026-12') ENGINE = InnoDB,
- PARTITION p_2026_12 VALUES LESS THAN ('2027-01') ENGINE = InnoDB) */;
-
+ PARTITION p_2025_06 VALUES LESS THAN ('2025-07') ENGINE = InnoDB */;
 /*Data for the table `yovo_tbl_contact_center_stats_monthly` */
-
 insert  into `yovo_tbl_contact_center_stats_monthly`(`id`,`pKey`,`channel`,`queue`,`inbound`,`queueWaitTimeMin`,`queueWaitTimeMax`,`queueWaitTimeAvg`,`queueWaitTimeTotal`,`waitingOccupancyCount`,`waitingOccupancyTime`,`waitingCarryForward`,`ivrHangupInbound`,`ivrHangupOutbound`,`answeredInbound`,`answeredInTen`,`answeredMoreTenInTwenty`,`answeredMoreTwentyInThirty`,`answeredAfterThirty`,`answeredWithinSetValue`,`connectedOccupancyInTen`,`connectedOccupancyMoreTenInTwenty`,`connectedOccupancyMoreTwentyInThirty`,`connectedOccupancyAfterThirty`,`connectedOccupancyWithinSetValue`,`connectedOccupancyCountInbound`,`connectedOccupancyTimeInbound`,`holdTimeOccupancy`,`holdInbound`,`holdCountOccupancy`,`abandonedInbound`,`abandonedInTen`,`abandonedMoreTenInTwenty`,`abandonedMoreTwentyInThirty`,`abandonedAfterThirty`,`abandonedWithinSetValue`,`abandonedOccupancyInTen`,`abandonedOccupancyMoreTenInTwenty`,`abandonedOccupancyMoreTwentyInThirty`,`abandonedOccupancyAfterThirty`,`abandonedOccupancyWithinSetValue`,`wrapUpTimeAgentAvg`,`maxACW`,`minACW`,`acwTime`,`wrapUpTimeInteractionAvg`,`wrapUpInbound`,`acwCounts`,`acwOccupancyCount`,`acwOccupancyTime`,`wrapUpOutbound`,`closedOutbound`,`closedInbound`,`wrapUpTimeInteractionMax`,`wrapUpTimeInteractionMin`,`wrapUpTimeInteractionTotal`,`inboundInteractionTimeAvg`,`inboundInteractionTimeMax`,`inboundInteractionTimeMin`,`inboundInteractionTimeTotal`,`answeredAfterAbandoned`,`outbound`,`answeredOutbound`,`connectedOccupancyTimeOutbound`,`connectedOccupancyCountOutbound`,`holdCountOccupancyOutbound`,`holdTimeOccupancyOutbound`,`holdOutbound`,`abandonedOutbound`,`outboundBusy`,`outboundFailed`,`outboundNotAnswer`,`outboundCancel`,`outboundInteractionTimeAvg`,`outboundInteractionTimeMax`,`outboundInteractionTimeMin`,`outboundInteractionTimeTotal`,`completeByAgent`,`completeByCaller`,`holdTimeMin`,`holdTimeMax`,`holdTimeTotal`,`holdTimeAvg`,`agentTransfers`,`applicationTransfers`,`externalTransfers`,`sharedCount`,`firstResponseTimeAvg`,`firstResponseTimeTotal`,`firstResponseTimeMin`,`firstResponseTimeMax`,`averageResponseTimeAvg`,`averageResponseTimeTotal`,`averageResponseTimeMax`,`averageResponseTimeMin`,`dialerCalls`,`handledByBot`,`handleTimeMin`,`handleTimeMax`,`handleTimeTotal`,`handleTimeAvg`,`year`,`month`,`createdAt`,`updatedAt`) values 
 (1,'2025-02','email','CSD',490,0,99513,25224,14175968,17250,15046538,137,0,0,562,4,5,3,550,199,17,25,15,505,562,1624,963702,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,561,0,0,0,247,247,561,8431,0,56093,1570,19229,0,880752,0,252,252,588863,903,0,0,0,0,0,0,0,0,384,4623,0,94857,808,0,0,0,0,0,0,0,0,0,359,201472,0,76279,249,201472,76279,0,0,0,0,4623,94857,117,2025,2,'2025-02-27 04:36:00','2025-03-01 00:00:12'),
 (2,'2025-02','fb_messenger','CSD',8,0,63617,23493,234930,198,169345,2,0,0,10,1,0,0,9,0,1,0,1,8,0,10,277,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,10,1,0,3,28,123,0,277,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,2,'2025-02-27 04:36:00','2025-03-01 00:00:11'),
@@ -1938,11 +1442,7 @@ insert  into `yovo_tbl_contact_center_stats_monthly`(`id`,`pKey`,`channel`,`queu
 (45,'2025-03','email','CSD',5562,0,297137,49785,278096871,373906,331580270,65,0,0,5586,129,71,49,5337,1677,198,114,106,5168,5586,21515,14213289,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,490,5587,0,0,0,2670,2670,5585,870166,1,2734928,2559,1854206,0,14296304,0,2668,2668,18380903,23096,0,0,0,0,0,0,0,0,4753,1817954,2,12691457,8257,0,0,0,0,0,0,0,0,0,1280,7149014,0,203317,866,7149014,203317,0,0,0,2,1817954,12691457,1537,2025,3,'2025-03-01 00:15:19','2025-03-28 01:45:35'),
 (46,'2025-03','call','TST',9307,1,426,16,148442,9473,148470,0,0,0,9023,7535,223,196,1069,7954,7553,229,205,1036,7987,12065,2122567,1128,16,17,284,40,16,12,216,68,43,17,14,210,74,0,61,1,341310,723,9027,9087,13705,4158989,1949,3429,9025,255029,1,6528778,217,2929,1,1958722,0,3428,1954,10057506,13199,1,0,1,1659,189,0,1407,0,155,1768,1,301349,3125,5702,0,176,1128,0,5,621,0,0,0,0,0,0,0,0,0,0,0,0,1,2931,5787100,527,2025,3,'2025-03-01 00:15:19','2025-03-28 01:45:33'),
 (47,'2025-03','call','TL_TST',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,3,3,3,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2025,3,'2025-03-26 19:45:01','2025-03-28 01:45:33');
-
 /*Table structure for table `yovo_tbl_contact_center_stats_yearly` */
-
-DROP TABLE IF EXISTS `yovo_tbl_contact_center_stats_yearly`;
-
 CREATE TABLE `yovo_tbl_contact_center_stats_yearly` (
   `id` int NOT NULL AUTO_INCREMENT,
   `channel` varchar(255) NOT NULL,
@@ -2077,8 +1577,3 @@ insert  into `yovo_tbl_contact_center_stats_yearly`(`id`,`channel`,`queue`,`time
 (22,'sms','Telesales_LHR',2025,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,33,33,0,8,1,40,0,0,0,0,0,33,33,2245,36,0,0,0,0,0,0,0,0,68,394,1,2245,33,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,394,2245,68,'2025-02-27 16:15:02','2025-03-28 01:45:37'),
 (23,'sms','Alignment',2025,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,10,0,4,1,10,0,0,0,0,0,9,9,36,9,0,0,0,0,0,0,0,0,4,22,1,37,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,22,37,4,'2025-02-27 18:15:10','2025-03-28 01:45:32'),
 (24,'call','TL_TST',2025,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,3,3,3,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'2025-03-26 19:45:01','2025-03-28 01:45:33');
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
