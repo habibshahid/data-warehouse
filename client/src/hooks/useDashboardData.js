@@ -117,10 +117,10 @@ const useDashboardData = () => {
     error,
     
     // Metadata
-    channelOptions: ['all', ...metadata.channels],
-    queueOptions: ['all', ...metadata.queues],
-    agentOptions: ['all', ...metadata.agents],
-    metricOptions: metadata.metrics,
+    channelOptions: ['all', ...(metadata.channels || [])],
+    queueOptions: ['all', ...(metadata.queues || [])],
+    agentOptions: ['all', ...(metadata.agents || [])],
+    metricOptions: metadata.metrics || [],
     
     // Functions
     fetchDashboardData,

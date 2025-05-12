@@ -5,95 +5,82 @@ const buildQuery = (reportType, timeInterval, startDate, endDate, channel, queue
     // Determine which table to query based on the report type and time interval
     let tableName;
     if (reportType === 'contact_center') {
-      tableName = `yovo_tbl_contact_center_stats_${timeInterval}`;
+      if(timeInterval === '15_min'){
+        tableName = `yovo_tbl_call_center_stats_${timeInterval}`;
+      }
+      else{
+        tableName = `yovo_tbl_contact_center_stats_${timeInterval}`; 
+      }
     } else {
       tableName = `yovo_tbl_agent_summary_stats_${timeInterval}`;
     }
   
-    // Build the SELECT clause based on the requested metrics
-    let selectClause = '';
-    
-    // Group by fields based on the groupBy parameter
-    let groupByClause = '';
-    let wherePKeyCondition = '';
-    
-    // Handle different time intervals
-    if (timeInterval === 'daily' || timeInterval === 'hourly' || timeInterval === 'half_hourly' || timeInterval === '15_min') {
-      // For daily and more granular data
-      if (groupBy === 'day') {
-        selectClause = `CONCAT(year, '-', LPAD(month, 2, '0'), '-', LPAD(day, 2, '0')) AS date`;
-        groupByClause = `GROUP BY year, month, day`;
-      } else if (groupBy === 'month') {
-        selectClause = `CONCAT(year, '-', LPAD(month, 2, '0')) AS date`;
-        groupByClause = `GROUP BY year, month`;
-      } else if (groupBy === 'week') {
-        selectClause = `CONCAT(year, '-W', LPAD(weekOfYear, 2, '0')) AS date`;
-        groupByClause = `GROUP BY year, weekOfYear`;
-      } else {
-        // No grouping, use timeInterval directly
-        selectClause = `timeInterval AS date`;
-      }
-      
-      wherePKeyCondition = `WHERE timeInterval BETWEEN '${startDate}' AND '${endDate} 23:59:59'`;
-    } else if (timeInterval === 'monthly') {
-      selectClause = `CONCAT(year, '-', LPAD(month, 2, '0')) AS date`;
-      if (groupBy === 'month') {
-        groupByClause = `GROUP BY year, month`;
-      }
-      
-      // Extract year and month from dates
-      const startYear = startDate.substring(0, 4);
-      const startMonth = startDate.substring(5, 7);
-      const endYear = endDate.substring(0, 4);
-      const endMonth = endDate.substring(5, 7);
-      
-      wherePKeyCondition = `WHERE (year > ${startYear} OR (year = ${startYear} AND month >= ${parseInt(startMonth)})) 
-                            AND (year < ${endYear} OR (year = ${endYear} AND month <= ${parseInt(endMonth)}))`;
-    } else if (timeInterval === 'yearly') {
-      selectClause = `timeInterval AS date`;
-      
-      // Extract year from dates
-      const startYear = startDate.substring(0, 4);
-      const endYear = endDate.substring(0, 4);
-      
-      wherePKeyCondition = `WHERE timeInterval BETWEEN ${startYear} AND ${endYear}`;
-    }
-    
-    // Add metrics to the SELECT clause
-    metrics.forEach(metric => {
-      if (groupBy && groupBy !== 'none') {
-        selectClause += `, AVG(${metric}) AS ${metric}`;
-      } else {
-        selectClause += `, ${metric}`;
-      }
-    });
-    
-    // Build WHERE clause for filters
-    let whereClause = wherePKeyCondition;
-    
-    if (channel !== 'all') {
-      whereClause += ` AND channel = '${channel}'`;
-    }
-    
-    if (queue !== 'all') {
-      whereClause += ` AND queue = '${queue}'`;
-    }
-    
-    if (agent !== 'all' && reportType === 'agent') {
-      whereClause += ` AND agent = '${agent}'`;
-    }
-    
-    // Build the final query
-    let query;
-    if (groupByClause) {
-      query = `SELECT ${selectClause} FROM ${tableName} ${whereClause} ${groupByClause} ORDER BY date`;
-    } else {
-      query = `SELECT ${selectClause} FROM ${tableName} ${whereClause} ORDER BY date`;
-    }
-    
-    return query;
-  };
+    // Build the SELECT clause with metrics and appropriate date field
+  let selectFields = [];
   
-  module.exports = {
-    buildQuery
-  };
+  // Determine the date field based on the time interval
+  if (timeInterval === 'daily') {
+    selectFields.push(`CONCAT(year, '-', LPAD(month, 2, '0'), '-', LPAD(day, 2, '0')) AS date`);
+  } else if (timeInterval === 'hourly' || timeInterval === 'half_hourly' || timeInterval === '15_min') {
+    selectFields.push(`timeInterval AS date`);
+  } else if (timeInterval === 'monthly') {
+    selectFields.push(`CONCAT(year, '-', LPAD(month, 2, '0')) AS date`);
+  } else if (timeInterval === 'yearly') {
+    selectFields.push(`timeInterval AS date`);
+  }
+  
+  // Add all requested metrics to SELECT
+  metrics.forEach(metric => {
+    selectFields.push(`${metric}`);
+  });
+  
+  // Build WHERE clause
+  let whereConditions = [];
+  
+  // Date filtering based on time interval
+  if (timeInterval === 'daily' || timeInterval === 'hourly' || timeInterval === 'half_hourly' || timeInterval === '15_min') {
+    whereConditions.push(`timeInterval BETWEEN '${startDate}' AND '${endDate} 23:59:59'`);
+  } else if (timeInterval === 'monthly') {
+    // Extract year and month from dates
+    const startYear = startDate.substring(0, 4);
+    const startMonth = startDate.substring(5, 7);
+    const endYear = endDate.substring(0, 4);
+    const endMonth = endDate.substring(5, 7);
+    
+    whereConditions.push(`(year > ${startYear} OR (year = ${startYear} AND month >= ${parseInt(startMonth)}))`);
+    whereConditions.push(`(year < ${endYear} OR (year = ${endYear} AND month <= ${parseInt(endMonth)}))`);
+  } else if (timeInterval === 'yearly') {
+    // Extract year from dates
+    const startYear = startDate.substring(0, 4);
+    const endYear = endDate.substring(0, 4);
+    
+    whereConditions.push(`timeInterval BETWEEN ${startYear} AND ${endYear}`);
+  }
+  
+  // Filter by channel, queue, and agent if specified
+  if (channel !== 'all') {
+    whereConditions.push(`channel = '${channel}'`);
+  }
+  
+  if (queue !== 'all') {
+    whereConditions.push(`queue = '${queue}'`);
+  }
+  
+  if (agent !== 'all' && reportType === 'agent') {
+    whereConditions.push(`agent = '${agent}'`);
+  }
+  
+  // Build the final query
+  const query = `
+    SELECT ${selectFields.join(', ')}
+    FROM ${tableName}
+    ${whereConditions.length > 0 ? 'WHERE ' + whereConditions.join(' AND ') : ''}
+    ORDER BY date
+  `;
+  
+  return query;
+};
+
+module.exports = {
+  buildQuery
+};
