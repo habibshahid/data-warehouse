@@ -29,27 +29,24 @@ const TableSection = ({ section, loading }) => {
     // Get all available columns from the data
     const availableColumns = Object.keys(sampleRow);
     
-    // Always prioritize the period column if it exists
+    // Simple column display - just show what's available
     let columnsToDisplay = [];
-    if (availableColumns.includes('period')) {
-      columnsToDisplay.push('period');
-    }
     
-    // Then add user-selected columns
     if (section.columns && section.columns.length > 0) {
+      // Start with the period column if available
+      if (availableColumns.includes('period')) {
+        columnsToDisplay.push('period');
+      }
+      
+      // Then add user-selected columns, avoiding duplicates
       section.columns.forEach(col => {
-        // Skip columns already added 
         if (!columnsToDisplay.includes(col)) {
           columnsToDisplay.push(col);
         }
       });
     } else {
-      // No specific columns selected, include all available except those already added
-      availableColumns.forEach(col => {
-        if (!columnsToDisplay.includes(col) && col !== 'key') {
-          columnsToDisplay.push(col);
-        }
-      });
+      // No specific columns selected, include all available except the key
+      columnsToDisplay = availableColumns.filter(col => col !== 'key');
     }
     
     // Create the column definitions
@@ -61,19 +58,13 @@ const TableSection = ({ section, loading }) => {
       const value = sampleRow[key];
       const isNumber = typeof value === 'number';
       const isPercentage = key.toLowerCase().includes('percentage') || key.toLowerCase().includes('percent');
-      const isTime = key.toLowerCase().includes('time');
+      const isTime = key.toLowerCase().includes('time') && key !== 'timeInterval' && key !== 'period';
       const isDuration = key.toLowerCase().includes('duration');
-      
-      // Determine if this is a date-related column
-      const isDateColumn = key === 'period' || key === 'pKey' || key === 'timeInterval' || 
-                          key === 'year' || key === 'month' || key === 'day';
       
       return {
         title: key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
         dataIndex: key,
         key,
-        // Date columns should appear first
-        order: isDateColumn ? -1 : 0,
         sorter: (a, b) => {
           if (isNumber) {
             return a[key] - b[key];
@@ -84,7 +75,12 @@ const TableSection = ({ section, loading }) => {
           return 0;
         },
         render: (text) => {
-          // Format the value based on its type
+          // For period and timeInterval, just show the raw value
+          if (key === 'period' || key === 'timeInterval') {
+            return text;
+          }
+          
+          // Format other values based on their type
           if (isPercentage) {
             return formatPercentage(text);
           }
@@ -103,9 +99,6 @@ const TableSection = ({ section, loading }) => {
         ...getColumnSearchProps(key),
       };
     }).filter(Boolean); // Remove null values
-    
-    // Sort columns to put date columns first
-    columns.sort((a, b) => a.order - b.order);
     
     setTableColumns(columns);
   }, [section.data, section.columns]);

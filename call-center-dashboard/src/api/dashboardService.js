@@ -39,12 +39,15 @@ export const fetchDashboardData = async (params) => {
       col !== 'period'
     );
     
+    // For the yearly table, also filter out 'year' as it doesn't exist (timeInterval is the year)
+    if (params.timeInterval === 'yearly') {
+      columnsToUse = columnsToUse.filter(col => col !== 'year');
+    }
+    
     // Always ensure the date column is included
     if (!columnsToUse.includes(dateColumn)) {
       columnsToUse.push(dateColumn);
     }
-    
-    // No need to add year, month, day unless specifically requested
     
     // Create a valid params object to send to the API
     const apiParams = {

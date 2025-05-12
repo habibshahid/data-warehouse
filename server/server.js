@@ -143,8 +143,7 @@ app.get('/api/metadata/metrics', async (req, res) => {
 });
 
 // Dashboard data route
-// Updated section for the /api/dashboard/data endpoint in server.js
-
+// Updated server.js dashboard data endpoint with simplified code
 app.post('/api/dashboard/data', async (req, res) => {
   try {
     console.log('Received dashboard data request:', req.body);
@@ -177,21 +176,16 @@ app.post('/api/dashboard/data', async (req, res) => {
     if (columns.includes('*') || columns.length === 0) {
       query += '*';
     } else {
-      // Filter out any columns that don't exist in the current table based on timeInterval
+      // Filter out any columns that don't exist in the current table
       let filteredColumns = [...columns];
       
       // Remove 'period' as it's a derived field we add later, not a database column
       filteredColumns = filteredColumns.filter(col => col !== 'period');
       
-      // Remove columns that don't exist in certain tables
-      if (timeInterval === 'monthly') {
-        // Monthly table doesn't have day column
-        filteredColumns = filteredColumns.filter(col => col !== 'day');
-      }
-      
+      // Table-specific column checking - avoid requesting columns that don't exist
       if (timeInterval === 'yearly') {
-        // Yearly table doesn't have day or month columns
-        filteredColumns = filteredColumns.filter(col => col !== 'day' && col !== 'month');
+        // For yearly tables, filter out year column since timeInterval itself is the year
+        filteredColumns = filteredColumns.filter(col => col !== 'year');
       }
       
       // Ensure dateColumn is in the columns list if not already
@@ -233,13 +227,31 @@ app.post('/api/dashboard/data', async (req, res) => {
       
       // Add start date condition
       if (startDate) {
-        const formattedStartDate = moment(startDate).format(dateFormat);
+        let formattedStartDate;
+        
+        // Special handling for yearly data
+        if (timeInterval === 'yearly') {
+          // For yearly data, just extract the year
+          formattedStartDate = moment(startDate).format('YYYY');
+        } else {
+          formattedStartDate = moment(startDate).format(dateFormat);
+        }
+        
         query += ` AND ${dateColumn} >= '${formattedStartDate}'`;
       }
       
       // Add end date condition
       if (endDate) {
-        const formattedEndDate = moment(endDate).format(dateFormat);
+        let formattedEndDate;
+        
+        // Special handling for yearly data
+        if (timeInterval === 'yearly') {
+          // For yearly data, just extract the year
+          formattedEndDate = moment(endDate).format('YYYY');
+        } else {
+          formattedEndDate = moment(endDate).format(dateFormat);
+        }
+        
         query += ` AND ${dateColumn} <= '${formattedEndDate}'`;
       }
     }
@@ -261,7 +273,7 @@ app.post('/api/dashboard/data', async (req, res) => {
       query += ` GROUP BY ${groupBy}`;
     }
     
-    // Add ORDER BY clause based on time interval
+    // Add ORDER BY clause for consistent results
     query += ` ORDER BY ${dateColumn}`;
     
     console.log('Executing query:', query);
@@ -282,46 +294,47 @@ app.post('/api/dashboard/data', async (req, res) => {
             // Try different field options
             if (row.interval) {
               // Extract from interval field (format: "2025-02-13 20:15:00_2025-02-13 20:29:59")
-              periodLabel = moment(row.interval.split('_')[0]).format('HH:mm');
+              periodLabel = row.interval.split('_')[0].substring(0, 16); // Get YYYY-MM-DD HH:MM
             } else if (row.timeInterval) {
-              periodLabel = moment(row.timeInterval).format('HH:mm');
+              periodLabel = row.timeInterval.substring(0, 16); // Get YYYY-MM-DD HH:MM
             } else {
               periodLabel = `Period ${index + 1}`;
             }
             break;
           case '30min':
             if (row.timeInterval) {
-              periodLabel = moment(row.timeInterval).format('HH:mm');
+              periodLabel = row.timeInterval.substring(0, 16); // Get YYYY-MM-DD HH:MM
             } else {
               periodLabel = `Period ${index + 1}`;
             }
             break;
           case 'hourly':
             if (row.timeInterval) {
-              periodLabel = moment(row.timeInterval).format('HH:00');
+              periodLabel = row.timeInterval.substring(0, 13); // Get YYYY-MM-DD HH
             } else {
               periodLabel = `Period ${index + 1}`;
             }
             break;
           case 'daily':
             if (row.timeInterval) {
-              periodLabel = moment(row.timeInterval).format('MMM DD');
+              periodLabel = row.timeInterval.substring(0, 10); // Get YYYY-MM-DD
             } else {
               periodLabel = `Period ${index + 1}`;
             }
             break;
           case 'monthly':
             if (row.pKey && row.pKey.includes('-')) {
-              periodLabel = moment(row.pKey + '-01').format('MMM YYYY');
+              periodLabel = row.pKey; // Already in YYYY-MM format
             } else {
               periodLabel = `Period ${index + 1}`;
             }
             break;
           case 'yearly':
+            // For yearly table, timeInterval is just the year itself (e.g., "2025")
             if (row.timeInterval) {
-              periodLabel = row.timeInterval;
+              periodLabel = row.timeInterval; // Already in YYYY format
             } else {
-              periodLabel = `Period ${index + 1}`;
+              periodLabel = `Year ${index + 1}`;
             }
             break;
           default:
@@ -338,35 +351,6 @@ app.post('/api/dashboard/data', async (req, res) => {
         period: periodLabel,
         key: index
       };
-      
-      // Add derived time fields based on the table type
-      switch (timeInterval) {
-        case '15min':
-        case '30min':
-        case 'hourly':
-        case 'daily':
-          // These tables already have year, month, day columns or they're in the timeInterval
-          // Don't need to add anything extra
-          break;
-        case 'monthly':
-          // Monthly table has year and month but no day
-          // No need to add day since it's a monthly aggregation
-          if (!result.year && result.pKey) {
-            result.year = parseInt(result.pKey.split('-')[0]);
-          }
-          if (!result.month && result.pKey) {
-            result.month = parseInt(result.pKey.split('-')[1]);
-          }
-          break;
-        case 'yearly':
-          // Yearly table only has year
-          if (!result.year && result.timeInterval) {
-            result.year = parseInt(result.timeInterval);
-          }
-          break;
-      }
-      
-      return result;
     });
     
     res.json(results);
