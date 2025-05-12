@@ -143,7 +143,7 @@ app.get('/api/metadata/metrics', async (req, res) => {
 });
 
 // Dashboard data route
-// Updated server.js dashboard data endpoint with simplified code
+// Updated dashboard data endpoint with proper period handling
 app.post('/api/dashboard/data', async (req, res) => {
   try {
     console.log('Received dashboard data request:', req.body);
@@ -285,7 +285,7 @@ app.post('/api/dashboard/data', async (req, res) => {
     
     // Add derived fields
     const results = data.map((row, index) => {
-      // Add the period field with formatted date based on time interval
+      // Add the period field with exact formatted date based on time interval
       let periodLabel;
       
       try {
@@ -294,30 +294,30 @@ app.post('/api/dashboard/data', async (req, res) => {
             // Try different field options
             if (row.interval) {
               // Extract from interval field (format: "2025-02-13 20:15:00_2025-02-13 20:29:59")
-              periodLabel = row.interval.split('_')[0].substring(0, 16); // Get YYYY-MM-DD HH:MM
+              periodLabel = row.interval.split('_')[0]; // Keep the entire timestamp
             } else if (row.timeInterval) {
-              periodLabel = row.timeInterval.substring(0, 16); // Get YYYY-MM-DD HH:MM
+              periodLabel = row.timeInterval; // Keep the entire timestamp
             } else {
               periodLabel = `Period ${index + 1}`;
             }
             break;
           case '30min':
             if (row.timeInterval) {
-              periodLabel = row.timeInterval.substring(0, 16); // Get YYYY-MM-DD HH:MM
+              periodLabel = row.timeInterval; // Keep the entire timestamp
             } else {
               periodLabel = `Period ${index + 1}`;
             }
             break;
           case 'hourly':
             if (row.timeInterval) {
-              periodLabel = row.timeInterval.substring(0, 13); // Get YYYY-MM-DD HH
+              periodLabel = row.timeInterval; // Keep the entire timestamp
             } else {
               periodLabel = `Period ${index + 1}`;
             }
             break;
           case 'daily':
             if (row.timeInterval) {
-              periodLabel = row.timeInterval.substring(0, 10); // Get YYYY-MM-DD
+              periodLabel = row.timeInterval; // Keep the entire date
             } else {
               periodLabel = `Period ${index + 1}`;
             }

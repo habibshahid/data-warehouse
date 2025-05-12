@@ -40,19 +40,21 @@ const TableSection = ({ section, loading }) => {
       
       // Then add user-selected columns, avoiding duplicates
       section.columns.forEach(col => {
-        if (!columnsToDisplay.includes(col)) {
+        if (!columnsToDisplay.includes(col) && availableColumns.includes(col)) {
           columnsToDisplay.push(col);
         }
       });
     } else {
-      // No specific columns selected, include all available except the key
-      columnsToDisplay = availableColumns.filter(col => col !== 'key');
+      // No specific columns selected, include all available except the key and _isSingleDataPoint
+      columnsToDisplay = availableColumns.filter(col => 
+        col !== 'key' && col !== '_isSingleDataPoint'
+      );
     }
     
     // Create the column definitions
     const columns = columnsToDisplay.map(key => {
       // Skip the 'key' column which is added for React list rendering
-      if (key === 'key') return null;
+      if (key === 'key' || key === '_isSingleDataPoint') return null;
       
       // Determine column data type
       const value = sampleRow[key];
@@ -75,8 +77,8 @@ const TableSection = ({ section, loading }) => {
           return 0;
         },
         render: (text) => {
-          // For period and timeInterval, just show the raw value
-          if (key === 'period' || key === 'timeInterval') {
+          // Special handling for period and timeInterval - return without any formatting
+          if (key === 'period' || key === 'timeInterval' || key === 'pKey') {
             return text;
           }
           
@@ -180,11 +182,17 @@ const TableSection = ({ section, loading }) => {
     return <Empty description="No data available" />;
   }
 
+  // Make sure we're passing the data directly without any transformation
+  const tableData = section.data.map((item, index) => ({
+    ...item,
+    key: index
+  }));
+
   return (
     <div style={{ height: '100%', overflow: 'auto' }}>
       <Table
         columns={tableColumns}
-        dataSource={section.data?.map((item, index) => ({ ...item, key: index })) || []}
+        dataSource={tableData}
         loading={loading}
         pagination={pagination}
         onChange={handleTableChange}

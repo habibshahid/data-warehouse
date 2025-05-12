@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import { Empty, Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
@@ -15,8 +15,16 @@ const DashboardGrid = ({
   onUpdateSection, 
   onDeleteSection,
   timeInterval,
-  dateRange 
+  dateRange,
+  refreshTrigger = 0 // New prop to trigger refreshes
 }) => {
+  // Log when refresh is triggered
+  useEffect(() => {
+    if (refreshTrigger > 0) {
+      console.log("DashboardGrid received refreshTrigger:", refreshTrigger);
+    }
+  }, [refreshTrigger]);
+
   // Handle layout change
   const handleLayoutChange = (layout, layouts) => {
     // Update the layout of each section
@@ -195,6 +203,7 @@ const DashboardGrid = ({
             onDelete={() => onDeleteSection(section.id)}
             timeInterval={timeInterval}
             dateRange={dateRange}
+            refreshTrigger={refreshTrigger} // Pass the refresh trigger to force section refresh
           />
         </div>
       ))}

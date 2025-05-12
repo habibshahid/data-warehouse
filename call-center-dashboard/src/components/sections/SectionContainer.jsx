@@ -108,6 +108,7 @@ const SectionContainer = ({ section, onUpdate, onDelete, timeInterval, dateRange
     }
   };
 
+  // Adjusted fetchData function in SectionContainer.jsx
   const fetchData = async () => {
     if (isLoading) return;
     
@@ -143,7 +144,7 @@ const SectionContainer = ({ section, onUpdate, onDelete, timeInterval, dateRange
       
       // For table visualization, also add period and appropriate time fields
       if (sectionState.visualizationType === 'table') {
-        // First, always include period (will be added on server if not present)
+        // First, always include period for tables (will be added on server if not present)
         if (!columnsToUse.includes('period')) {
           columnsToUse.push('period');
         }
@@ -202,6 +203,8 @@ const SectionContainer = ({ section, onUpdate, onDelete, timeInterval, dateRange
         ...item,
         key: index // Ensure each row has a unique key
       })) : [];
+      
+      console.log(`Received data for section ${sectionState.id}:`, processedData);
       
       // Update section data in local state
       setSectionState(prevState => ({

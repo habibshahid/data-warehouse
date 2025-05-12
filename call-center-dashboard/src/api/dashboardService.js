@@ -115,6 +115,7 @@ export const fetchDashboardData = async (params) => {
 };
 
 // Format data to ensure it has a 'period' field that's properly formatted for display
+// Updated formatData function in dashboardService.js
 const formatData = (data, timeInterval) => {
   if (!data || !Array.isArray(data)) return [];
   
@@ -127,23 +128,28 @@ const formatData = (data, timeInterval) => {
       case '15min':
       case '30min':
         dateField = 'timeInterval';
-        periodLabel = row[dateField] ? moment(row[dateField]).format('HH:mm') : null;
+        // Preserve the full timestamp for 15min and 30min intervals
+        periodLabel = row[dateField] ? row[dateField] : null;
         break;
       case 'hourly':
         dateField = 'timeInterval';
-        periodLabel = row[dateField] ? moment(row[dateField]).format('HH:00') : null;
+        // Preserve the full hourly timestamp
+        periodLabel = row[dateField] ? row[dateField] : null;
         break;
       case 'daily':
         dateField = 'timeInterval';
-        periodLabel = row[dateField] ? moment(row[dateField]).format('MMM DD') : null;
+        // Preserve the full date
+        periodLabel = row[dateField] ? row[dateField] : null;
         break;
       case 'monthly':
         dateField = 'pKey';
-        periodLabel = row[dateField] ? moment(row[dateField]).format('MMM YYYY') : null;
+        // Preserve the YYYY-MM format
+        periodLabel = row[dateField] ? row[dateField] : null;
         break;
       case 'yearly':
         dateField = 'timeInterval';
-        periodLabel = row[dateField] ? moment(row[dateField]).format('YYYY') : null;
+        // Preserve the YYYY format
+        periodLabel = row[dateField] ? row[dateField] : null;
         break;
       default:
         dateField = 'timeInterval';
