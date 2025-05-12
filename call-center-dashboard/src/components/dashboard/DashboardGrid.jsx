@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Responsive, WidthProvider } from 'react-grid-layout';
-import { Empty, Button, Alert } from 'antd';
+import { Empty, Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import { useDashboard } from '../../hooks/useDashboard';
 import SectionContainer from '../sections/SectionContainer';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
@@ -10,16 +9,16 @@ import 'react-resizable/css/styles.css';
 // Create a responsive grid layout
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
-const DashboardGrid = ({ sections = [] }) => {
-  const { updateSection, createSection } = useDashboard();
-  
-  // Track layout changes
-  const [currentLayouts, setCurrentLayouts] = useState({});
-  
+const DashboardGrid = ({ 
+  sections = [], 
+  onAddSection, 
+  onUpdateSection, 
+  onDeleteSection,
+  timeInterval,
+  dateRange 
+}) => {
   // Handle layout change
   const handleLayoutChange = (layout, layouts) => {
-    setCurrentLayouts(layouts);
-    
     // Update the layout of each section
     layout.forEach(item => {
       const section = sections.find(s => s.id === item.i);
@@ -29,7 +28,7 @@ const DashboardGrid = ({ sections = [] }) => {
         section.layout.w !== item.w ||
         section.layout.h !== item.h
       )) {
-        updateSection({
+        onUpdateSection({
           ...section,
           layout: {
             x: item.x,
@@ -51,17 +50,28 @@ const DashboardGrid = ({ sections = [] }) => {
       xs: [],
     };
     
+    // Safety check: ensure sections is an array
+    if (!Array.isArray(sections)) {
+      console.error("Sections is not an array:", sections);
+      return layouts;
+    }
+    
     // Sort sections by y-position to ensure consistent layout
     const sortedSections = [...sections].sort((a, b) => 
-      (a.layout?.y || 0) - (b.layout?.y || 0)
+      ((a.layout?.y || 0) - (b.layout?.y || 0))
     );
     
     sortedSections.forEach((section, index) => {
+      // Ensure there's a valid layout object
+      if (!section.layout) {
+        section.layout = { x: 0, y: index * 6, w: 12, h: 6 };
+      }
+      
       // Default position if none exists
-      const x = section.layout?.x !== undefined ? section.layout.x : 0;
-      const y = section.layout?.y !== undefined ? section.layout.y : index * 4; // Stack vertically
-      const w = section.layout?.w || 12; // Default to full width
-      const h = section.layout?.h || 4;  // Default height
+      const x = section.layout.x !== undefined ? section.layout.x : 0;
+      const y = section.layout.y !== undefined ? section.layout.y : index * 6; 
+      const w = section.layout.w !== undefined ? section.layout.w : 12;
+      const h = section.layout.h !== undefined ? section.layout.h : 6;
       
       const layoutItem = {
         i: section.id,
@@ -78,39 +88,28 @@ const DashboardGrid = ({ sections = [] }) => {
       // Adjust for smaller screens
       layouts.md.push({
         ...layoutItem,
-        w: Math.min(w, 10), // 10 columns on medium screens
-        x: 0, // Start at the left edge on medium screens
+        w: Math.min(w, 10),
+        x: 0,
       });
       
       layouts.sm.push({
         ...layoutItem,
-        w: 6, // 6 columns on small screens
-        x: 0, // Start at the left edge on small screens
+        w: 6,
+        x: 0,
       });
       
       layouts.xs.push({
         ...layoutItem,
-        w: 4, // 4 columns on extra small screens
-        x: 0, // Start at the left edge on extra small screens
+        w: 4,
+        x: 0,
       });
     });
     
     return layouts;
   };
   
-  // Handle adding a new section
-  const handleAddSection = () => {
-    createSection({
-      title: 'New Section',
-      visualizationType: 'table',
-    });
-  };
-  
-  // Add custom drag handle class to make grid draggable only by card headers
-  const dragHandleClass = ".ant-card-head";
-  
   // If there are no sections, show an empty state
-  if (sections.length === 0) {
+  if (!sections || sections.length === 0) {
     return (
       <Empty
         image={Empty.PRESENTED_IMAGE_SIMPLE}
@@ -119,7 +118,23 @@ const DashboardGrid = ({ sections = [] }) => {
         <Button 
           type="primary" 
           icon={<PlusOutlined />} 
-          onClick={handleAddSection}
+          onClick={() => onAddSection({
+            id: `section-${Date.now()}`,
+            title: 'New Section',
+            visualizationType: 'table',
+            columns: [],
+            filters: {
+              queues: [],
+              channels: [],
+            },
+            groupBy: null,
+            layout: {
+              x: 0,
+              y: 0,
+              w: 12,
+              h: 6
+            },
+          })}
         >
           Add Section
         </Button>
@@ -127,38 +142,63 @@ const DashboardGrid = ({ sections = [] }) => {
     );
   }
   
+  // Check and fix any layout issues before rendering
+  const validSections = sections.map(section => {
+    if (!section.layout) {
+      return {
+        ...section,
+        layout: { x: 0, y: 0, w: 12, h: 6 }
+      };
+    }
+    
+    const validLayout = {
+      x: section.layout.x ?? 0,
+      y: section.layout.y ?? 0,
+      w: section.layout.w ?? 12,
+      h: section.layout.h ?? 6
+    };
+    
+    return {
+      ...section,
+      layout: validLayout
+    };
+  });
+  
+  // Generate layouts
+  const layouts = generateLayouts();
+  
+  // Ensure we have valid layouts before rendering
+  if (!layouts.lg.length) {
+    console.error("No valid layouts generated");
+    return <div>Error loading dashboard layout</div>;
+  }
+  
   return (
-    <>
-      <Alert 
-        message="Tip: You can drag sections by their headers to rearrange them and resize them using the handle at the bottom-right corner."
-        type="info" 
-        showIcon 
-        style={{ marginBottom: 16 }}
-        closable
-      />
-      
-      <ResponsiveGridLayout
-        className="layout"
-        layouts={currentLayouts.lg ? currentLayouts : generateLayouts()}
-        breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480 }}
-        cols={{ lg: 12, md: 10, sm: 6, xs: 4 }}
-        rowHeight={100}
-        margin={[16, 16]}
-        containerPadding={[0, 0]}
-        onLayoutChange={handleLayoutChange}
-        isDraggable
-        isResizable
-        draggableHandle={dragHandleClass}
-        compactType="vertical"
-        preventCollision={false}
-      >
-        {sections.map(section => (
-          <div key={section.id}>
-            <SectionContainer section={section} />
-          </div>
-        ))}
-      </ResponsiveGridLayout>
-    </>
+    <ResponsiveGridLayout
+      className="layout"
+      layouts={layouts}
+      breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480 }}
+      cols={{ lg: 12, md: 10, sm: 6, xs: 4 }}
+      rowHeight={100}
+      margin={[16, 16]}
+      containerPadding={[0, 0]}
+      onLayoutChange={handleLayoutChange}
+      isDraggable
+      isResizable
+      draggableHandle=".ant-card-head"
+    >
+      {validSections.map(section => (
+        <div key={section.id}>
+          <SectionContainer 
+            section={section} 
+            onUpdate={onUpdateSection} 
+            onDelete={() => onDeleteSection(section.id)}
+            timeInterval={timeInterval}
+            dateRange={dateRange}
+          />
+        </div>
+      ))}
+    </ResponsiveGridLayout>
   );
 };
 

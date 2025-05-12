@@ -2,6 +2,17 @@ import { useContext, useCallback, useRef } from 'react';
 import { DashboardContext } from '../contexts/DashboardContext';
 import { fetchDashboardData } from '../api/dashboardService';
 import { message } from 'antd';
+import { v4 as uuidv4 } from 'uuid'; // Add uuid dependency for better IDs
+
+// Utility for deep cloning objects
+const deepClone = (obj) => {
+  try {
+    return JSON.parse(JSON.stringify(obj));
+  } catch (e) {
+    console.error("Unable to deep clone object:", e);
+    return { ...obj }; // Fallback to shallow clone
+  }
+};
 
 export const useDashboard = () => {
   const context = useContext(DashboardContext);
@@ -34,7 +45,7 @@ export const useDashboard = () => {
     if (fetchingSections.current[sectionId]) {
       return null;
     }
-    
+
     try {
       setLoading(true);
       // Mark this section as being fetched
@@ -46,21 +57,24 @@ export const useDashboard = () => {
         throw new Error('Section not found');
       }
       
-      // Construct query parameters for the API
+      // Use ONLY section-specific settings, not global settings
       const params = {
         timeInterval,
         startDate: dateRange[0],
         endDate: dateRange[1],
-        columns: section.columns && section.columns.length > 0 ? section.columns : selectedColumns,
+        // Use only section columns, fall back to empty array if none
+        columns: section.columns || [],
         filters: {
-          queues: section.filters?.queues || filters.queues || [],
-          channels: section.filters?.channels || filters.channels || [],
+          // Use only section filters, fall back to empty arrays if none
+          queues: section.filters?.queues || [],
+          channels: section.filters?.channels || [],
         },
-        groupBy: section.groupBy || groupBy,
+        // Use only section groupBy
+        groupBy: section.groupBy || null,
         visualizationType: section.visualizationType,
       };
       
-      console.log('Fetching data with params:', params);
+      console.log('Fetching data with params for section:', sectionId, params);
       
       const data = await fetchDashboardData(params);
       
@@ -82,7 +96,7 @@ export const useDashboard = () => {
       delete fetchingSections.current[sectionId];
       setLoading(false);
     }
-  }, [timeInterval, dateRange, selectedColumns, filters, groupBy, sections, setLoading, setError, updateSection]);
+  }, [timeInterval, dateRange, sections, setLoading, setError, updateSection]);
   
   // Function to refresh all sections
   const refreshDashboard = useCallback(async () => {
@@ -106,7 +120,11 @@ export const useDashboard = () => {
       // Reset the fetching sections tracker
       fetchingSections.current = {};
       
-      await Promise.all(sections.map(section => fetchSectionData(section.id)));
+      // Use Promise.all to fetch data for all sections in parallel
+      await Promise.all(
+        sections.map(section => fetchSectionData(section.id))
+      );
+      
       message.success('Dashboard refreshed successfully');
     } catch (error) {
       console.error('Error refreshing dashboard:', error);
@@ -132,13 +150,13 @@ export const useDashboard = () => {
       }, 0);
     }
     
-    // Create new section with default values (not copied from existing sections)
+    // Create new section with default settings
     const newSection = {
       id: `section-${Date.now()}`,
       title: sectionConfig.title || 'New Section',
       visualizationType: sectionConfig.visualizationType || 'table',
-      // Use empty arrays by default, not copied values
-      columns: [],
+      // Initialize with empty settings
+      columns: [], 
       filters: {
         queues: [],
         channels: [],
@@ -147,8 +165,8 @@ export const useDashboard = () => {
       data: null,
       layout: {
         x: 0,
-        y: nextY, // Position the new section below existing ones
-        w: 12,    // Full width by default
+        y: nextY,
+        w: 12,
         h: 4
       },
       created: new Date().toISOString(),
@@ -158,11 +176,25 @@ export const useDashboard = () => {
     console.log('Adding section with defaults:', newSection);
     addSection(newSection);
     
-    // Immediately show the settings modal for the new section
-    // This will be handled by the Dashboard component
     return newSection;
   }, [addSection, sections]);
   
+  const updateSectionAndRefresh = useCallback(async (updatedSection) => {
+    try {
+      // Update section settings
+      updateSection(updatedSection);
+      
+      // Refresh data for this section with new settings
+      await fetchSectionData(updatedSection.id);
+      
+      return true;
+    } catch (error) {
+      console.error('Error updating section and refreshing data:', error);
+      message.error('Failed to update section settings');
+      return false;
+    }
+  }, [updateSection, fetchSectionData]);
+
   // Function to delete a section
   const deleteSection = useCallback((sectionId) => {
     removeSection(sectionId);
@@ -174,6 +206,7 @@ export const useDashboard = () => {
     fetchSectionData,
     refreshDashboard,
     createSection,
+    updateSectionAndRefresh,
     deleteSection,
     isLoading,
   };

@@ -1,10 +1,54 @@
+// src/api/dashboardService.js
 import api from './index';
 
 // Function to fetch dashboard data based on parameters
 export const fetchDashboardData = async (params) => {
   try {
+    // Log the incoming parameters for debugging
+    console.log('DASHBOARD API - Original params:', params);
+    
+    // Ensure columns is an array and not empty
+    let columnsToUse = params.columns;
+    
+    // Debug columns specifically
+    console.log('DASHBOARD API - Original columns:', columnsToUse);
+    
+    // Create a valid params object to send to the API
+    const apiParams = {
+      timeInterval: params.timeInterval,
+      startDate: params.startDate,
+      endDate: params.endDate,
+      
+      // CRITICAL: Make sure columns are sent correctly
+      columns: Array.isArray(columnsToUse) && columnsToUse.length > 0 
+               ? [...columnsToUse] // Create new array to avoid reference issues
+               : ['*'], // Use wildcard if no columns
+      
+      // CRITICAL: Include all filters
+      filters: {
+        queues: Array.isArray(params.filters?.queues) ? [...params.filters.queues] : [],
+        channels: Array.isArray(params.filters?.channels) ? [...params.filters.channels] : [],
+      },
+      
+      // Include groupBy if specified
+      groupBy: params.groupBy,
+      
+      // Include visualization type for reference
+      visualizationType: params.visualizationType,
+      
+      // Include section ID for reference
+      sectionId: params.sectionId
+    };
+    
+    // Log the final API parameters
+    console.log('DASHBOARD API - Final API params:', apiParams);
+    console.log('DASHBOARD API - Final columns:', apiParams.columns);
+    
     // Send the parameters to the backend
-    const response = await api.post('/dashboard/data', params);
+    const response = await api.post('/dashboard/data', apiParams);
+    
+    // Log the response structure (not the full data)
+    console.log(`DASHBOARD API - Response received: ${response.data.length} records`);
     
     return response.data;
   } catch (error) {

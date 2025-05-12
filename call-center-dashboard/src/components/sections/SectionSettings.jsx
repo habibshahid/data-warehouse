@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Modal, 
   Form, 
@@ -6,20 +6,34 @@ import {
   Select, 
   Tabs,
   Checkbox,
-  Divider 
+  Divider,
+  Button,
+  message
 } from 'antd';
 import { useMetadata } from '../../hooks/useMetadata';
 
 const { Option } = Select;
 
+// Deep clone helper
+const deepClone = (obj) => {
+  try {
+    return JSON.parse(JSON.stringify(obj));
+  } catch (e) {
+    console.error("Unable to deep clone object:", e);
+    return { ...obj };
+  }
+};
+
 const SectionSettings = ({ section, visible, onClose, onSave }) => {
   const [form] = Form.useForm();
   const { availableMetadata } = useMetadata();
-  const [visualizationType, setVisualizationType] = useState(section?.visualizationType || 'table');
+  const [visualizationType, setVisualizationType] = useState('table');
+  const [selectedColumns, setSelectedColumns] = useState([]);
   
-  console.log("SectionSettings rendered with visible:", visible, "and section:", section);
+  console.log("SectionSettings rendered with visible:", visible);
+  console.log("Section data:", section);
   
-  // Initialize form with section data when the modal becomes visible or section changes
+  // Initialize form with section data when the modal becomes visible
   useEffect(() => {
     if (visible && section) {
       console.log("Setting form values with section:", section);
@@ -32,11 +46,23 @@ const SectionSettings = ({ section, visible, onClose, onSave }) => {
           channels: section.filters?.channels || [],
         },
         groupBy: section.groupBy,
+        // Also set chart options if available
+        chartOptions: section.chartOptions || {
+          showLegend: true,
+          showDataLabels: false,
+          horizontal: false,
+          animate: true,
+        },
       });
       
       setVisualizationType(section.visualizationType);
     }
   }, [visible, section, form]);
+  
+  // Log column changes
+  useEffect(() => {
+    console.log("Selected columns changed:", selectedColumns);
+  }, [selectedColumns]);
   
   // Handle form submission
   const handleSubmit = () => {
@@ -54,10 +80,17 @@ const SectionSettings = ({ section, visible, onClose, onSave }) => {
           channels: values.filters?.channels || [],
         },
         groupBy: values.groupBy,
+        chartOptions: values.chartOptions,
       };
       
       console.log("Updated section to save:", updatedSection);
+      
+      // Save the section
       onSave(updatedSection);
+      
+      // Explicitly signal that we need to refresh data
+      // You might need to pass this as a second parameter if it doesn't exist
+      onSave(updatedSection, true); // The true flag indicates we need a data refresh
     }).catch(error => {
       console.error("Form validation error:", error);
     });
@@ -65,7 +98,14 @@ const SectionSettings = ({ section, visible, onClose, onSave }) => {
   
   // Handle visualization type change
   const handleVisualizationTypeChange = (value) => {
+    console.log("Visualization type changed to:", value);
     setVisualizationType(value);
+  };
+  
+  // Handle column selection change
+  const handleColumnChange = (value) => {
+    console.log("Column selection changed to:", value);
+    setSelectedColumns(value);
   };
   
   const items = [
@@ -106,8 +146,9 @@ const SectionSettings = ({ section, visible, onClose, onSave }) => {
                 mode="multiple"
                 placeholder="Select columns"
                 style={{ width: '100%' }}
+                onChange={handleColumnChange}
               >
-                {availableMetadata.metrics.map(metric => (
+                {availableMetadata.metrics?.map(metric => (
                   <Option key={metric.value} value={metric.value}>
                     {metric.label}
                   </Option>
@@ -133,7 +174,7 @@ const SectionSettings = ({ section, visible, onClose, onSave }) => {
               style={{ width: '100%' }}
               allowClear
             >
-              {availableMetadata.queues.map(queue => (
+              {availableMetadata.queues?.map(queue => (
                 <Option key={queue.value} value={queue.value}>
                   {queue.label}
                 </Option>
@@ -151,7 +192,7 @@ const SectionSettings = ({ section, visible, onClose, onSave }) => {
               style={{ width: '100%' }}
               allowClear
             >
-              {availableMetadata.channels.map(channel => (
+              {availableMetadata.channels?.map(channel => (
                 <Option key={channel.value} value={channel.value}>
                   {channel.label}
                 </Option>
@@ -176,7 +217,7 @@ const SectionSettings = ({ section, visible, onClose, onSave }) => {
   ];
   
   // Add chart options tab conditionally
-  if (visualizationType === 'line' || visualizationType === 'bar') {
+  if (visualizationType === 'line' || visualizationType === 'bar' || visualizationType === 'pie') {
     items.push({
       key: 'chartOptions',
       label: 'Chart Options',
@@ -185,6 +226,7 @@ const SectionSettings = ({ section, visible, onClose, onSave }) => {
           <Form.Item
             name={['chartOptions', 'showLegend']}
             valuePropName="checked"
+            initialValue={true}
           >
             <Checkbox>Show Legend</Checkbox>
           </Form.Item>
@@ -192,6 +234,7 @@ const SectionSettings = ({ section, visible, onClose, onSave }) => {
           <Form.Item
             name={['chartOptions', 'showDataLabels']}
             valuePropName="checked"
+            initialValue={false}
           >
             <Checkbox>Show Data Labels</Checkbox>
           </Form.Item>
@@ -200,6 +243,7 @@ const SectionSettings = ({ section, visible, onClose, onSave }) => {
             <Form.Item
               name={['chartOptions', 'horizontal']}
               valuePropName="checked"
+              initialValue={false}
             >
               <Checkbox>Horizontal Bar Chart</Checkbox>
             </Form.Item>
@@ -217,19 +261,51 @@ const SectionSettings = ({ section, visible, onClose, onSave }) => {
     });
   }
 
+  // Add debug panel to check values
+  items.push({
+    key: 'debug',
+    label: 'Debug',
+    children: (
+      <>
+        <div>
+          <h4>Current Section Columns:</h4>
+          <pre>{JSON.stringify(section.columns || [], null, 2)}</pre>
+          
+          <h4>Current Form Columns:</h4>
+          <pre>{JSON.stringify(form.getFieldValue('columns') || [], null, 2)}</pre>
+          
+          <h4>Selected Columns State:</h4>
+          <pre>{JSON.stringify(selectedColumns, null, 2)}</pre>
+          
+          <Divider />
+          
+          <Button 
+            onClick={() => {
+              console.log("Current form values:", form.getFieldsValue(true));
+            }}
+          >
+            Log Form Values
+          </Button>
+        </div>
+      </>
+    )
+  });
+
   return (
     <Modal
       title="Section Settings"
       open={visible}
       onCancel={onClose}
+      okText="Save"
       onOk={handleSubmit}
       width={800}
-      destroyOnClose={true}
+      destroyOnClose={false} 
       maskClosable={false}
     >
       <Form
         form={form}
         layout="vertical"
+        preserve={true}
         initialValues={{
           title: section?.title || 'New Section',
           visualizationType: section?.visualizationType || 'table',
@@ -238,7 +314,13 @@ const SectionSettings = ({ section, visible, onClose, onSave }) => {
             queues: section?.filters?.queues || [],
             channels: section?.filters?.channels || [],
           },
-          groupBy: section?.groupBy,
+          groupBy: section?.groupBy || null,
+          chartOptions: section?.chartOptions || {
+            showLegend: true,
+            showDataLabels: false,
+            horizontal: false,
+            animate: true,
+          }
         }}
       >
         <Tabs items={items} defaultActiveKey="general" />

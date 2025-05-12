@@ -1,4 +1,3 @@
-// src/components/sections/ChartSection.jsx
 import React, { useEffect, useState } from 'react';
 import { Spin, Empty, Radio } from 'antd';
 import { 
@@ -14,79 +13,97 @@ const ChartSection = ({ section, loading }) => {
   
   // Generate chart configuration based on data
   useEffect(() => {
-    if (!section.data || section.data.length === 0) {
+    if (!section || !section.data || section.data.length === 0) {
       setChartConfig(null);
       return;
     }
     
-    // Determine metrics for the chart (excluding time-related fields)
-    const allFields = Object.keys(section.data[0]);
-    
-    // Separate dimension fields (typically string values used for grouping)
-    // from metric fields (typically numeric values to be visualized)
-    const dimensionFields = [];
-    const metricFields = [];
-    
-    allFields.forEach(field => {
-      const values = section.data.map(item => item[field]);
-      const isString = values.every(val => typeof val === 'string');
-      const isDate = field.toLowerCase().includes('date') || field.toLowerCase().includes('time');
-      const isIdentifier = field.toLowerCase().includes('id') || field.toLowerCase() === 'key';
+    try {
+      // Get the chartOptions from section props
+      const chartOptions = section.chartOptions || {};
       
-      if (isString || isDate || isIdentifier) {
-        dimensionFields.push(field);
-      } else {
-        metricFields.push(field);
+      // Get all fields
+      const allFields = Object.keys(section.data[0]);
+      
+      // Separate dimension fields from metric fields
+      const dimensionFields = [];
+      const metricFields = [];
+      
+      allFields.forEach(field => {
+        if (!field) return; // Skip if field is undefined
+        
+        const values = section.data.map(item => item[field]);
+        const isString = values.every(val => typeof val === 'string');
+        const isDate = field.toLowerCase().includes('date') || 
+                      field === 'timeInterval' || 
+                      field === 'pKey' ||
+                      field === 'period';
+        const isIdentifier = field.toLowerCase().includes('id') || field.toLowerCase() === 'key';
+        
+        if (isString || isDate || isIdentifier) {
+          dimensionFields.push(field);
+        } else {
+          metricFields.push(field);
+        }
+      });
+      
+      // Default selected metrics
+      const defaultSelectedMetrics = metricFields.slice(0, Math.min(3, metricFields.length));
+      
+      // If no metrics previously selected, set defaults
+      if (selectedMetrics.length === 0) {
+        setSelectedMetrics(defaultSelectedMetrics);
       }
-    });
-    
-    // Default selected metrics (first 1-3 metric fields)
-    const defaultSelectedMetrics = metricFields.slice(0, Math.min(3, metricFields.length));
-    
-    // If no metrics previously selected, set defaults
-    if (selectedMetrics.length === 0) {
-      setSelectedMetrics(defaultSelectedMetrics);
+      
+      // For charts, prefer 'period' field for x-axis if it exists,
+      // otherwise look for other date/time fields
+      const xField = 
+        allFields.includes('period') ? 'period' :
+        dimensionFields.find(field => 
+          field === 'timeInterval' || 
+          field === 'pKey' || 
+          field.toLowerCase().includes('date') || 
+          field.toLowerCase().includes('time')
+        ) || dimensionFields[0] || 'index';
+      
+      // Generate chart config
+      switch (section.visualizationType) {
+        case 'line':
+          setChartConfig(generateLineChartConfig(
+            section.data,
+            xField,
+            selectedMetrics,
+            section.title
+          ));
+          break;
+        case 'bar':
+          setChartConfig(generateBarChartConfig(
+            section.data,
+            xField,
+            selectedMetrics,
+            section.title,
+            chartOptions?.horizontal || false,
+            chartOptions
+          ));
+          break;
+        case 'pie':
+          // For pie charts, we need a dimension field and a single metric
+          setChartConfig(generatePieChartConfig(
+            section.data,
+            dimensionFields[0] || 'category',
+            selectedMetrics[0] || metricFields[0],
+            section.title,
+            chartOptions
+          ));
+          break;
+        default:
+          setChartConfig(null);
+      }
+    } catch (error) {
+      console.error("Error generating chart config:", error);
+      setChartConfig(null);
     }
-    
-    // Choose a dimension field for the x-axis (prefer date/time fields)
-    const xField = dimensionFields.find(field => 
-      field.toLowerCase().includes('date') || 
-      field.toLowerCase().includes('time') ||
-      field.toLowerCase().includes('period')
-    ) || dimensionFields[0] || 'index';
-    
-    // Generate chart configuration based on visualization type
-    switch (section.visualizationType) {
-      case 'line':
-        setChartConfig(generateLineChartConfig(
-          section.data,
-          xField,
-          selectedMetrics,
-          section.title
-        ));
-        break;
-      case 'bar':
-        setChartConfig(generateBarChartConfig(
-          section.data,
-          xField,
-          selectedMetrics,
-          section.title,
-          false
-        ));
-        break;
-      case 'pie':
-        // For pie charts, we need a dimension field and a single metric
-        setChartConfig(generatePieChartConfig(
-          section.data,
-          dimensionFields[0] || 'category',
-          selectedMetrics[0] || metricFields[0],
-          section.title
-        ));
-        break;
-      default:
-        setChartConfig(null);
-    }
-  }, [section.data, section.visualizationType, section.title, selectedMetrics]);
+  }, [section, selectedMetrics]);
   
   // Handle metric selection change
   const handleMetricChange = (e) => {
@@ -95,7 +112,7 @@ const ChartSection = ({ section, loading }) => {
   
   // Render metric selector for pie charts
   const renderMetricSelector = () => {
-    if (section.visualizationType !== 'pie' || 
+    if (!section || section.visualizationType !== 'pie' || 
         !section.data || 
         section.data.length === 0) {
       return null;
@@ -134,7 +151,7 @@ const ChartSection = ({ section, loading }) => {
       );
     }
     
-    if (!section.data || section.data.length === 0 || !chartConfig) {
+    if (!section || !section.data || section.data.length === 0 || !chartConfig) {
       return (
         <Empty description="No data available" style={{ margin: '40px 0' }} />
       );
@@ -151,6 +168,11 @@ const ChartSection = ({ section, loading }) => {
         return <div>Unsupported chart type: {section.visualizationType}</div>;
     }
   };
+  
+  // Safety check if section is not defined
+  if (!section) {
+    return <Empty description="Section configuration is missing" />;
+  }
   
   return (
     <div>

@@ -159,36 +159,80 @@ app.post('/api/dashboard/data', async (req, res) => {
     // Get the appropriate table name based on time interval
     const tableName = tableMapping[timeInterval] || tableMapping['daily'];
     
+    // Determine the date column based on time interval
+    let dateColumn;
+    switch (timeInterval) {
+      case 'monthly':
+        dateColumn = 'pKey';
+        break;
+      default:
+        dateColumn = 'timeInterval';
+    }
+
     // Build a proper SQL query
     let query = 'SELECT ';
     
-    // Add columns to the SELECT clause
     if (columns.includes('*') || columns.length === 0) {
       query += '*';
     } else {
-      query += columns.join(', ');
+      // Ensure dateColumn is in the columns list if not already
+      const selectedColumns = [...columns];
+      if (!selectedColumns.includes(dateColumn)) {
+        selectedColumns.push(dateColumn);
+      }
+      query += selectedColumns.join(', ');
     }
     
     // Add FROM clause with the table name
     query += ` FROM ${tableName} WHERE 1=1`;
     
-    // Add date range conditions if provided
-    if (startDate) {
-      const start = moment(startDate);
-      query += ` AND (
-        year > ${start.year()} OR 
-        (year = ${start.year()} AND month > ${start.month() + 1}) OR 
-        (year = ${start.year()} AND month = ${start.month() + 1} AND day >= ${start.date()})
-      )`;
-    }
-    
-    if (endDate) {
-      const end = moment(endDate);
-      query += ` AND (
-        year < ${end.year()} OR 
-        (year = ${end.year()} AND month < ${end.month() + 1}) OR 
-        (year = ${end.year()} AND month = ${end.month() + 1} AND day <= ${end.date()})
-      )`;
+    // Add date range conditions if provided - THIS SECTION NEEDS MODIFICATION
+    if (startDate || endDate) {
+      // Determine the appropriate date/time column for this table
+      let dateColumn;
+      let dateFormat;
+      
+      switch (timeInterval) {
+        case '15min':
+          dateColumn = 'timeInterval';
+          dateFormat = 'YYYY-MM-DD HH:mm:ss';
+          break;
+        case '30min':
+          dateColumn = 'timeInterval';
+          dateFormat = 'YYYY-MM-DD HH:mm:ss';
+          break;
+        case 'hourly':
+          dateColumn = 'timeInterval';
+          dateFormat = 'YYYY-MM-DD HH:00:00';
+          break;
+        case 'daily':
+          dateColumn = 'timeInterval';
+          dateFormat = 'YYYY-MM-DD';
+          break;
+        case 'monthly':
+          dateColumn = 'pKey';
+          dateFormat = 'YYYY-MM';
+          break;
+        case 'yearly':
+          dateColumn = 'timeInterval';
+          dateFormat = 'YYYY';
+          break;
+        default:
+          dateColumn = 'timeInterval';
+          dateFormat = 'YYYY-MM-DD';
+      }
+      
+      // Add start date condition
+      if (startDate) {
+        const formattedStartDate = moment(startDate).format(dateFormat);
+        query += ` AND ${dateColumn} >= '${formattedStartDate}'`;
+      }
+      
+      // Add end date condition
+      if (endDate) {
+        const formattedEndDate = moment(endDate).format(dateFormat);
+        query += ` AND ${dateColumn} <= '${formattedEndDate}'`;
+      }
     }
     
     // Add filter for queues if provided
@@ -209,16 +253,26 @@ app.post('/api/dashboard/data', async (req, res) => {
     }
     
     // Add ORDER BY clause based on time interval
-    if (timeInterval === '15min') {
-      query += ` ORDER BY year, month, day, hour, timeInterval`;
-    } else if (timeInterval === '30min' || timeInterval === 'hourly') {
-      query += ` ORDER BY year, month, day, hour`;
-    } else if (timeInterval === 'daily') {
-      query += ` ORDER BY year, month, day`;
-    } else if (timeInterval === 'monthly') {
-      query += ` ORDER BY year, month`;
-    } else if (timeInterval === 'yearly') {
-      query += ` ORDER BY year`;
+    // Use the same dateColumn we identified for WHERE conditions
+    switch (timeInterval) {
+      case '15min':
+      case '30min':
+        query += ` ORDER BY timeInterval`;
+        break;
+      case 'hourly':
+        query += ` ORDER BY timeInterval`;
+        break;
+      case 'daily':
+        query += ` ORDER BY timeInterval`;
+        break;
+      case 'monthly':
+        query += ` ORDER BY pKey`;
+        break;
+      case 'yearly':
+        query += ` ORDER BY timeInterval`;
+        break;
+      default:
+        query += ` ORDER BY timeInterval`;
     }
     
     console.log('Executing query:', query);
@@ -228,43 +282,43 @@ app.post('/api/dashboard/data', async (req, res) => {
       type: sequelize.QueryTypes.SELECT
     });
     
-    // Add period field for charting purposes
+    // Format the period labels based on the interval type
     const results = data.map(row => {
-      const periodDate = moment();
-      periodDate.year(row.year);
-      
-      // Set month if available (month is 1-indexed in database, 0-indexed in moment)
-      if (row.month !== undefined) {
-        periodDate.month(row.month - 1);
+      // Determine the period value based on the time interval
+      let periodValue;
+      let periodLabel;
+      switch (timeInterval) {
+        case '15min':
+          periodLabel = moment(row[dateColumn]).format('HH:mm');
+          break;
+        case '30min':
+          periodLabel = moment(row[dateColumn]).format('HH:mm');
+          //periodValue = row.timeInterval;
+          break;
+        case 'hourly':
+          periodLabel = moment(row[dateColumn]).format('HH:00');
+          //periodValue = row.timeInterval;
+          break;
+        case 'daily':
+          periodLabel = moment(row[dateColumn]).format('MMM DD');
+          //periodValue = row.timeInterval;
+          break;
+        case 'monthly':
+          periodLabel = moment(row[dateColumn]).format('MMM YYYY');
+          //periodValue = row.pKey;
+          break;
+        case 'yearly':
+          periodLabel = row[dateColumn];
+          //periodValue = row.timeInterval;
+          break;
+        default:
+          periodLabel = row[dateColumn];
+          //periodValue = row.timeInterval;
       }
       
-      // Set day if available
-      if (row.day !== undefined) {
-        periodDate.date(row.day);
-      }
-      
-      // Set hour if available
-      if (row.hour !== undefined) {
-        periodDate.hour(row.hour);
-      }
-      
-      // Set minute if available for 15min and 30min intervals
-      if (timeInterval === '15min' && row.timeInterval) {
-        const minuteMatch = row.timeInterval.match(/(\d+)/);
-        if (minuteMatch) {
-          periodDate.minute(parseInt(minuteMatch[1], 10));
-        }
-      } else if (timeInterval === '30min' && row.timeInterval) {
-        const minuteMatch = row.timeInterval.match(/(\d+)/);
-        if (minuteMatch) {
-          periodDate.minute(parseInt(minuteMatch[1], 10));
-        }
-      }
-      
-      // Add a period label for easier display in charts
       return {
         ...row,
-        period: getPeriodLabel(periodDate, timeInterval)
+        period: periodLabel // Use the appropriate period value
       };
     });
     
@@ -285,13 +339,13 @@ function getPeriodLabel(date, interval) {
     case '15min':
       const minute = date.minute();
       const roundedMinute = Math.floor(minute / 15) * 15;
-      return `${date.format('YYYY-MM-DD HH')}:${roundedMinute.toString().padStart(2, '0')}`;
+      return `${date.format('YYYY-MM-DD HH')}:${roundedMinute.toString().padStart(2, '0')}:00`;
     case '30min':
       const minute30 = date.minute();
       const roundedMinute30 = Math.floor(minute30 / 30) * 30;
-      return `${date.format('YYYY-MM-DD HH')}:${roundedMinute30.toString().padStart(2, '0')}`;
+      return `${date.format('YYYY-MM-DD HH')}:${roundedMinute30.toString().padStart(2, '0')}:00`;
     case 'hourly':
-      return date.format('YYYY-MM-DD HH:00');
+      return date.format('YYYY-MM-DD HH:00:00');
     case 'daily':
       return date.format('YYYY-MM-DD');
     case 'monthly':

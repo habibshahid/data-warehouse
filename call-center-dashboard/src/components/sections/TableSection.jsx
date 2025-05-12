@@ -1,6 +1,6 @@
 // src/components/sections/TableSection.jsx
 import React, { useState, useEffect } from 'react';
-import { Table, Input, Button, Space } from 'antd';
+import { Table, Input, Button, Space, Empty } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
 import { formatNumber, formatPercentage, formatDuration } from '../../utils/formatters';
@@ -11,18 +11,30 @@ const TableSection = ({ section, loading }) => {
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10,
+    showSizeChanger: true,
+    pageSizeOptions: ['5', '10', '20', '50'],
   });
+  const [tableColumns, setTableColumns] = useState([]);
   
-  // Generate columns for the table based on the data
-  const getColumns = () => {
+  // Generate columns for the table based on the section data and columns
+  useEffect(() => {
     if (!section.data || section.data.length === 0) {
-      return [];
+      setTableColumns([]);
+      return;
     }
     
     // Sample data row to determine column types
     const sampleRow = section.data[0];
     
-    return Object.keys(sampleRow).map(key => {
+    // Get all available columns from the data
+    const availableColumns = Object.keys(sampleRow);
+    
+    // If section.columns is specified, filter columns to only include those
+    const columnsToDisplay = section.columns && section.columns.length > 0
+      ? availableColumns.filter(col => section.columns.includes(col))
+      : availableColumns;
+    
+    const columns = columnsToDisplay.map(key => {
       // Determine column data type
       const value = sampleRow[key];
       const isNumber = typeof value === 'number';
@@ -63,7 +75,9 @@ const TableSection = ({ section, loading }) => {
         ...getColumnSearchProps(key),
       };
     });
-  };
+    
+    setTableColumns(columns);
+  }, [section.data, section.columns]);
   
   // Add search functionality to columns
   const getColumnSearchProps = (dataIndex) => ({
@@ -137,17 +151,25 @@ const TableSection = ({ section, loading }) => {
     setPagination(pagination);
   };
   
+  // If no data, show empty state
+  if (!section.data || section.data.length === 0) {
+    return <Empty description="No data available" />;
+  }
+
   return (
-    <Table
-      columns={getColumns()}
-      dataSource={section.data?.map((item, index) => ({ ...item, key: index })) || []}
-      loading={loading}
-      pagination={pagination}
-      onChange={handleTableChange}
-      scroll={{ x: 'max-content' }}
-      size="small"
-      bordered
-    />
+    <div style={{ height: '100%', overflow: 'auto' }}>
+      <Table
+        columns={tableColumns}
+        dataSource={section.data?.map((item, index) => ({ ...item, key: index })) || []}
+        loading={loading}
+        pagination={pagination}
+        onChange={handleTableChange}
+        scroll={{ x: 'max-content', y: 350 }} // Enable both horizontal and vertical scrolling
+        size="small"
+        bordered
+        style={{ minHeight: 200, maxHeight: '100%' }}
+      />
+    </div>
   );
 };
 

@@ -62,8 +62,14 @@ export const formatLineChartData = (data, xField, yFields) => {
   }
   
   return data.map(item => {
-    const result = { [xField]: item[xField] };
+    // Start with the x-axis field (priority to 'period' if it exists)
+    const result = { 
+      [xField]: item[xField],
+      // Include period separately if it exists and is not the xField
+      ...(item.period && xField !== 'period' ? { period: item.period } : {})
+    };
     
+    // Add all y fields
     yFields.forEach(field => {
       result[field] = item[field];
     });
@@ -92,12 +98,15 @@ export const formatPieChartData = (data, nameField, valueField) => {
 
 // Generate configuration for line chart
 export const generateLineChartConfig = (data, xField, yFields, title) => {
-  const formattedData = formatLineChartData(data, xField, yFields);
+  // Prefer using 'period' as the xField if it exists
+  const preferredXField = data && data[0] && data[0].period ? 'period' : xField;
+  
+  const formattedData = formatLineChartData(data, preferredXField, yFields);
   const colors = generateChartColors(yFields.length);
   
   return {
     data: formattedData,
-    xField,
+    xField: preferredXField,
     yField: yFields,
     seriesField: null,
     title: {
@@ -123,13 +132,16 @@ export const generateLineChartConfig = (data, xField, yFields, title) => {
 
 // Generate configuration for bar chart
 export const generateBarChartConfig = (data, xField, yFields, title, isHorizontal = false) => {
-  const formattedData = formatBarChartData(data, xField, yFields);
+  // Prefer using 'period' as the xField if it exists
+  const preferredXField = data && data[0] && data[0].period ? 'period' : xField;
+  
+  const formattedData = formatBarChartData(data, preferredXField, yFields);
   const colors = generateChartColors(yFields.length);
   
   return {
     data: formattedData,
-    xField: isHorizontal ? yFields[0] : xField,
-    yField: isHorizontal ? xField : yFields[0],
+    xField: isHorizontal ? yFields[0] : preferredXField,
+    yField: isHorizontal ? preferredXField : yFields[0],
     seriesField: null,
     title: {
       text: title || '',

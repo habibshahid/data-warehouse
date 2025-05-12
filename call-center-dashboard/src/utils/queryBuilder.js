@@ -23,40 +23,74 @@ const buildDateConditions = (timeInterval, startDate, endDate) => {
   
   const conditions = [];
   
+  // Determine the date column based on time interval
+  let dateColumn;
+  switch (timeInterval) {
+    case '15min':
+    case '30min':
+    case 'hourly':
+    case 'daily':
+    case 'yearly':
+      dateColumn = 'timeInterval';
+      break;
+    case 'monthly':
+      dateColumn = 'pKey';
+      break;
+    default:
+      dateColumn = 'timeInterval';
+  }
+  
+  // Format dates based on the interval type
   if (startDate) {
-    const date = new Date(startDate);
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1; // JavaScript months are 0-indexed
-    const day = date.getDate();
-    const hour = date.getHours();
-    
-    conditions.push(`(
-      year > ${year} OR 
-      (year = ${year} AND month > ${month}) OR 
-      (year = ${year} AND month = ${month} AND day >= ${day})
-    )`);
-    
-    if (timeInterval === '15min' || timeInterval === '30min' || timeInterval === 'hourly') {
-      conditions[conditions.length - 1] = conditions[conditions.length - 1].replace('day >= ${day}', `day > ${day} OR (day = ${day} AND hour >= ${hour})`);
+    let formattedStartDate;
+    switch (timeInterval) {
+      case '15min':
+      case '30min':
+        formattedStartDate = moment(startDate).format('YYYY-MM-DD HH:mm:ss');
+        break;
+      case 'hourly':
+        formattedStartDate = moment(startDate).format('YYYY-MM-DD HH:00:00');
+        break;
+      case 'daily':
+        formattedStartDate = moment(startDate).format('YYYY-MM-DD');
+        break;
+      case 'monthly':
+        formattedStartDate = moment(startDate).format('YYYY-MM');
+        break;
+      case 'yearly':
+        formattedStartDate = moment(startDate).format('YYYY');
+        break;
+      default:
+        formattedStartDate = moment(startDate).format('YYYY-MM-DD');
     }
+    
+    conditions.push(`${dateColumn} >= '${formattedStartDate}'`);
   }
   
   if (endDate) {
-    const date = new Date(endDate);
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    const hour = date.getHours();
-    
-    conditions.push(`(
-      year < ${year} OR 
-      (year = ${year} AND month < ${month}) OR 
-      (year = ${year} AND month = ${month} AND day <= ${day})
-    )`);
-    
-    if (timeInterval === '15min' || timeInterval === '30min' || timeInterval === 'hourly') {
-      conditions[conditions.length - 1] = conditions[conditions.length - 1].replace('day <= ${day}', `day < ${day} OR (day = ${day} AND hour <= ${hour})`);
+    let formattedEndDate;
+    switch (timeInterval) {
+      case '15min':
+      case '30min':
+        formattedEndDate = moment(endDate).format('YYYY-MM-DD HH:mm:ss');
+        break;
+      case 'hourly':
+        formattedEndDate = moment(endDate).format('YYYY-MM-DD HH:00:00');
+        break;
+      case 'daily':
+        formattedEndDate = moment(endDate).format('YYYY-MM-DD');
+        break;
+      case 'monthly':
+        formattedEndDate = moment(endDate).format('YYYY-MM');
+        break;
+      case 'yearly':
+        formattedEndDate = moment(endDate).format('YYYY');
+        break;
+      default:
+        formattedEndDate = moment(endDate).format('YYYY-MM-DD');
     }
+    
+    conditions.push(`${dateColumn} <= '${formattedEndDate}'`);
   }
   
   return conditions.length > 0 ? ` AND ${conditions.join(' AND ')}` : '';
@@ -115,17 +149,24 @@ export const buildQuery = (params) => {
   
   // For certain visualization types, we might want to add ORDER BY
   if (visualizationType === 'line' || visualizationType === 'bar') {
-    if (timeInterval === '15min') {
-      query += ` ORDER BY year, month, day, hour, interval`;
-    } else if (timeInterval === '30min' || timeInterval === 'hourly') {
-      query += ` ORDER BY year, month, day, hour`;
-    } else if (timeInterval === 'daily') {
-      query += ` ORDER BY year, month, day`;
-    } else if (timeInterval === 'monthly') {
-      query += ` ORDER BY year, month`;
-    } else if (timeInterval === 'yearly') {
-      query += ` ORDER BY year`;
+    // Determine the date column based on time interval
+    let dateColumn;
+    switch (timeInterval) {
+      case '15min':
+      case '30min':
+      case 'hourly':
+      case 'daily':
+      case 'yearly':
+        dateColumn = 'timeInterval';
+        break;
+      case 'monthly':
+        dateColumn = 'pKey';
+        break;
+      default:
+        dateColumn = 'timeInterval';
     }
+    
+    query += ` ORDER BY ${dateColumn}`;
   }
   
   return query;
