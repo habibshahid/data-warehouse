@@ -1,5 +1,6 @@
 // src/api/dashboardService.js
 import api from './index';
+import moment from 'dayjs';
 
 // Function to fetch dashboard data based on parameters
 export const fetchDashboardData = async (params) => {
@@ -12,6 +13,38 @@ export const fetchDashboardData = async (params) => {
     
     // Debug columns specifically
     console.log('DASHBOARD API - Original columns:', columnsToUse);
+    
+    // Determine which date/time column to use based on time interval
+    let dateColumn;
+    switch (params.timeInterval) {
+      case '15min':
+      case '30min':
+      case 'hourly':
+      case 'daily':
+        dateColumn = 'timeInterval';
+        break;
+      case 'monthly':
+        dateColumn = 'pKey';
+        break;
+      case 'yearly':
+        dateColumn = 'timeInterval';
+        break;
+      default:
+        dateColumn = 'timeInterval';
+    }
+    
+    // Create a copy of the columns and ensure dateColumn is included
+    columnsToUse = [...(params.columns || [])].filter(col => 
+      // Filter out 'period' as it's a computed field, not a database column
+      col !== 'period'
+    );
+    
+    // Always ensure the date column is included
+    if (!columnsToUse.includes(dateColumn)) {
+      columnsToUse.push(dateColumn);
+    }
+    
+    // No need to add year, month, day unless specifically requested
     
     // Create a valid params object to send to the API
     const apiParams = {
@@ -50,11 +83,76 @@ export const fetchDashboardData = async (params) => {
     // Log the response structure (not the full data)
     console.log(`DASHBOARD API - Response received: ${response.data.length} records`);
     
-    return response.data;
+    // Format the data to ensure it has a 'period' field for charts
+    const formattedData = formatData(response.data, params.timeInterval);
+    
+    // Process data for visualization types that need multiple data points
+    let processedData = [...formattedData];
+    
+    // If there's only one data point but we need a visualization that requires multiple points
+    if (formattedData.length === 1 && 
+        (params.visualizationType === 'pie' || 
+         params.visualizationType === 'bar' || 
+         params.visualizationType === 'line')) {
+      
+      console.log('DASHBOARD API - Processing single data point for visualization:', params.visualizationType);
+      
+      // For pie charts with a single data point, we'll handle this in the ChartSection component
+      // For line and bar charts with a single data point, we'll also handle in the component
+      
+      // Additional metadata to help the front-end understand this is a single data point
+      processedData[0]._isSingleDataPoint = true;
+    }
+    
+    return processedData;
   } catch (error) {
     console.error('Error fetching dashboard data:', error);
     throw new Error(error.response?.data?.message || 'Failed to fetch dashboard data');
   }
+};
+
+// Format data to ensure it has a 'period' field that's properly formatted for display
+const formatData = (data, timeInterval) => {
+  if (!data || !Array.isArray(data)) return [];
+  
+  return data.map((row, index) => {
+    let periodLabel;
+    let dateField;
+    
+    // Determine which field contains the date/time data
+    switch (timeInterval) {
+      case '15min':
+      case '30min':
+        dateField = 'timeInterval';
+        periodLabel = row[dateField] ? moment(row[dateField]).format('HH:mm') : null;
+        break;
+      case 'hourly':
+        dateField = 'timeInterval';
+        periodLabel = row[dateField] ? moment(row[dateField]).format('HH:00') : null;
+        break;
+      case 'daily':
+        dateField = 'timeInterval';
+        periodLabel = row[dateField] ? moment(row[dateField]).format('MMM DD') : null;
+        break;
+      case 'monthly':
+        dateField = 'pKey';
+        periodLabel = row[dateField] ? moment(row[dateField]).format('MMM YYYY') : null;
+        break;
+      case 'yearly':
+        dateField = 'timeInterval';
+        periodLabel = row[dateField] ? moment(row[dateField]).format('YYYY') : null;
+        break;
+      default:
+        dateField = 'timeInterval';
+        periodLabel = row[dateField] || null;
+    }
+    
+    return {
+      ...row,
+      period: periodLabel || `Period ${index + 1}`,
+      key: index // Add a key for React lists
+    };
+  });
 };
 
 // Function to save dashboard configuration

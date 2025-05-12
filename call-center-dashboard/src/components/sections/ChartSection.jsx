@@ -25,6 +25,28 @@ const ChartSection = ({ section, loading }) => {
       // Get all fields
       const allFields = Object.keys(section.data[0]);
       
+      // Identify the best date/time field to use for charts
+      const getDateField = (data) => {
+        // First check if 'period' exists (which is already formatted for display)
+        if (data[0] && data[0].period) return 'period';
+        
+        // Otherwise, check for standard date columns based on time interval
+        const possibleDateColumns = [
+          'timeInterval', 'pKey', 'date', 'time', 
+          'year', 'month', 'day', 'hour'
+        ];
+        
+        for (const column of possibleDateColumns) {
+          if (data[0] && data[0][column] !== undefined) return column;
+        }
+        
+        // Fallback to the first field that looks like a date
+        return allFields.find(field => 
+          field.toLowerCase().includes('date') || 
+          field.toLowerCase().includes('time')
+        ) || allFields[0];
+      };
+      
       // Separate dimension fields from metric fields
       const dimensionFields = [];
       const metricFields = [];
@@ -47,54 +69,158 @@ const ChartSection = ({ section, loading }) => {
         }
       });
       
-      // Default selected metrics
-      const defaultSelectedMetrics = metricFields.slice(0, Math.min(3, metricFields.length));
-      
-      // If no metrics previously selected, set defaults
-      if (selectedMetrics.length === 0) {
-        setSelectedMetrics(defaultSelectedMetrics);
+      // Use selected columns if provided, otherwise use the first few metric fields
+      let metricsToUse = [];
+      if (section.columns && section.columns.length > 0) {
+        // Filter out any date fields from columns (they should go on the x-axis)
+        metricsToUse = section.columns.filter(col => !dimensionFields.includes(col));
+        // If no metrics left after filtering, add the first metric
+        if (metricsToUse.length === 0 && metricFields.length > 0) {
+          metricsToUse = [metricFields[0]];
+        }
+      } else {
+        // Default to first few metrics
+        metricsToUse = metricFields.slice(0, Math.min(3, metricFields.length));
       }
       
-      // For charts, prefer 'period' field for x-axis if it exists,
-      // otherwise look for other date/time fields
-      const xField = 
-        allFields.includes('period') ? 'period' :
-        dimensionFields.find(field => 
-          field === 'timeInterval' || 
-          field === 'pKey' || 
-          field.toLowerCase().includes('date') || 
-          field.toLowerCase().includes('time')
-        ) || dimensionFields[0] || 'index';
+      // If no metrics previously selected, set from the metrics to use
+      if (selectedMetrics.length === 0) {
+        setSelectedMetrics(metricsToUse);
+      }
       
-      // Generate chart config
+      // For charts, first use the date field we identified
+      const xField = getDateField(section.data);
+      
+      // Generate chart config based on visualization type
       switch (section.visualizationType) {
         case 'line':
-          setChartConfig(generateLineChartConfig(
-            section.data,
-            xField,
-            selectedMetrics,
-            section.title
-          ));
+          // For line charts, ensure we have the right data structure
+          if (section.data.length === 1) {
+            // Single data point scenario - we can either:
+            // 1. Show a simple point (not very useful visually)
+            // 2. Create a simulated trend (what we're doing here)
+            
+            // Get the single data point
+            const singleDataPoint = section.data[0];
+            const periodLabel = singleDataPoint.period || "Period";
+            
+            // Create a simple dataset that can be rendered
+            const lineData = [{
+              period: periodLabel,
+              ...singleDataPoint
+            }];
+            
+            // Special config for single data point
+            setChartConfig({
+              data: lineData,
+              xField: 'period',
+              yField: metricsToUse,
+              seriesField: null,
+              title: section.title,
+              isGroup: true,
+              // Add a note about single data point
+              tooltip: {
+                formatter: (datum) => ({
+                  name: datum.name,
+                  value: datum.value,
+                  title: `${periodLabel} (Single point view)`,
+                }),
+              }
+            });
+          } else {
+            // Multiple data points - normal line chart
+            // Explicitly prepare the data to ensure it's in the right format
+            const lineData = section.data.map(item => {
+              // Ensure there's a period field for each item
+              const mappedItem = {
+                period: item.period || item[xField],
+                ...item
+              };
+              return mappedItem;
+            });
+            
+            // Use our line chart generation function with explicit data
+            setChartConfig({
+              data: lineData,
+              xField: 'period',
+              yField: metricsToUse,
+              seriesField: null,
+              title: section.title
+            });
+          }
           break;
         case 'bar':
-          setChartConfig(generateBarChartConfig(
-            section.data,
-            xField,
-            selectedMetrics,
-            section.title,
-            chartOptions?.horizontal || false,
-            chartOptions
-          ));
+          // For bar charts with only one data point, transform the data
+          if (section.data.length === 1 && metricsToUse.length > 1) {
+            // Get the single data point
+            const singleDataPoint = section.data[0];
+            
+            // Transform to compare different metrics
+            const transformedData = metricsToUse.map(metric => ({
+              metric: metric.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
+              value: singleDataPoint[metric] || 0
+            })).filter(item => item.value > 0);
+            
+            setChartConfig({
+              data: transformedData,
+              xField: 'metric',
+              yField: 'value',
+              seriesField: null,
+              title: section.title,
+              isHorizontal: chartOptions?.horizontal || false
+            });
+          } else {
+            setChartConfig(generateBarChartConfig(
+              section.data,
+              xField,
+              metricsToUse,
+              section.title,
+              chartOptions?.horizontal || false,
+              chartOptions
+            ));
+          }
           break;
         case 'pie':
-          // For pie charts, we need a dimension field and a single metric
-          setChartConfig(generatePieChartConfig(
-            section.data,
-            dimensionFields[0] || 'category',
-            selectedMetrics[0] || metricFields[0],
-            section.title,
-            chartOptions
-          ));
+          // For pie charts with only one data point, we need to transform the data
+          // to create multiple segments from the metrics
+          if (section.data.length === 1) {
+            // Get the single data point
+            const singleDataPoint = section.data[0];
+            
+            // Transform the data to show metrics as separate segments
+            const transformedData = metricsToUse.map(metric => ({
+              name: metric.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
+              value: singleDataPoint[metric] || 0
+            })).filter(item => item.value > 0);
+            
+            // Use the transformed data for the pie chart
+            setChartConfig({
+              data: transformedData,
+              angleField: 'value',
+              colorField: 'name',
+              radius: 0.8,
+              title: section.title,
+              color: chartOptions?.colors
+            });
+          } else {
+            // Regular pie chart with multiple data points
+            let dimensionField = dimensionFields.find(field => field !== xField);
+            if (!dimensionField) {
+              // If no other dimension field, use the date field
+              dimensionField = xField;
+            }
+            
+            // Use the first selected/specified metric for pie chart
+            const valueField = (metricsToUse.length > 0) ? metricsToUse[0] : metricFields[0];
+            
+            setChartConfig(generatePieChartConfig(
+              section.data,
+              dimensionField || 'category',
+              valueField,
+              section.title,
+              chartOptions
+            ));
+          }
           break;
         default:
           setChartConfig(null);
@@ -118,9 +244,12 @@ const ChartSection = ({ section, loading }) => {
       return null;
     }
     
+    // Only show numeric fields
     const metricFields = Object.keys(section.data[0]).filter(field => {
+      if (!field) return false;
       const values = section.data.map(item => item[field]);
-      return !values.every(val => typeof val === 'string');
+      const isNumeric = values.some(val => typeof val === 'number');
+      return isNumeric;
     });
     
     return (

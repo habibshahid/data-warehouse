@@ -56,6 +56,7 @@ const SectionSettings = ({ section, visible, onClose, onSave }) => {
       });
       
       setVisualizationType(section.visualizationType);
+      setSelectedColumns(section.columns || []);
     }
   }, [visible, section, form]);
   
@@ -86,10 +87,6 @@ const SectionSettings = ({ section, visible, onClose, onSave }) => {
       console.log("Updated section to save:", updatedSection);
       
       // Save the section
-      onSave(updatedSection);
-      
-      // Explicitly signal that we need to refresh data
-      // You might need to pass this as a second parameter if it doesn't exist
       onSave(updatedSection, true); // The true flag indicates we need a data refresh
     }).catch(error => {
       console.error("Form validation error:", error);
@@ -100,6 +97,9 @@ const SectionSettings = ({ section, visible, onClose, onSave }) => {
   const handleVisualizationTypeChange = (value) => {
     console.log("Visualization type changed to:", value);
     setVisualizationType(value);
+    
+    // Don't restrict card to single column anymore - we now support multiple metrics
+    // No special handling needed for card visualization type
   };
   
   // Handle column selection change
@@ -136,7 +136,47 @@ const SectionSettings = ({ section, visible, onClose, onSave }) => {
             </Select>
           </Form.Item>
           
-          {visualizationType !== 'card' && (
+          {visualizationType === 'card' ? (
+            <Form.Item
+              name="columns"
+              label="Metrics to Display"
+              rules={[{ required: true, message: 'Please select at least one metric' }]}
+              help="Select one or more metrics to display as cards"
+            >
+              <Select
+                mode="multiple"
+                placeholder="Select metrics"
+                style={{ width: '100%' }}
+                onChange={handleColumnChange}
+              >
+                {availableMetadata.metrics?.map(metric => (
+                  <Option key={metric.value} value={metric.value}>
+                    {metric.label}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+          ) : visualizationType === 'pie' ? (
+            <Form.Item
+              name="columns"
+              label="Metrics to Display"
+              rules={[{ required: true, message: 'Please select at least one metric' }]}
+              help="For pie charts with a single time period, select multiple metrics to compare them"
+            >
+              <Select
+                mode="multiple"
+                placeholder="Select metrics to compare"
+                style={{ width: '100%' }}
+                onChange={handleColumnChange}
+              >
+                {availableMetadata.metrics?.map(metric => (
+                  <Option key={metric.value} value={metric.value}>
+                    {metric.label}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+          ) : (
             <Form.Item
               name="columns"
               label="Columns/Metrics"
@@ -260,36 +300,6 @@ const SectionSettings = ({ section, visible, onClose, onSave }) => {
       )
     });
   }
-
-  // Add debug panel to check values
-  items.push({
-    key: 'debug',
-    label: 'Debug',
-    children: (
-      <>
-        <div>
-          <h4>Current Section Columns:</h4>
-          <pre>{JSON.stringify(section.columns || [], null, 2)}</pre>
-          
-          <h4>Current Form Columns:</h4>
-          <pre>{JSON.stringify(form.getFieldValue('columns') || [], null, 2)}</pre>
-          
-          <h4>Selected Columns State:</h4>
-          <pre>{JSON.stringify(selectedColumns, null, 2)}</pre>
-          
-          <Divider />
-          
-          <Button 
-            onClick={() => {
-              console.log("Current form values:", form.getFieldsValue(true));
-            }}
-          >
-            Log Form Values
-          </Button>
-        </div>
-      </>
-    )
-  });
 
   return (
     <Modal

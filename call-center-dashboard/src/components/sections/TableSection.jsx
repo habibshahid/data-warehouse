@@ -29,12 +29,34 @@ const TableSection = ({ section, loading }) => {
     // Get all available columns from the data
     const availableColumns = Object.keys(sampleRow);
     
-    // If section.columns is specified, filter columns to only include those
-    const columnsToDisplay = section.columns && section.columns.length > 0
-      ? availableColumns.filter(col => section.columns.includes(col))
-      : availableColumns;
+    // Always prioritize the period column if it exists
+    let columnsToDisplay = [];
+    if (availableColumns.includes('period')) {
+      columnsToDisplay.push('period');
+    }
     
+    // Then add user-selected columns
+    if (section.columns && section.columns.length > 0) {
+      section.columns.forEach(col => {
+        // Skip columns already added 
+        if (!columnsToDisplay.includes(col)) {
+          columnsToDisplay.push(col);
+        }
+      });
+    } else {
+      // No specific columns selected, include all available except those already added
+      availableColumns.forEach(col => {
+        if (!columnsToDisplay.includes(col) && col !== 'key') {
+          columnsToDisplay.push(col);
+        }
+      });
+    }
+    
+    // Create the column definitions
     const columns = columnsToDisplay.map(key => {
+      // Skip the 'key' column which is added for React list rendering
+      if (key === 'key') return null;
+      
       // Determine column data type
       const value = sampleRow[key];
       const isNumber = typeof value === 'number';
@@ -42,10 +64,16 @@ const TableSection = ({ section, loading }) => {
       const isTime = key.toLowerCase().includes('time');
       const isDuration = key.toLowerCase().includes('duration');
       
+      // Determine if this is a date-related column
+      const isDateColumn = key === 'period' || key === 'pKey' || key === 'timeInterval' || 
+                          key === 'year' || key === 'month' || key === 'day';
+      
       return {
         title: key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
         dataIndex: key,
         key,
+        // Date columns should appear first
+        order: isDateColumn ? -1 : 0,
         sorter: (a, b) => {
           if (isNumber) {
             return a[key] - b[key];
@@ -74,7 +102,10 @@ const TableSection = ({ section, loading }) => {
         // Add search functionality
         ...getColumnSearchProps(key),
       };
-    });
+    }).filter(Boolean); // Remove null values
+    
+    // Sort columns to put date columns first
+    columns.sort((a, b) => a.order - b.order);
     
     setTableColumns(columns);
   }, [section.data, section.columns]);

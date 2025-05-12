@@ -62,81 +62,158 @@ const SectionContainer = ({ section, onUpdate, onDelete, timeInterval, dateRange
   
   // Fetch data directly - no dependence on external hooks or functions
   const handleSaveSettings = (updatedSection, refreshNeeded = false) => {
-  console.log(`Settings saved for section ${sectionState.id}:`, updatedSection);
-  console.log(`- Columns before:`, sectionState.columns);
-  console.log(`- Columns after:`, updatedSection.columns);
-  
-  // Create a complete updated section
-  const newSection = {
-    ...sectionState,
-    title: updatedSection.title,
-    visualizationType: updatedSection.visualizationType,
-    columns: updatedSection.columns || [], // Ensure we have a default empty array
-    filters: {
-      queues: updatedSection.filters?.queues || [],
-      channels: updatedSection.filters?.channels || [],
-    },
-    groupBy: updatedSection.groupBy,
-    chartOptions: updatedSection.chartOptions
+    console.log(`Settings saved for section ${sectionState.id}:`, updatedSection);
+    console.log(`- Columns before:`, sectionState.columns);
+    console.log(`- Columns after:`, updatedSection.columns);
+    
+    // Ensure columns is properly formatted for the visualization type
+    let columns = updatedSection.columns || [];
+    
+    // No need to restrict card to a single column anymore
+    // We've updated the CardSection component to handle multiple metrics
+    
+    // Create a complete updated section
+    const newSection = {
+      ...sectionState,
+      title: updatedSection.title,
+      visualizationType: updatedSection.visualizationType,
+      columns: columns,
+      filters: {
+        queues: updatedSection.filters?.queues || [],
+        channels: updatedSection.filters?.channels || [],
+      },
+      groupBy: updatedSection.groupBy,
+      chartOptions: updatedSection.chartOptions
+    };
+    
+    // Log the complete updated section for debugging
+    console.log("Complete updated section:", newSection);
+    
+    // Update local state first
+    setSectionState(newSection);
+    
+    // Notify parent of update
+    onUpdate(newSection);
+    
+    // Close settings modal
+    setIsSettingsVisible(false);
+    
+    if (refreshNeeded) {
+      fetchData();
+    } else {
+      // Give the state time to update before fetching data
+      setTimeout(() => {
+        fetchData();
+      }, 100);
+    }
   };
-  
-  // Log the complete updated section for debugging
-  console.log("Complete updated section:", newSection);
-  
-  // Update local state first
-  setSectionState(newSection);
-  
-  // Notify parent of update
-  onUpdate(newSection);
-  
-  // Close settings modal
-  setIsSettingsVisible(false);
-  
-  if (refreshNeeded) {
-    fetchData(section.id);
-  }
-  // Refresh data with new settings 
-  // Give the state time to update before fetching data
-  setTimeout(() => {
-    fetchData();
-  }, 100);
-};
 
-const fetchData = async () => {
+  const fetchData = async () => {
     if (isLoading) return;
     
     try {
       setIsLoading(true);
+      
+      // Determine which date/time column to use based on time interval
+      let dateColumn;
+      switch (timeInterval) {
+        case '15min':
+        case '30min':
+        case 'hourly':
+        case 'daily':
+          dateColumn = 'timeInterval';
+          break;
+        case 'monthly':
+          dateColumn = 'pKey';
+          break;
+        case 'yearly':
+          dateColumn = 'timeInterval';
+          break;
+        default:
+          dateColumn = 'timeInterval';
+      }
+      
+      // Create a copy of the columns and ensure dateColumn is included
+      let columnsToUse = [...(sectionState.columns || [])];
+      
+      // Always include the date column for all visualization types
+      if (!columnsToUse.includes(dateColumn)) {
+        columnsToUse.push(dateColumn);
+      }
+      
+      // For table visualization, also add period and appropriate time fields
+      if (sectionState.visualizationType === 'table') {
+        // First, always include period (will be added on server if not present)
+        if (!columnsToUse.includes('period')) {
+          columnsToUse.push('period');
+        }
+        
+        // Add appropriate time fields based on the time interval
+        switch (timeInterval) {
+          case '15min':
+          case '30min':
+          case 'hourly':
+          case 'daily':
+            // These tables have year, month, day
+            ['year', 'month', 'day'].forEach(col => {
+              if (!columnsToUse.includes(col)) {
+                columnsToUse.push(col);
+              }
+            });
+            break;
+          case 'monthly':
+            // Monthly tables have year and month
+            ['year', 'month'].forEach(col => {
+              if (!columnsToUse.includes(col)) {
+                columnsToUse.push(col);
+              }
+            });
+            break;
+          case 'yearly':
+            // Yearly tables only have year
+            if (!columnsToUse.includes('year')) {
+              columnsToUse.push('year');
+            }
+            break;
+        }
+      }
       
       // Ensure we're using only this section's settings
       const params = {
         timeInterval,
         startDate: dateRange[0],
         endDate: dateRange[1],
-        columns: sectionState.columns || [], // Use only this section's columns
+        columns: columnsToUse, // Use modified columns that include date
         filters: {
           queues: sectionState.filters?.queues || [],
           channels: sectionState.filters?.channels || [],
         },
         groupBy: sectionState.groupBy,
         visualizationType: sectionState.visualizationType,
+        sectionId: sectionState.id, // Include section ID for reference
       };
       
       console.log(`Fetching data for section ${sectionState.id} with params:`, params);
       
       const response = await fetchDashboardData(params);
       
+      // Ensure the data is in the expected format
+      const processedData = Array.isArray(response) ? response.map((item, index) => ({
+        ...item,
+        key: index // Ensure each row has a unique key
+      })) : [];
+      
       // Update section data in local state
       setSectionState(prevState => ({
         ...prevState,
-        data: response,
+        data: processedData,
         lastUpdated: new Date().toISOString()
       }));
       
       // Also notify parent about the data update
       onUpdate({
         ...sectionState,
-        data: response,
+        data: processedData,
         lastUpdated: new Date().toISOString()
       });
       
