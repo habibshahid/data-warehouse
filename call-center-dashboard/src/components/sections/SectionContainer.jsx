@@ -26,7 +26,7 @@ const deepClone = (obj) => {
   }
 };
 
-const SectionContainer = ({ section, onUpdate, onDelete, timeInterval, dateRange }) => {
+const SectionContainer = ({ section, onUpdate, onDelete, timeInterval, dateRange, refreshTrigger }) => {
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [sectionState, setSectionState] = useState(() => {
@@ -36,6 +36,13 @@ const SectionContainer = ({ section, onUpdate, onDelete, timeInterval, dateRange
     return initialState;
   });
   
+  useEffect(() => {
+    if (refreshTrigger > 0) {
+      console.log(`Section ${sectionState.id} received refresh trigger:`, refreshTrigger);
+      fetchData();
+    }
+  }, [refreshTrigger]);
+
   // Update section state when critical prop changes (but preserve local state for others)
   useEffect(() => {
     setSectionState(prevState => ({
@@ -115,6 +122,9 @@ const SectionContainer = ({ section, onUpdate, onDelete, timeInterval, dateRange
     try {
       setIsLoading(true);
       
+      const currentState = deepClone(sectionState);
+      console.log(`Fetch data for section ${currentState.id} with current state:`, currentState);
+
       // Determine which date/time column to use based on time interval
       let dateColumn;
       switch (timeInterval) {
@@ -179,6 +189,14 @@ const SectionContainer = ({ section, onUpdate, onDelete, timeInterval, dateRange
         }
       }
       
+      const currentFilters = {
+        queues: currentState.filters?.queues || [],
+        channels: currentState.filters?.channels || []
+      };
+      
+      // Log the filters we're about to use
+      console.log(`Section ${currentState.id} using filters:`, currentFilters);
+
       // Ensure we're using only this section's settings
       const params = {
         timeInterval,
@@ -214,11 +232,12 @@ const SectionContainer = ({ section, onUpdate, onDelete, timeInterval, dateRange
       }));
       
       // Also notify parent about the data update
-      onUpdate({
-        ...sectionState,
+      const updatedSection = {
+        ...currentState,
         data: processedData,
         lastUpdated: new Date().toISOString()
-      });
+      };
+      onUpdate(updatedSection);
       
     } catch (error) {
       console.error(`Error fetching data for section ${sectionState.id}:`, error);

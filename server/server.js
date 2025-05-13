@@ -15,7 +15,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Database connection
-const sequelize = new Sequelize({
+const sequelizeYovo = new Sequelize({
   dialect: process.env.DB_DIALECT || 'mysql',
   host: process.env.DB_HOST || 'localhost',
   port: process.env.DB_PORT || 3306,
@@ -25,19 +25,42 @@ const sequelize = new Sequelize({
   logging: false,
 });
 
+// Secondary database connection (for call center tables)
+const sequelizeCallCenter = new Sequelize({
+  dialect: process.env.CALLCENTER_DB_DIALECT || 'mysql',
+  host: process.env.CALLCENTER_DB_HOST || 'localhost',
+  port: process.env.CALLCENTER_DB_PORT || 3306,
+  username: process.env.CALLCENTER_DB_USER || 'root',
+  password: process.env.CALLCENTER_DB_PASS || '',
+  database: process.env.CALLCENTER_DB_NAME || 'callcenter_db',
+  logging: false,
+});
+
 // Load models
-const models = {};
+const models = {
+  yovo: {},
+  callcenter: {}
+};
 
 // Define the directory where your model files are located
 const modelsDir = path.join(__dirname, 'models');
 
 // Load all model files
 fs.readdirSync(modelsDir)
-  .filter(file => file.endsWith('.js') && file !== 'index.js')
+  .filter(file => file.endsWith('.js') && file.startsWith('yovo_') && file !== 'index.js')
   .forEach(file => {
     const modelFile = require(path.join(modelsDir, file));
-    const model = modelFile(sequelize, DataTypes);
-    models[model.name] = model;
+    const model = modelFile(sequelizeYovo, DataTypes);
+    models.yovo[model.name] = model;
+  });
+
+// Load all model files for call center database
+fs.readdirSync(modelsDir)
+  .filter(file => file.endsWith('.js') && !file.startsWith('yovo_') && file !== 'index.js')
+  .forEach(file => {
+    const modelFile = require(path.join(modelsDir, file));
+    const model = modelFile(sequelizeCallCenter, DataTypes);
+    models.callcenter[model.name] = model;
   });
 
 // Define the table mapping for time intervals
@@ -56,9 +79,9 @@ const tableMapping = {
 app.get('/api/metadata/queues', async (req, res) => {
   try {
     // Query the database to get all queues
-    const queues = await sequelize.query(
+    const queues = await sequelizeYovo.query(
       "SELECT DISTINCT name FROM yovo_tbl_queues",
-      { type: sequelize.QueryTypes.SELECT }
+      { type: sequelizeYovo.QueryTypes.SELECT }
     );
     
     // Format for frontend select components
@@ -78,9 +101,9 @@ app.get('/api/metadata/queues', async (req, res) => {
 app.get('/api/metadata/channels', async (req, res) => {
   try {
     // Query the database to get all channels
-    const channels = await sequelize.query(
+    const channels = await sequelizeYovo.query(
       "SELECT DISTINCT channel FROM yovo_tbl_channels",
-      { type: sequelize.QueryTypes.SELECT }
+      { type: sequelizeYovo.QueryTypes.SELECT }
     );
     
     // Format for frontend select components
@@ -104,6 +127,10 @@ app.get('/api/metadata/metrics', async (req, res) => {
     // Get the table name based on the provided parameter or fall back to daily stats
     const actualTableName = tableMapping[tableName] || tableMapping['daily'];
     
+    const db = actualTableName.startsWith('yovo_') ? 
+      { sequelize: sequelizeYovo, dbName: process.env.DB_NAME } : 
+      { sequelize: sequelizeCallCenter, dbName: process.env.CALLCENTER_DB_NAME };
+
     // Get the table columns from the database
     const columnsQuery = `
       SELECT COLUMN_NAME 
@@ -112,8 +139,8 @@ app.get('/api/metadata/metrics', async (req, res) => {
       AND TABLE_NAME = '${actualTableName}'
     `;
     
-    const columns = await sequelize.query(columnsQuery, {
-      type: sequelize.QueryTypes.SELECT
+    const columns = await db.sequelize.query(columnsQuery, {
+      type: db.sequelize.QueryTypes.SELECT
     });
     
     // Filter out system columns and add labels
@@ -160,6 +187,10 @@ app.post('/api/dashboard/data', async (req, res) => {
     // Get the appropriate table name based on time interval
     const tableName = tableMapping[timeInterval] || tableMapping['daily'];
     
+    const db = tableName.startsWith('yovo_') ? 
+      sequelizeYovo : 
+      sequelizeCallCenter;
+
     // Determine the date column based on time interval
     let dateColumn;
     switch (timeInterval) {
@@ -279,8 +310,8 @@ app.post('/api/dashboard/data', async (req, res) => {
     console.log('Executing query:', query);
     
     // Execute the query
-    const data = await sequelize.query(query, {
-      type: sequelize.QueryTypes.SELECT
+    const data = await db.query(query, {
+      type: db.QueryTypes.SELECT
     });
     
     // Add derived fields
@@ -391,16 +422,23 @@ function getPeriodLabel(date, interval) {
 // Test connection route
 app.get('/api/status', async (req, res) => {
   try {
-    await sequelize.authenticate();
+    await sequelizeYovo.authenticate();
+    await sequelizeCallCenter.authenticate();
     res.json({ 
       status: 'ok', 
-      message: 'Database connection established',
-      config: {
+      message: 'Database connections established',
+      yovo: {
         host: process.env.DB_HOST,
         port: process.env.DB_PORT,
         database: process.env.DB_NAME,
         user: process.env.DB_USER
-      } 
+      },
+      callcenter: {
+        host: process.env.CALLCENTER_DB_HOST,
+        port: process.env.CALLCENTER_DB_PORT,
+        database: process.env.CALLCENTER_DB_NAME,
+        user: process.env.CALLCENTER_DB_USER
+      }
     });
   } catch (error) {
     console.error('Unable to connect to the database:', error);
@@ -415,7 +453,8 @@ app.get('/api/status', async (req, res) => {
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-  console.log(`Database connection: ${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`);
+  console.log(`Yovo DB connection: ${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`);
+  console.log(`CallCenter DB connection: ${process.env.CALLCENTER_DB_HOST}:${process.env.CALLCENTER_DB_PORT}/${process.env.CALLCENTER_DB_NAME}`);
 });
 
 module.exports = app;

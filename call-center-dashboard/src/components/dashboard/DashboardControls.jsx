@@ -49,7 +49,7 @@ const DashboardControls = ({
     }
     
     // Apply filters to refresh the dashboard
-    onApplyFilters();
+    onApplyFilters(); // This will trigger the refresh
   };
   
   // Reset the form

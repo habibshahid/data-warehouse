@@ -18,7 +18,8 @@ const Dashboard = () => {
   // State for new section modal
   const [newSection, setNewSection] = useState(null);
   const [isSettingsVisible, setIsSettingsVisible] = useState(false);
-  
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+
   // Load sections from localStorage on initial render
   useEffect(() => {
     try {
@@ -185,14 +186,24 @@ const Dashboard = () => {
   
   // Refresh all sections
   const handleRefreshAll = () => {
-    // This is handled by child components now
-    // Just update the time to trigger a refresh
     setIsLoading(true);
+    setRefreshTrigger(prev => prev + 1); // Increment the refresh trigger
     setTimeout(() => {
       setIsLoading(false);
     }, 500);
   };
   
+  const handleApplyFilters = () => {
+    console.log("Applying global filters, triggering section refresh");
+    // Increment the refresh trigger to notify sections to refresh
+    setRefreshTrigger(prev => prev + 1);
+    // Also call handleRefreshAll to maintain any existing behavior
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+  }
+
   // Calculate the next Y position for a new section
   const calculateNextYPosition = () => {
     if (!sections || sections.length === 0) {
@@ -285,7 +296,7 @@ const Dashboard = () => {
         dateRange={dateRange}
         onTimeIntervalChange={handleTimeIntervalChange}
         onDateRangeChange={handleDateRangeChange}
-        onApplyFilters={handleRefreshAll}
+        onApplyFilters={handleApplyFilters}
       />
       
       <div style={{ marginTop: 16, marginBottom: 16, display: 'flex', justifyContent: 'space-between' }}>
@@ -333,6 +344,7 @@ const Dashboard = () => {
           onDeleteSection={handleDeleteSection}
           timeInterval={timeInterval}
           dateRange={dateRange}
+          refreshTrigger={refreshTrigger}
         />
       )}
       
