@@ -6,6 +6,7 @@ const path = require('path');
 const fs = require('fs');
 const moment = require('moment');
 require('dotenv').config();
+const { parseAdvancedFilters } = require('./utils/advancedFilterParser');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -181,16 +182,18 @@ app.post('/api/dashboard/data', async (req, res) => {
       endDate, 
       columns = ['*'], 
       filters = {},
-      groupBy 
+      groupBy,
+      advancedFilters = null // Add this line to receive advanced filters
     } = req.body;
     
     // Get the appropriate table name based on time interval
     const tableName = tableMapping[timeInterval] || tableMapping['daily'];
     
+    // Determine which database to use based on the table name
     const db = tableName.startsWith('yovo_') ? 
       sequelizeYovo : 
       sequelizeCallCenter;
-
+    
     // Determine the date column based on time interval
     let dateColumn;
     switch (timeInterval) {
@@ -297,6 +300,19 @@ app.post('/api/dashboard/data', async (req, res) => {
     if (filters.channels && filters.channels.length > 0) {
       const channelsStr = filters.channels.map(c => `'${c}'`).join(', ');
       query += ` AND channel IN (${channelsStr})`;
+    }
+    
+    // Add advanced filters if provided
+    if (advancedFilters) {
+      try {
+        const advancedFilterSql = parseAdvancedFilters(advancedFilters);
+        if (advancedFilterSql) {
+          query += ` AND (${advancedFilterSql})`;
+        }
+      } catch (error) {
+        console.error('Error parsing advanced filters:', error);
+        // Don't add invalid filters, but continue with the query
+      }
     }
     
     // Add GROUP BY clause if specified

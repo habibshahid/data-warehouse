@@ -5,7 +5,8 @@ import {
   SettingOutlined,
   DeleteOutlined, 
   ReloadOutlined,
-  ExclamationCircleOutlined
+  ExclamationCircleOutlined,
+  FilterOutlined
 } from '@ant-design/icons';
 import TableSection from './TableSection';
 import ChartSection from './ChartSection';
@@ -13,6 +14,7 @@ import CardSection from './CardSection';
 import SectionSettings from './SectionSettings';
 import { formatDateTime } from '../../utils/dateUtils';
 import { fetchDashboardData } from '../../api/dashboardService';
+import SectionAdvancedFilter from './SectionAdvancedFilter';
 
 const { confirm } = Modal;
 
@@ -35,7 +37,8 @@ const SectionContainer = ({ section, onUpdate, onDelete, timeInterval, dateRange
     console.log(`INIT SectionContainer ${section.id}, columns:`, initialState.columns);
     return initialState;
   });
-  
+  const [isAdvancedFilterVisible, setIsAdvancedFilterVisible] = useState(false);
+
   useEffect(() => {
     if (refreshTrigger > 0) {
       console.log(`Section ${sectionState.id} received refresh trigger:`, refreshTrigger);
@@ -67,6 +70,25 @@ const SectionContainer = ({ section, onUpdate, onDelete, timeInterval, dateRange
     console.log(`SectionContainer ${sectionState.id} columns changed:`, sectionState.columns);
   }, [sectionState.columns]);
   
+  const handleApplyAdvancedFilter = (advancedFilters) => {
+    console.log('Advanced filters applied:', advancedFilters);
+    
+    // Update section with advanced filters
+    const updatedSection = {
+      ...sectionState,
+      advancedFilters: advancedFilters
+    };
+    
+    // Update local state
+    setSectionState(updatedSection);
+    
+    // Notify parent about the update
+    onUpdate(updatedSection);
+    
+    // Fetch data with the new filters
+    fetchData();
+  };
+
   // Fetch data directly - no dependence on external hooks or functions
   const handleSaveSettings = (updatedSection, refreshNeeded = false) => {
     console.log(`Settings saved for section ${sectionState.id}:`, updatedSection);
@@ -122,9 +144,10 @@ const SectionContainer = ({ section, onUpdate, onDelete, timeInterval, dateRange
     try {
       setIsLoading(true);
       
+      // Get the most current state of the section to ensure we have the latest filters
       const currentState = deepClone(sectionState);
       console.log(`Fetch data for section ${currentState.id} with current state:`, currentState);
-
+      
       // Determine which date/time column to use based on time interval
       let dateColumn;
       switch (timeInterval) {
@@ -145,7 +168,7 @@ const SectionContainer = ({ section, onUpdate, onDelete, timeInterval, dateRange
       }
       
       // Create a copy of the columns and ensure dateColumn is included
-      let columnsToUse = [...(sectionState.columns || [])];
+      let columnsToUse = [...(currentState.columns || [])];
       
       // Always include the date column for all visualization types
       if (!columnsToUse.includes(dateColumn)) {
@@ -153,8 +176,8 @@ const SectionContainer = ({ section, onUpdate, onDelete, timeInterval, dateRange
       }
       
       // For table visualization, also add period and appropriate time fields
-      if (sectionState.visualizationType === 'table') {
-        // First, always include period for tables (will be added on server if not present)
+      if (currentState.visualizationType === 'table') {
+        // First, always include period for tables
         if (!columnsToUse.includes('period')) {
           columnsToUse.push('period');
         }
@@ -189,6 +212,8 @@ const SectionContainer = ({ section, onUpdate, onDelete, timeInterval, dateRange
         }
       }
       
+      // Critical fix: Make sure we're not losing filter state
+      // Get the current filters from the section state
       const currentFilters = {
         queues: currentState.filters?.queues || [],
         channels: currentState.filters?.channels || []
@@ -196,23 +221,27 @@ const SectionContainer = ({ section, onUpdate, onDelete, timeInterval, dateRange
       
       // Log the filters we're about to use
       console.log(`Section ${currentState.id} using filters:`, currentFilters);
-
+      
+      // Include advanced filters if they exist
+      const advancedFilters = currentState.advancedFilters || null;
+      if (advancedFilters) {
+        console.log(`Section ${currentState.id} using advanced filters:`, advancedFilters);
+      }
+      
       // Ensure we're using only this section's settings
       const params = {
         timeInterval,
         startDate: dateRange[0],
         endDate: dateRange[1],
         columns: columnsToUse, // Use modified columns that include date
-        filters: {
-          queues: sectionState.filters?.queues || [],
-          channels: sectionState.filters?.channels || [],
-        },
-        groupBy: sectionState.groupBy,
-        visualizationType: sectionState.visualizationType,
-        sectionId: sectionState.id, // Include section ID for reference
+        filters: currentFilters, // Use the current filters
+        groupBy: currentState.groupBy,
+        visualizationType: currentState.visualizationType,
+        sectionId: currentState.id, // Include section ID for reference
+        advancedFilters // Include advanced filters
       };
       
-      console.log(`Fetching data for section ${sectionState.id} with params:`, params);
+      console.log(`Fetching data for section ${currentState.id} with params:`, params);
       
       const response = await fetchDashboardData(params);
       
@@ -222,16 +251,16 @@ const SectionContainer = ({ section, onUpdate, onDelete, timeInterval, dateRange
         key: index // Ensure each row has a unique key
       })) : [];
       
-      console.log(`Received data for section ${sectionState.id}:`, processedData);
+      console.log(`Received data for section ${currentState.id}:`, processedData);
       
-      // Update section data in local state
+      // Update section data in local state - but preserve existing filters and other settings
       setSectionState(prevState => ({
         ...prevState,
         data: processedData,
         lastUpdated: new Date().toISOString()
       }));
       
-      // Also notify parent about the data update
+      // Also notify parent about the data update - but preserve existing settings
       const updatedSection = {
         ...currentState,
         data: processedData,
@@ -331,6 +360,15 @@ const SectionContainer = ({ section, onUpdate, onDelete, timeInterval, dateRange
       </div>
       
       <div style={{ display: 'flex', gap: '4px' }}>
+        <Tooltip title="Advanced Filters">
+          <Button 
+            type="text" 
+            size="small"
+            icon={<FilterOutlined />} 
+            onClick={() => setIsAdvancedFilterVisible(true)}
+            onMouseDown={(e) => e.stopPropagation()}
+          />
+        </Tooltip>
         <Tooltip title="Refresh">
           <Button 
             type="text" 
@@ -403,7 +441,20 @@ const SectionContainer = ({ section, onUpdate, onDelete, timeInterval, dateRange
         onClose={hideSettings}
         onSave={handleSaveSettings}
       />
+      {/* Advanced Filter modal */}
+      <SectionAdvancedFilter
+        section={sectionState}
+        visible={isAdvancedFilterVisible}
+        onClose={() => setIsAdvancedFilterVisible(false)}
+        onApply={handleApplyAdvancedFilter}
+        availableFields={
+          sectionState.data && sectionState.data.length > 0 
+            ? Object.keys(sectionState.data[0]).filter(k => k !== 'key')
+            : []
+        }
+      />
     </Card>
+    
   );
 };
 

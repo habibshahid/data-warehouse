@@ -73,7 +73,10 @@ export const fetchDashboardData = async (params) => {
       visualizationType: params.visualizationType,
       
       // Include section ID for reference
-      sectionId: params.sectionId
+      sectionId: params.sectionId,
+      
+      // Include advanced filters if specified
+      advancedFilters: params.advancedFilters || null
     };
     
     // Log the final API parameters
