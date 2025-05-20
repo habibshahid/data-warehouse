@@ -1,0 +1,218 @@
+.biDeleteSection::-webkit-scrollbar {
+  width: 4px;
+  height: 3px;
+}
+
+.biDeleteSection::-webkit-scrollbar-track {
+  background: #f3f4f5;
+}
+
+.biDeleteSection::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, .2);
+  height: 5em;
+}
+
+.ant-carousel .slick-prev,
+.ant-carousel .slick-prev:hover {
+  left: 10px;
+  z-index: 2;
+  color: white;
+  font-size: 20px;
+  height: 30px;
+}
+
+.ant-carousel .slick-next,
+.ant-carousel .slick-next:hover {
+  right: 10px;
+  z-index: 2;
+  color: white;
+  font-size: 20px;
+  height: 30px;
+}
+
+.mainLayoutWrapper {
+  width: 100%;
+}
+
+.DynamicLayoutMain {
+  width: 100%
+}
+
+.rightSideGroup {
+  position: absolute;
+  right: 1rem;
+}
+
+.widgetDiv {
+  position: relative;
+}
+
+.biFilters {
+  width: 70%;
+}
+
+.filtersModal {
+  display: flex;
+  justify-content: space-around;
+
+  .interactionsGeneralFilters {
+    width: 49%;
+  }
+
+  .moreInteractionFilters {
+    width: 47%;
+  }
+}
+
+.agentFilterMainDiv {
+  display: flex;
+  justify-content: left;
+  margin-left: 10px;
+
+  .agentFilters {
+    width: 49%;
+  }
+}
+
+.imanQueryBuilderContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .query-builder-container {
+    padding: 0 !important;
+
+    .group{
+      background-color: whitesmoke;
+      border-color: silver;
+    }
+
+    .rule{
+      border-color: silver;
+    }
+  }
+
+  .mongoQueryIman {
+    width: 22%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.biCards {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 1px 6px 0px lightgrey;
+  position: relative;
+  flex-direction: column;
+
+  .biCardSpinner {
+    margin-top: 1rem;
+  }
+
+  .biReadyCards {
+    position: relative;
+  }
+
+  .biCardHeading {
+    display: flex;
+    justify-content: center;
+    font-size: 1vw;
+  }
+
+  .biCardNumbers {
+    display: flex;
+    justify-content: center;
+    font-size: 2vw;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #2a75bc;
+  }
+}
+
+.biHomeWrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  .biHomeLeft {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .biHomeRight {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+}
+
+.biWidgetHandlerModalWrapper {
+  display: flex;
+
+  .biDeleteSection {
+    width: 30%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 32rem;
+  }
+
+  .deleteBiCards {
+    position: relative;
+  }
+
+  .deleteBiCharts {
+    position: relative;
+  }
+
+  .deleteBiTables {
+    position: relative;
+  }
+}
+
+.biCharts {
+  height: 100%;
+  width: 100%;
+  box-shadow: 0px 1px 6px 0px lightgrey;
+  position: relative;
+
+  .biStackedCharts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .biChartHeading {
+    font-size: 2vw;
+  }
+
+  .biChartSpinner {
+    margin-top: 1rem;
+  }
+
+  .additionalInfo {
+    font-size: 1rem;
+    margin-top: 8px;
+  }
+
+}
+
+.moreIcon {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  transform: rotate(90deg);
+  cursor: pointer;
+}

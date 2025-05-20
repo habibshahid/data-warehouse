@@ -21,6 +21,18 @@ router.get('/:id', sectionController.getSection);
 router.post('/', sectionController.createSection);
 
 /*
+ @route   PUT /biSections/:id/layout
+ @desc    Update section layout
+ */
+router.put('/layout', sectionController.updateLayout);
+
+/*
+ @route   PUT /biSections/layouts
+ @desc    Update multiple section layouts in bulk
+ */
+router.put('/layouts', sectionController.updateLayouts);
+
+/*
  @route   PUT /biSections/:id
  @desc    Update section
  */
@@ -31,18 +43,6 @@ router.put('/:id', sectionController.updateSection);
  @desc    Delete section
  */
 router.delete('/:id', sectionController.deleteSection);
-
-/*
- @route   PUT /biSections/:id/layout
- @desc    Update section layout
- */
-router.put('/:id/layout', sectionController.updateLayout);
-
-/*
- @route   PUT /biSections/layouts
- @desc    Update multiple section layouts in bulk
- */
-router.put('/layouts', sectionController.updateLayouts);
 
 /*
  @route   POST /biSections/:id/clone

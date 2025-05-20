@@ -25,7 +25,7 @@ exports.getSectionsByDashboard = async (req, res) => {
     }
 
     // Get all sections for this dashboard
-    const sections = await Section.find({ dashboardId }).sort({ order: 1 });
+    const sections = await Section.find({ dashboardId })
 
     res.json({ success: true, sections });
   }
@@ -266,16 +266,27 @@ exports.deleteSection = async (req, res) => {
 // Update section layout
 exports.updateLayout = async (req, res) => {
   try {
-    const { id } = req.params;
+    console.log('heeheheh')
     const { layout } = req.body;
+
+    console.log(layout)
 
     // Validate required fields
     if (!layout) {
       return res.status(400).json({ success: false, error: { message: 'Layout is required' } });
     }
 
+    for (const layoutElement of layout) {
+
+      console.log(layoutElement)
+
+      const section = await Section.findById(id);
+
+
+
+    }
+
     // Find section
-    const section = await Section.findById(id);
 
     if (!section) {
       return res.status(404).json({ success: false, error: { message: 'Section not found' } });
@@ -310,12 +321,16 @@ exports.updateLayout = async (req, res) => {
 // Update multiple section layouts in bulk
 exports.updateLayouts = async (req, res) => {
   try {
+
+    console.log('jeddddddddddddddddddddddd')
     const { layouts } = req.body;
 
     // Validate required fields
     if (!layouts || !Array.isArray(layouts)) {
       return res.status(400).json({ success: false, error: { message: 'Layouts array is required' } });
     }
+
+    console.log(layouts)
 
     // Process each layout update
     const updatePromises = layouts.map(async (item) => {

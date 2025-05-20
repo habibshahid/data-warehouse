@@ -14,11 +14,11 @@ const SectionSchema = new Schema({
   },
   visualizationType: {
     type: String,
-    default: null
+    required: true
   },
   modelType: {
     type: String,
-    default: null
+    required: true,
   },
   columns: [String],
   filters: {

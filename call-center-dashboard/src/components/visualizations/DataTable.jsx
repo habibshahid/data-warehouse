@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Table, Input, Button, Space } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import Highlighter from 'react-highlight-words';
 import { formatNumber, formatPercentage, formatDuration } from '../../utils/formatters';
+import Highlighter from 'react-highlight-words';
 
 const DataTable = ({ data, columns, loading, pagination = true }) => {
   const [searchText, setSearchText] = useState('');
